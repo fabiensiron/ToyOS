@@ -17,9 +17,54 @@
 #include <fcntl.h>
 #include <errno.h>
 #include <syscall.h>
+#include <dirent.h>
 #include <sys/wait.h>
 
 #define DEFAULT_HOSTNAME "toaru-test"
+
+
+pid_t proc_find(const char* name)
+{
+    DIR* dir;
+    struct dirent* ent;
+    char* endptr;
+    char buf[512];
+
+    if (!(dir = opendir("/proc"))) {
+        perror("can't open /proc");
+        return -1;
+    }
+
+    while((ent = readdir(dir)) != NULL) {
+        /* if endptr is not a null character, the directory is not
+         * entirely numeric, so ignore it */
+        long lpid = strtol(ent->d_name, &endptr, 10);
+        if (*endptr != '\0') {
+            continue;
+        }
+
+        /* try to open the cmdline file */
+        snprintf(buf, sizeof(buf), "/proc/%ld/cmdline", lpid);
+        FILE* fp = fopen(buf, "r");
+
+        if (fp) {
+            if (fgets(buf, sizeof(buf), fp) != NULL) {
+                /* check the first token in the file, the program name */
+                char* first = strtok(buf, " ");
+                if (!strcmp(first, name)) {
+                    fclose(fp);
+                    closedir(dir);
+                    return (pid_t)lpid;
+                }
+            }
+            fclose(fp);
+        }
+
+    }
+
+    closedir(dir);
+    return -1;
+}
 
 void set_console() {
 	int _stdin  = open("/dev/null", O_RDONLY);
@@ -51,6 +96,11 @@ void set_hostname() {
 }
 
 int start_options(char * args[]) {
+	pid_t initPid = proc_find("init");
+	if (initPid != -1) {
+	   printf("%s\n", "init is already running!");
+	   return 1;
+	}
 	int pid = fork();
 	if (!pid) {
 		int i = execvp(args[0], args);
