@@ -16,9 +16,10 @@ int main(int argc, char * argv[]) {
 		fprintf(stderr, "%s: argument expected\n", argv[0]);
 		return 1;
 	}
-
-	FILE * f = fopen(argv[1], "a");
-	fclose(f);
+	for (int i = 1; i < argc; i++) {
+		FILE * f = fopen(argv[i], "a");
+		fclose(f);
+	}
 
 	return 0;
 }

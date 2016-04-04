@@ -18,7 +18,9 @@ int main(int argc, char * argv[]) {
 		return 1;
 	}
 
-	unlink(argv[1]);
+	for (int i = 1; i < argc; i++) {
+		unlink(argv[i]);
+	}
 
 	return 0;
 }
