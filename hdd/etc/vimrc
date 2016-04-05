@@ -7,7 +7,7 @@ if has('multi_byte')      " Make sure we have unicode support
    scriptencoding utf-8    " This file is in UTF-8
 
    " ---- Terminal Setup ----
-   if (&termencoding == "" && (&term =~ "xterm" || &term =~ "putty")) || (&term =~ "rxvt-unicode") || (&term =~ "screen") || (&term == "toaru")
+   if (&termencoding == "" && (&term =~ "xterm" || &term =~ "putty")) || (&term =~ "rxvt-unicode") || (&term =~ "screen") || (&term == "toyos")
       set termencoding=utf-8
    endif
    if ($COLORTERM =~ "putty")
@@ -16,7 +16,7 @@ if has('multi_byte')      " Make sure we have unicode support
    set encoding=utf-8      " Default encoding should always be UTF-8
 endif
 
-if (&term == "toaru")
+if (&term == "toyos")
    set ttymouse=xterm2
 endif
 
@@ -375,7 +375,7 @@ elseif (&term !~ "cons")
    map! <C-?> <BS>
 endif
 
-if ((&term =~ "^xterm") || (&term == "toaru"))
+if ((&term =~ "^xterm") || (&term == "toyos"))
    map  <C-[>[H <Home>
    map! <C-[>[H <Home>
    map  <C-[>[F <End>

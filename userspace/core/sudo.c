@@ -20,7 +20,7 @@
 #include <sys/wait.h>
 #include <sys/utsname.h>
 
-#include "lib/toaru_auth.h"
+#include "lib/toyos_auth.h"
 
 uint32_t child = 0;
 
@@ -61,7 +61,7 @@ int main(int argc, char ** argv) {
 		tcsetattr(fileno(stdin), TCSAFLUSH, &old);
 		fprintf(stdout, "\n");
 
-		int uid = toaru_auth_check_pass(username, password);
+		int uid = toyos_auth_check_pass(username, password);
 
 		if (uid < 0) {
 			fails++;

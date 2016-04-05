@@ -970,7 +970,7 @@ uint32_t shell_cmd_exit(int argc, char * argv[]) {
 
 uint32_t shell_cmd_set(int argc, char * argv[]) {
 	char * term = getenv("TERM");
-	if (!term || strstr(term, "toaru") != term) {
+	if (!term || strstr(term, "toyos") != term) {
 		fprintf(stderr, "Unrecognized terminal. These commands are for the とある terminal only.\n");
 		return 1;
 	}

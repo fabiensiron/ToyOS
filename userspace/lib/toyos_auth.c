@@ -13,10 +13,11 @@
 #include <unistd.h>
 #include <pwd.h>
 #include "lib/sha2.h"
+#include "lib/toyos_auth.h"
 
 #define MASTER_PASSWD "/etc/master.passwd"
 
-int toaru_auth_check_pass(char * user, char * pass) {
+int toyos_auth_check_pass(char * user, char * pass) {
 
 	/* Generate SHA512 */
 	char hash[SHA512_DIGEST_STRING_LENGTH];
@@ -39,7 +40,7 @@ int toaru_auth_check_pass(char * user, char * pass) {
 
 }
 
-void toaru_auth_set_vars(void) {
+void toyos_auth_set_vars(void) {
 	int uid = getuid();
 
 	struct passwd * p = getpwuid(uid);
@@ -61,4 +62,3 @@ void toaru_auth_set_vars(void) {
 	setenv("PATH", "/usr/bin:/bin", 0);
 	chdir(getenv("HOME"));
 }
-

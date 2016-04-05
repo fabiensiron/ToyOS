@@ -4,7 +4,7 @@
 #include <errno.h>
 #include <sys/wait.h>
 
-#include "lib/toaru_auth.h"
+#include "lib/toyos_auth.h"
 
 #include "lib/trace.h"
 #define TRACE_APP_NAME "live-welcome"
@@ -15,7 +15,7 @@ int main(int argc, char * argv[]) {
 	int _session_pid = fork();
 	if (!_session_pid) {
 		setuid(1000);
-		toaru_auth_set_vars();
+		toyos_auth_set_vars();
 
 		char * args[] = {"/bin/gsession", NULL};
 		execvp(args[0], args);
@@ -25,7 +25,7 @@ int main(int argc, char * argv[]) {
 	int _wizard_pid = fork();
 	if (!_wizard_pid) {
 		setuid(1000);
-		toaru_auth_set_vars();
+		toyos_auth_set_vars();
 
 		char * args[] = {"/bin/live-wizard", NULL};
 		execvp(args[0], args);

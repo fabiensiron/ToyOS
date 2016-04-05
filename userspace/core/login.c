@@ -22,7 +22,7 @@
 #include <sys/wait.h>
 #include <sys/utsname.h>
 
-#include "lib/toaru_auth.h"
+#include "lib/toyos_auth.h"
 
 #define LINE_LEN 1024
 
@@ -95,7 +95,7 @@ int main(int argc, char ** argv) {
 		tcsetattr(fileno(stdin), TCSAFLUSH, &old);
 		fprintf(stdout, "\n");
 
-		int uid = toaru_auth_check_pass(username, password);
+		int uid = toyos_auth_check_pass(username, password);
 
 		if (uid < 0) {
 			sleep(2);
@@ -110,7 +110,7 @@ int main(int argc, char ** argv) {
 		pid_t f = fork();
 		if (getpid() != pid) {
 			setuid(uid);
-			toaru_auth_set_vars();
+			toyos_auth_set_vars();
 			char * args[] = {
 				getenv("SHELL"),
 				NULL

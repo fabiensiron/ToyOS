@@ -4,10 +4,10 @@
  * Copyright (C) 2013-2014 Kevin Lange
  */
 
-#ifndef _TOARU_AUTH_H
-#define _TOARU_AUTH_H
+#ifndef _TOYOS_AUTH_H
+#define _TOYOS_AUTH_H
 
-int toaru_auth_check_pass(char * user, char * pass);
-void toaru_auth_set_vars(void);
+int toyos_auth_check_pass(char * user, char * pass);
+void toyos_auth_set_vars(void);
 
-#endif /* _TOARU_AUTH_H */
+#endif /* _toyos_AUTH_H */

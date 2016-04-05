@@ -1,5 +1,5 @@
-#ifndef _TOARU_SYS_SOCKET_H
-#define _TOARU_SYS_SOCKET_H
+#ifndef _TOYOS_SYS_SOCKET_H
+#define _TOYOS_SYS_SOCKET_H
 
 #include <stdint.h>
 
@@ -97,4 +97,4 @@ int getpeername(int sockfd, struct sockaddr *addr, socklen_t *addrlen);
 int getsockopt(int sockfd, int level, int optname, void *optval, socklen_t *optlen);
 int setsockopt(int sockfd, int level, int optname, const void *optval, socklen_t optlen);
 
-#endif /* _TOARU_SYS_SOCKET_H */
+#endif /* _TOYOS_SYS_SOCKET_H */

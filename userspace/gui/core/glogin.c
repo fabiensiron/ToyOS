@@ -25,7 +25,7 @@
 #include "lib/shmemfonts.h"
 #include "lib/kbd.h"
 #include "lib/yutani.h"
-#include "lib/toaru_auth.h"
+#include "lib/toyos_auth.h"
 #include "lib/confreader.h"
 
 #include "gui/ttk/ttk.h"
@@ -541,7 +541,7 @@ collect_events:
 
 			}
 
-			uid = toaru_auth_check_pass(username, password);
+			uid = toyos_auth_check_pass(username, password);
 
 			if (uid >= 0) {
 				break;
@@ -557,7 +557,7 @@ collect_events:
 		pid_t _session_pid = fork();
 		if (!_session_pid) {
 			setuid(uid);
-			toaru_auth_set_vars();
+			toyos_auth_set_vars();
 			char * args[] = {"/bin/gsession", NULL};
 			execvp(args[0], args);
 		}

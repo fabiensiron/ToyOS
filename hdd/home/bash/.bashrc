@@ -151,7 +151,7 @@ function prompt_command {
 				TITLEBAR="\[\e]1;\u@\h:$CURRENT_PATH\007\e]2;\u@\h:$CURRENT_PATH\007\]"
 			fi
 		;;
-		toaru*)
+		toyos*)
 			TITLEBAR="\[\e]1;\u@\h:$CURRENT_PATH\007\]"
 		;;
 		screen*)
@@ -182,7 +182,7 @@ function prompt_command {
 			fi
 			if [[ `echo $GIT_STATUS | grep "ahead of"` != "" ]] ; then
 				REFS="$REFS$SOFT_BLUE^" # Staged
-			fi 
+			fi
 			PROMPT="$PROMPT$REFS "
 		fi
 	fi
