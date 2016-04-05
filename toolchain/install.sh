@@ -31,7 +31,7 @@ BUILD_VIM=true
 #BUILD_NCURSES=false
 #BUILD_VIM=false
 
-echo "Building a toolchain with a sysroot of $TOARU_SYSROOT with host binaries in $PREFIX targeting $TARGET"
+echo "Building a toolchain with a sysroot of $TOYOS_SYSROOT with host binaries in $PREFIX targeting $TARGET"
 
 if [ ! -d build ]; then
     mkdir build
@@ -46,7 +46,7 @@ pushd build
         unset PKG_CONFIG_LIBDIR
 
         pushd binutils
-            $DIR/tarballs/binutils-2.22/configure --target=$TARGET --prefix=$PREFIX --with-sysroot=$TOARU_SYSROOT --disable-werror || bail
+            $DIR/tarballs/binutils-2.22/configure --target=$TARGET --prefix=$PREFIX --with-sysroot=$TOYOS_SYSROOT --disable-werror || bail
             make || bail
             make install || bail
         popd
@@ -61,7 +61,7 @@ pushd build
         unset PKG_CONFIG_LIBDIR
 
         pushd gcc
-            $DIR/tarballs/gcc-4.6.4/configure --target=$TARGET --prefix=$PREFIX --with-sysroot=$TOARU_SYSROOT --with-build-sysroot=$TOARU_SYSROOT --with-native-system-header-dir=$TOARU_SYSROOT --disable-nls --enable-languages=c,c++ --disable-libssp --with-newlib || bail
+            $DIR/tarballs/gcc-4.6.4/configure --target=$TARGET --prefix=$PREFIX --with-sysroot=$TOYOS_SYSROOT --with-build-sysroot=$TOYOS_SYSROOT --with-native-system-header-dir=$TOYOS_SYSROOT --disable-nls --enable-languages=c,c++ --disable-libssp --with-newlib || bail
             make all-gcc || bail
             make install-gcc || bail
             make all-target-libgcc || bail
@@ -84,39 +84,39 @@ pushd build
         popd
         pushd $DIR/tarballs/newlib-1.19.0/newlib/libc/sys
             autoconf || bail
-            pushd toaru
+            pushd toyos
                 touch INSTALL NEWS README AUTHORS ChangeLog COPYING || bail
                 autoreconf || bail
                 yasm -f elf -o crt0.o crt0.s || bail
                 yasm -f elf -o crti.o crti.s || bail
                 yasm -f elf -o crtn.o crtn.s || bail
                 cp crt0.o ../
-                cp crt0.o /tmp/__toaru_crt0.o
+                cp crt0.o /tmp/__toyos_crt0.o
                 cp crti.o ../
-                cp crti.o /tmp/__toaru_crti.o
+                cp crti.o /tmp/__toyos_crti.o
                 cp crtn.o ../
-                cp crtn.o /tmp/__toaru_crtn.o
+                cp crtn.o /tmp/__toyos_crtn.o
             popd
         popd
         pushd newlib
             mkdir -p $TARGET/newlib/libc/sys
-            cp /tmp/__toaru_crt0.o $TARGET/newlib/libc/sys/crt0.o
-            rm /tmp/__toaru_crt0.o
-            cp /tmp/__toaru_crti.o $TARGET/newlib/libc/sys/crti.o
-            rm /tmp/__toaru_crti.o
-            cp /tmp/__toaru_crtn.o $TARGET/newlib/libc/sys/crtn.o
-            rm /tmp/__toaru_crtn.o
+            cp /tmp/__toyos_crt0.o $TARGET/newlib/libc/sys/crt0.o
+            rm /tmp/__toyos_crt0.o
+            cp /tmp/__toyos_crti.o $TARGET/newlib/libc/sys/crti.o
+            rm /tmp/__toyos_crti.o
+            cp /tmp/__toyos_crtn.o $TARGET/newlib/libc/sys/crtn.o
+            rm /tmp/__toyos_crtn.o
             echo "" > $DIR/tarballs/newlib-1.19.0/newlib/libc/stdlib/malign.c
             $DIR/tarballs/newlib-1.19.0/configure --target=$TARGET --prefix=$VIRTPREFIX || bail
             # Fix the damned tooldir
-            sed -s 's/prefix}\/i686-pc-toaru/prefix}/' Makefile > Makefile.tmp
+            sed -s 's/prefix}\/i686-pc-toyos/prefix}/' Makefile > Makefile.tmp
             mv Makefile.tmp Makefile
             make || bail
-            make DESTDIR=$TOARU_SYSROOT install || bail
-            cp -r $DIR/patches/newlib/include/* $TOARU_SYSROOT/$VIRTPREFIX/include/
-            cp $TARGET/newlib/libc/sys/crt0.o $TOARU_SYSROOT/$VIRTPREFIX/lib/
-            cp $TARGET/newlib/libc/sys/crti.o $TOARU_SYSROOT/$VIRTPREFIX/lib/
-            cp $TARGET/newlib/libc/sys/crtn.o $TOARU_SYSROOT/$VIRTPREFIX/lib/
+            make DESTDIR=$TOYOS_SYSROOT install || bail
+            cp -r $DIR/patches/newlib/include/* $TOYOS_SYSROOT/$VIRTPREFIX/include/
+            cp $TARGET/newlib/libc/sys/crt0.o $TOYOS_SYSROOT/$VIRTPREFIX/lib/
+            cp $TARGET/newlib/libc/sys/crti.o $TOYOS_SYSROOT/$VIRTPREFIX/lib/
+            cp $TARGET/newlib/libc/sys/crtn.o $TOYOS_SYSROOT/$VIRTPREFIX/lib/
         popd
     fi
 
@@ -135,16 +135,16 @@ pushd build
         pushd freetype
             $DIR/tarballs/freetype-2.4.9/configure --host=$TARGET --prefix=$VIRTPREFIX || bail
             make || bail
-            make DESTDIR=$TOARU_SYSROOT install || bail
+            make DESTDIR=$TOYOS_SYSROOT install || bail
         popd
     fi
 
     if $BUILD_ZLIB; then
         # XXX zlib can not be built in a separate directory
         pushd $DIR/tarballs/zlib*
-            CC=i686-pc-toaru-gcc ./configure --static --prefix=$VIRTPREFIX || bail
+            CC=i686-pc-toyos-gcc ./configure --static --prefix=$VIRTPREFIX || bail
             make || bail
-            make DESTDIR=$TOARU_SYSROOT install || bail
+            make DESTDIR=$TOYOS_SYSROOT install || bail
         popd
     fi
 
@@ -155,7 +155,7 @@ pushd build
         pushd libpng
             $DIR/tarballs/libpng-1.5.13/configure --host=$TARGET --prefix=$VIRTPREFIX || bail
             make || bail
-            make DESTDIR=$TOARU_SYSROOT install || bail
+            make DESTDIR=$TOYOS_SYSROOT install || bail
         popd
     fi
 
@@ -166,7 +166,7 @@ pushd build
         pushd pixman
             $DIR/tarballs/pixman-0.26.2/configure --host=$TARGET --prefix=$VIRTPREFIX || bail
             make || bail
-            make DESTDIR=$TOARU_SYSROOT install || bail
+            make DESTDIR=$TOYOS_SYSROOT install || bail
         popd
     fi
 
@@ -180,7 +180,7 @@ pushd build
             cp $DIR/patches/cairo-Makefile perf/Makefile
             echo -e "\n\n#define CAIRO_NO_MUTEX 1" >> config.h
             make || bail
-            make DESTDIR=$TOARU_SYSROOT install || bail
+            make DESTDIR=$TOYOS_SYSROOT install || bail
         popd
     fi
 
@@ -189,7 +189,7 @@ pushd build
         pushd $DIR/tarballs/Mesa-*
             ./configure --enable-32-bit --host=$TARGET --prefix=$VIRTPREFIX  --with-osmesa-bits=8 --with-driver=osmesa --disable-egl --disable-shared --without-x --disable-glw --disable-glut --disable-driglx-direct --disable-gallium || bail
             make || bail
-            make DESTDIR=$TOARU_SYSROOT install || bail
+            make DESTDIR=$TOYOS_SYSROOT install || bail
         popd
     fi
 
@@ -200,22 +200,22 @@ pushd build
         pushd ncurses
             $DIR/tarballs/ncurses-5.9/configure --prefix=$VIRTPREFIX --host=$TARGET --with-terminfo-dirs=/usr/share/terminfo --with-default-terminfo-dir=/usr/share/terminfo --without-tests || bail
             make || bail
-            make DESTDIR=$TOARU_SYSROOT install || bail
-            cp $DIR/../util/toaru.tic $TOARU_SYSROOT/$VIRTPREFIX/share/terminfo/t/toaru
-            cp $DIR/../util/toaru-vga.tic $TOARU_SYSROOT/$VIRTPREFIX/share/terminfo/t/toaru-vga
+            make DESTDIR=$TOYOS_SYSROOT install || bail
+            cp $DIR/../util/toyos.tic $TOYOS_SYSROOT/$VIRTPREFIX/share/terminfo/t/toyos
+            cp $DIR/../util/toyos-vga.tic $TOYOS_SYSROOT/$VIRTPREFIX/share/terminfo/t/toyos-vga
         popd
     fi
 
     if $BUILD_VIM; then
         pushd $DIR/tarballs/vim73
             make distclean
-            ac_cv_sizeof_int=4 vim_cv_getcwd_broken=no vim_cv_memmove_handles_overlap=yes vim_cv_stat_ignores_slash=no vim_cv_tgetent=zero vim_cv_terminfo=yes vim_cv_toupper_broken=no vim_cv_tty_group=world ./configure --host=$TARGET --target=$TARGET --with-sysroot=$TOARU_SYSROOT --prefix=$VIRTPREFIX --with-tlib=ncurses --enable-gui=no --disable-gtktest --disable-xim --with-features=normal --disable-gpm --without-x --disable-netbeans --enable-multibyte
+            ac_cv_sizeof_int=4 vim_cv_getcwd_broken=no vim_cv_memmove_handles_overlap=yes vim_cv_stat_ignores_slash=no vim_cv_tgetent=zero vim_cv_terminfo=yes vim_cv_toupper_broken=no vim_cv_tty_group=world ./configure --host=$TARGET --target=$TARGET --with-sysroot=$TOYOS_SYSROOT --prefix=$VIRTPREFIX --with-tlib=ncurses --enable-gui=no --disable-gtktest --disable-xim --with-features=normal --disable-gpm --without-x --disable-netbeans --enable-multibyte
             make || bail
-            make DESTDIR=$TOARU_SYSROOT install || bail
+            make DESTDIR=$TOYOS_SYSROOT install || bail
         popd
     fi
 
-    pushd $TOARU_SYSROOT/usr/bin || bail
+    pushd $TOYOS_SYSROOT/usr/bin || bail
         $TARGET-strip *
     popd
 

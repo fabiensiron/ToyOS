@@ -5,7 +5,7 @@ diff -rupN original/configfsf.sub new/configfsf.sub
  	      | -hpux* | -unos* | -osf* | -luna* | -dgux* | -solaris* | -sym* \
  	      | -amigaos* | -amigados* | -msdos* | -newsos* | -unicos* | -aof* \
  	      | -aos* \
-+	      | -toaru* \
++	      | -toyos* \
  	      | -nindy* | -vxsim* | -vxworks* | -ebmon* | -hms* | -mvs* \
  	      | -clix* | -riscos* | -uniplus* | -iris* | -rtu* | -xenix* \
  	      | -hiux* | -386bsd* | -knetbsd* | -mirbsd* | -netbsd* \

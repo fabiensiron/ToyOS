@@ -1,5 +1,5 @@
 /* vim: tabstop=4 shiftwidth=4 noexpandtab
- * This file is part of ToaruOS and is released under the terms
+ * This file is part of ToyOS and is released under the terms
  * of the NCSA / University of Illinois License - see LICENSE.md
  * Copyright (C) 2012-2014 Kevin Lange
  */
@@ -93,11 +93,11 @@ DEFN_SYSCALL2(symlink, SYS_SYMLINK, char *, char *);
 DEFN_SYSCALL3(readlink, SYS_READLINK, char *, char *, int);
 DEFN_SYSCALL2(lstat, SYS_LSTAT, char *, void *);
 
-static int toaru_debug_stubs_enabled(void) {
+static int toyos_debug_stubs_enabled(void) {
 	static int checked = 0;
 	static int enabled = 0;
 	if (!checked) {
-		char * t = getenv("TOARU_DEBUG_STUBS");
+		char * t = getenv("TOYOS_DEBUG_STUBS");
 		checked = 1;
 		if (t && !strcmp(t,"1")) {
 			enabled = 1;
@@ -107,7 +107,7 @@ static int toaru_debug_stubs_enabled(void) {
 }
 
 #define DEBUG_STUB(...) \
-	if (toaru_debug_stubs_enabled()) { \
+	if (toyos_debug_stubs_enabled()) { \
 		fprintf(stderr, "\033[1;32mUserspace Debug\033[0m pid%d ", getpid()); fprintf(stderr, __VA_ARGS__); \
 	}
 
@@ -357,7 +357,7 @@ char *getlogin(void) {
 #define LINE_LEN 4096
 	FILE * passwd = fopen("/etc/passwd", "r");
 	char line[LINE_LEN];
-	
+
 	int uid = syscall_getuid();
 
 	while (fgets(line, LINE_LEN, passwd) != NULL) {

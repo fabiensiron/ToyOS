@@ -19,7 +19,7 @@ GCC=gcc-$GCCV
 BINUTILS=binutils-2.22
 
 VIRTPREFIX=/usr
-REALPREFIX=$TOARU_SYSROOT
+REALPREFIX=$TOYOS_SYSROOT
 
 if [ ! -d tarballs/$GCC/mpfr ]; then
     mv tarballs/$MPFR tarballs/$GCC/mpfr
@@ -33,7 +33,7 @@ fi
 
 # Actual build process
 
-echo "Building GCC for native installation targetting $TARGET, installed into $TOARU_SYSROOT$VIRTPREFIX"
+echo "Building GCC for native installation targetting $TARGET, installed into $TOYOS_SYSROOT$VIRTPREFIX"
 
 pushd build || bail
     if [ -d binutils-native ]; then
@@ -56,7 +56,7 @@ pushd build || bail
         make DESTDIR=$REALPREFIX install-gcc || bail
         make DESTDIR=$REALPREFIX all-target-libgcc || bail
         make DESTDIR=$REALPREFIX install-target-libgcc || bail
-        touch $TOARU_SYSROOT/usr/include/fenv.h
+        touch $TOYOS_SYSROOT/usr/include/fenv.h
         make DESTDIR=$REALPREFIX all-target-libstdc++-v3 || bail
         make DESTDIR=$REALPREFIX install-target-libstdc++-v3 || bail
     popd

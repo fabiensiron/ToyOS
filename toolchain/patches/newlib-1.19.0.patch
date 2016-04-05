@@ -5,7 +5,7 @@ diff -rupN _source/newlib-1.19.0/config.sub newlib-1.19.0/config.sub
  	      | -sym* | -kopensolaris* \
  	      | -amigaos* | -amigados* | -msdos* | -newsos* | -unicos* | -aof* \
  	      | -aos* | -aros* \
-+	      | -toaru* \
++	      | -toyos* \
  	      | -nindy* | -vxsim* | -vxworks* | -ebmon* | -hms* | -mvs* \
  	      | -clix* | -riscos* | -uniplus* | -iris* | -rtu* | -xenix* \
  	      | -hiux* | -386bsd* | -knetbsd* | -mirbsd* | -netbsd* \
@@ -16,8 +16,8 @@ diff -rupN _source/newlib-1.19.0/newlib/configure.host newlib-1.19.0/newlib/conf
    h8500-*-elf*)
  	sys_dir=h8500hms
  	;;
-+  i[34567]86-*-toaru*)
-+	sys_dir=toaru
++  i[34567]86-*-toyos*)
++	sys_dir=toyos
 +	;;
    i[34567]86-*-rdos*)
   sys_dir=rdos
@@ -26,7 +26,7 @@ diff -rupN _source/newlib-1.19.0/newlib/configure.host newlib-1.19.0/newlib/conf
  # THIS TABLE IS ALPHA SORTED.  KEEP IT THAT WAY.
  
  case "${host}" in
-+  *-*-toaru)
++  *-*-toyos)
 +	newlib_cflags="${newlib_cflags} -fPIC -DSIGNAL_PROVIDED -DMISSING_SYSCALL_NAMES -DMALLOC_PROVIDED"
 +	;;
    *-*-cygwin*)
@@ -294,7 +294,7 @@ diff -rupN _source/newlib-1.19.0/newlib/libc/sys/configure newlib-1.19.0/newlib/
  sysvnecv70
  tic80
  w65
-+toaru
++toyos
  z8ksim'
  
  # Initialize some variables set by options.
@@ -302,7 +302,7 @@ diff -rupN _source/newlib-1.19.0/newlib/libc/sys/configure newlib-1.19.0/newlib/
   ;;
  	w65) subdirs="$subdirs w65"
   ;;
-+	toaru) subdirs="$subdirs toaru"
++	toyos) subdirs="$subdirs toyos"
 + ;;
  	z8ksim) subdirs="$subdirs z8ksim"
   ;;
@@ -314,7 +314,7 @@ diff -rupN _source/newlib-1.19.0/newlib/libc/sys/configure.in newlib-1.19.0/newl
  	sysvnecv70) AC_CONFIG_SUBDIRS(sysvnecv70) ;;
  	tic80) AC_CONFIG_SUBDIRS(tic80) ;;
  	w65) AC_CONFIG_SUBDIRS(w65) ;;
-+	toaru) AC_CONFIG_SUBDIRS(toaru) ;;
++	toyos) AC_CONFIG_SUBDIRS(toyos) ;;
  	z8ksim) AC_CONFIG_SUBDIRS(z8ksim) ;;
    esac;
  fi

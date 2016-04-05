@@ -5,20 +5,20 @@ diff -rupN original/config.sub new/config.sub
  	      | -sym* | -kopensolaris* \
  	      | -amigaos* | -amigados* | -msdos* | -newsos* | -unicos* | -aof* \
  	      | -aos* | -aros* \
-+	      | -toaru* \
++	      | -toyos* \
  	      | -nindy* | -vxsim* | -vxworks* | -ebmon* | -hms* | -mvs* \
  	      | -clix* | -riscos* | -uniplus* | -iris* | -rtu* | -xenix* \
  	      | -hiux* | -386bsd* | -knetbsd* | -mirbsd* | -netbsd* \
-diff -rupN original/gcc/config/toaru.h new/gcc/config/toaru.h
---- original/gcc/config/toaru.h	1969-12-31 18:00:00.000000000 -0600
-+++ new/gcc/config/toaru.h	2011-04-24 19:51:58.000000000 -0500
+diff -rupN original/gcc/config/toyos.h new/gcc/config/toyos.h
+--- original/gcc/config/toyos.h	1969-12-31 18:00:00.000000000 -0600
++++ new/gcc/config/toyos.h	2011-04-24 19:51:58.000000000 -0500
 @@ -0,0 +1,20 @@
 +#undef TARGET_OS_CPP_BUILTINS
 +#define TARGET_OS_CPP_BUILTINS() \
 +	do { \
-+		builtin_define_std ("toaru"); \
++		builtin_define_std ("toyos"); \
 +		builtin_define_std ("unix"); \
-+		builtin_assert ("system=toaru"); \
++		builtin_assert ("system=toyos"); \
 +		builtin_assert ("system=unix"); \
 +	} while (0);
 +
@@ -32,7 +32,7 @@ diff -rupN original/gcc/config/toaru.h new/gcc/config/toaru.h
 +#define LINK_SPEC "%{shared:-shared} %{!shared: %{!static: %{rdynamic:-export-dynamic} %{!dynamic-linker:-dynamic-linker /lib/ld.so}}}"
 +
 +#undef TARGET_VERSION
-+#define TARGET_VERSION fprintf(stderr, " (i386 toaru)");
++#define TARGET_VERSION fprintf(stderr, " (i386 toyos)");
 diff -rupN original/gcc/config.gcc new/gcc/config.gcc
 --- original/gcc/config.gcc	2011-03-14 01:05:29.000000000 -0500
 +++ new/gcc/config.gcc	2011-04-24 20:04:11.000000000 -0500
@@ -40,7 +40,7 @@ diff -rupN original/gcc/config.gcc new/gcc/config.gcc
      *) echo 'Unknown thread configuration for VxWorks'; exit 1 ;;
    esac
    ;;
-+*-*-toaru*)
++*-*-toyos*)
 +  extra_parts="crtbegin.o crtend.o"
 +  gas=yes
 +  gnu_ld=yes
@@ -53,8 +53,8 @@ diff -rupN original/gcc/config.gcc new/gcc/config.gcc
  		dwarf2=no
  	fi
  	;;
-+i[34567]86-*-toaru*)
-+	tm_file="${tm_file} i386/unix.h i386/att.h dbxelf.h elfos.h i386/i386elf.h toaru.h"
++i[34567]86-*-toyos*)
++	tm_file="${tm_file} i386/unix.h i386/att.h dbxelf.h elfos.h i386/i386elf.h toyos.h"
 +	tmake_file="${tmake_file} i386/t-i386elf t-svr4 i386/t-crtstuff"
 +	use_fixproto=yes
 +	;;
@@ -68,7 +68,7 @@ diff -rupN original/libgcc/config.host new/libgcc/config.host
  	;;
  i[34567]86-*-interix3*)
  	;;
-+i[34567]86-*-toaru*)
++i[34567]86-*-toyos*)
 +	;;
  ia64*-*-elf*)
  	extra_parts="crtbegin.o crtend.o crtbeginS.o crtendS.o crtfastmath.o"
@@ -80,7 +80,7 @@ diff -rupN original/libstdc++-v3/crossconfig.m4 new/libstdc++-v3/crossconfig.m4
        AC_DEFINE(HAVE_ISNANL)
      fi
      ;;
-+  *-toaru*)
++  *-toyos*)
 +    AC_CHECK_HEADERS([sys/types.h local.h float.h])
 +    GLIBCXX_CHECK_BUILTIN_MATH_SUPPORT
 +    GLIBCXX_CHECK_COMPLEX_MATH_SUPPORT
