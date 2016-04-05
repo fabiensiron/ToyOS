@@ -43,7 +43,7 @@ int main(int argc, char * argv[]) {
 	int i = 0;
 	prog_lines[i] = "hostname";
 	sprintf(data_lines[i++], C_A "%s" C_O "@" C_A, user);
-	sprintf(data_lines[i++], C_A "OS: " C_O "ToaruOS");
+	sprintf(data_lines[i++], C_A "OS: " C_O "ToyOS");
 	prog_lines[i] = "uname -sr";
 	sprintf(data_lines[i++], C_A "Kernel: " C_O);
 	prog_lines[i] = "uptime -p";

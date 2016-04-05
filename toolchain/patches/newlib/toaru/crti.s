@@ -1,4 +1,4 @@
-; ToAruOS User CRT0
+; ToyOS User CRT0
 BITS 32
 
 section .init

@@ -9,7 +9,7 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 if [[ $# -lt 1 ]]; then
-    echo "I need a path to a compiled とあるOS source directory as an argument, try again." 1>&2
+    echo "I need a path to a compiled ToyOS source directory as an argument, try again." 1>&2
     exit 1
 fi
 
@@ -74,7 +74,7 @@ mkdir -p  /mnt/boot
 cp -r $BOOT/* /mnt/boot/
 
 echo "Installing kernel."
-cp -r $SRCDIR/toaruos-kernel /mnt/boot/
+cp -r $SRCDIR/toyos-kernel /mnt/boot/
 
 echo "Installing grub."
 grub-install --target=i386-pc --boot-directory=/mnt/boot $LOOPRAW

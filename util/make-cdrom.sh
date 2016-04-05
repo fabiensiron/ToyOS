@@ -25,7 +25,7 @@ BLACKLIST="userspace/tests/* userspace/gui/gl/teapot.c hdd/usr/share/wallpapers/
 # Rebuild
 echo "Rebuilding... (ignore warnings about time skew, this is intentional)"
 eval rm $BLACKLIST
-touch -d tomorrow toaruos-disk.img
+touch -d tomorrow toyos-disk.img
 make
 i686-pc-toaru-strip hdd/bin/*
 
@@ -56,10 +56,10 @@ genext2fs -B 4096 -d hdd -D util/devtable -U -b 16384 -N 1024 cdrom/ramdisk.img
 gzip cdrom/ramdisk.img
 
 echo "Installing kernel..."
-cp toaruos-kernel cdrom/kernel
+cp toyos-kernel cdrom/kernel
 
 echo "Building ISO..."
-grub-mkrescue -d /usr/lib/grub/i386-pc -o toaruos.iso cdrom
+grub-mkrescue -d /usr/lib/grub/i386-pc -o toyos.iso cdrom
 
 echo "Restoring modules directory to hdd/mod..."
 mv cdrom/mod hdd/mod

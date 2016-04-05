@@ -8,7 +8,7 @@ for f in $(find kernel userspace modules | fgrep '.c'); do
 
 		authors=$(mktemp)
 
-		echo "/* This file is part of ToaruOS and is released under the terms" >> $authors
+		echo "/* This file is part of ToyOS and is released under the terms" >> $authors
 		echo " * of the NCSA / University of Illinois License - see LICENSE.md" >> $authors
 
 		last_user="X"

@@ -3,7 +3,7 @@
  * Copyright (C) 2013-2014 Kevin Lange
  */
 /*
- * ToAruOS Miniature ELF Reader
+ * ToyOS Miniature ELF Reader
  * (C) 2011 Kevin Lange
  */
 

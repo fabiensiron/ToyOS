@@ -7,7 +7,7 @@
  *
  * Clears the terminal.
  * This is a very dumb version and probably only works
- * within the toaruOS terminal, but it might also work
+ * within the toyos terminal, but it might also work
  * with an xterm or similar.
  */
 #include <stdio.h>

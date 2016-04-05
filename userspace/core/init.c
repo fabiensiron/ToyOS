@@ -20,7 +20,7 @@
 #include <dirent.h>
 #include <sys/wait.h>
 
-#define DEFAULT_HOSTNAME "toaru-test"
+#define DEFAULT_HOSTNAME "toyos-test"
 
 
 pid_t proc_find(const char* name)

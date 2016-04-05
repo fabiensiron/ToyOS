@@ -87,18 +87,18 @@ static void redraw(void) {
 	draw_fill(ctx_wizard, rgb(TTK_BACKGROUND_DEFAULT));
 
 	/* Draw the current tutorial frame */
-	render_decorations(win_wizard, ctx_wizard, "Welcome to とあるOS");
+	render_decorations(win_wizard, ctx_wizard, "Welcome to ToyOS");
 	switch (current_frame) {
 		case 0:
-			/* Labels for Welcome to とあるOS! */
+			/* Labels for Welcome to ToyOS! */
 			draw_logo();
-			draw_centered_label(100+70, 20, "Welcome to とあるOS!");
+			draw_centered_label(100+70, 20, "Welcome to ToyOS!");
 			draw_centered_label(100+88, 12, "This tutorial will guide you through the features");
 			draw_centered_label(100+102,12, "of the operating system, as well as give you a feel");
 			draw_centered_label(100+116,12, "for the UI and design principles.");
 			draw_centered_label(100+180,12, "When you're ready to continue, press \"Next\".");
 			draw_centered_label(120+200,12, "https://github.com/klange/toaruos - http://toaruos.org");
-			draw_centered_label(120+220,12, "とあるOS is free software, released under the terms");
+			draw_centered_label(120+220,12, "ToyOS is free software, released under the terms");
 			draw_centered_label(120+234,12, "of the NCSA/University of Illinois license.");
 			draw_next_button(0);
 			break;
@@ -110,7 +110,7 @@ static void redraw(void) {
 			break;
 		case 2:
 			draw_logo();
-			draw_centered_label(100+70, 12,"As a reminder, とあるOS is a hobby project with few developers.");
+			draw_centered_label(100+70, 12,"As a reminder, ToyOS is a hobby project with few developers.");
 			draw_centered_label(100+84, 12,"As such, do not expect things to work perfectly, or in some cases,");
 			draw_centered_label(100+98, 12,"at all, as the kernel and drivers are very much \"work-in-progress\".");
 			draw_next_button(0);

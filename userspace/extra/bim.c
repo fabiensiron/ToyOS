@@ -8,7 +8,7 @@
  *
  * Bim is a Bad IMitation of Vim.
  *
- * The 'standard' text editor for とあるOS.
+ * The 'standard' text editor for ToyOS.
  *
  */
 #define _XOPEN_SOURCE 1
@@ -96,7 +96,7 @@ buffer_t * buffer_close(buffer_t * buf) {
 	}
 
 	buffers_len--;
-	if (!buffers_len) { 
+	if (!buffers_len) {
 		return NULL;
 	}
 	if (i == buffers_len) {

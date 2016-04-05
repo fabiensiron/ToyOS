@@ -1,4 +1,4 @@
-# ToAruOS Primary Build Script
+# ToyOS Primary Build Script
 ifneq ($(MAKECMDGOALS),toolchain)
  ifeq ($(TOOLCHAIN),)
   $(error No toolchain available and you did not ask to build it. Did you forget to source the toolchain config?)
@@ -7,6 +7,7 @@ endif
 
 
 # We always build with our targetted cross-compiler
+# TODO: Change this to i686-pc-toyos
 CC = i686-pc-toaru-gcc
 NM = i686-pc-toaru-nm
 CXX= i686-pc-toaru-g++
@@ -99,9 +100,9 @@ BOOT_MODULES_X = -initrd "$(subst $(SPACE),$(COMMA),$(foreach mod,$(BOOT_MODULES
 
 # Emulator settings
 EMU = qemu-system-i386
-EMUARGS  = -sdl -kernel toaruos-kernel -m 1024
+EMUARGS  = -sdl -kernel toyos-kernel -m 1024
 EMUARGS += -serial stdio -vga std
-EMUARGS += -hda toaruos-disk.img -k en-us -no-frame
+EMUARGS += -hda toyos-disk.img -k en-us -no-frame
 EMUARGS += -rtc base=localtime -net nic,model=rtl8139 -net user
 EMUARGS += -net dump -no-kvm-irqchip
 EMUARGS += $(BOOT_MODULES_X)
@@ -114,7 +115,7 @@ START_SINGLE = start=--single
 START_LIVE = start=live-welcome
 WITH_LOGS = logtoserial=1
 
-.PHONY: all system install test toolchain userspace modules cdrom toaruos.iso
+.PHONY: all system install test toolchain userspace modules cdrom toyos.iso
 .PHONY: clean clean-soft clean-hard clean-user clean-mods clean-core clean-disk clean-once
 .PHONY: run vga term headless
 .PHONY: kvm vga-kvm term-kvm headless-kvm
@@ -127,7 +128,7 @@ WITH_LOGS = logtoserial=1
 .SUFFIXES:
 
 all: system tags userspace
-system: toaruos-disk.img toaruos-kernel modules
+system: toyos-disk.img toyos-kernel modules
 userspace: ${USERSPACE}
 modules: ${MODULES}
 
@@ -174,17 +175,17 @@ KERNEL_ASMOBJS = $(filter-out kernel/symbols.o,$(patsubst %.S,%.o,$(wildcard ker
 ################
 #    Kernel    #
 ################
-toaruos-kernel: ${KERNEL_ASMOBJS} ${KERNEL_OBJS} kernel/symbols.o
+toyos-kernel: ${KERNEL_ASMOBJS} ${KERNEL_OBJS} kernel/symbols.o
 	@${BEG} "CC" "$<"
-	@${CC} -T kernel/link.ld ${CFLAGS} -nostdlib -o toaruos-kernel ${KERNEL_ASMOBJS} ${KERNEL_OBJS} kernel/symbols.o -lgcc ${ERRORS}
+	@${CC} -T kernel/link.ld ${CFLAGS} -nostdlib -o toyos-kernel ${KERNEL_ASMOBJS} ${KERNEL_OBJS} kernel/symbols.o -lgcc ${ERRORS}
 	@${END} "CC" "$<"
 	@${INFO} "--" "Kernel is ready!"
 
 kernel/symbols.o: ${KERNEL_ASMOBJS} ${KERNEL_OBJS} util/generate_symbols.py
 	@-rm -f kernel/symbols.o
 	@${BEG} "NM" "Generating symbol list..."
-	@${CC} -T kernel/link.ld ${CFLAGS} -nostdlib -o toaruos-kernel ${KERNEL_ASMOBJS} ${KERNEL_OBJS} -lgcc ${ERRORS}
-	@${NM} toaruos-kernel -g | python2 util/generate_symbols.py > kernel/symbols.S
+	@${CC} -T kernel/link.ld ${CFLAGS} -nostdlib -o toyos-kernel ${KERNEL_ASMOBJS} ${KERNEL_OBJS} -lgcc ${ERRORS}
+	@${NM} toyos-kernel -g | python2 util/generate_symbols.py > kernel/symbols.S
 	@${END} "NM" "Generated symbol list."
 	@${BEG} "AS" "kernel/symbols.S"
 	@${AS} ${ASFLAGS} kernel/symbols.S -o $@ ${ERRORS}
@@ -246,10 +247,10 @@ hdd/usr/lib/libtoaru.a: ${CORE_LIBS}
 # Hard Disk Images #
 ####################
 
-toaruos-disk.img: ${USERSPACE} util/devtable
+toyos-disk.img: ${USERSPACE} util/devtable
 	@${BEG} "hdd" "Generating a Hard Disk image..."
-	@-rm -f toaruos-disk.img
-	@${GENEXT} -B 4096 -d hdd -D util/devtable -U -b ${DISK_SIZE} -N 4096 toaruos-disk.img ${ERRORS}
+	@-rm -f toyos-disk.img
+	@${GENEXT} -B 4096 -d hdd -D util/devtable -U -b ${DISK_SIZE} -N 4096 toyos-disk.img ${ERRORS}
 	@${END} "hdd" "Generated Hard Disk image"
 	@${INFO} "--" "Hard disk image is ready!"
 
@@ -257,9 +258,9 @@ toaruos-disk.img: ${USERSPACE} util/devtable
 # cdrom #
 #########
 
-cdrom: toaruos.iso
+cdrom: toyos.iso
 
-toaruos.iso:
+toyos.iso:
 	util/make-cdrom.sh
 
 ##############
@@ -293,12 +294,12 @@ clean-mods:
 
 clean-core:
 	@${BEGRM} "RM" "Cleaning final output..."
-	@-rm -f toaruos-kernel
+	@-rm -f toyos-kernel
 	@${ENDRM} "RM" "Cleaned final output"
 
 clean-disk:
 	@${BEGRM} "RM" "Deleting hard disk image..."
-	@-rm -f toaruos-disk.img
+	@-rm -f toyos-disk.img
 	@${ENDRM} "RM" "Deleted hard disk image"
 
 clean: clean-soft clean-core

@@ -6,7 +6,7 @@
  * Copyright (C) 2008 Kristian Høgsberg
  * Copyright (C) 2009 Chris Wilson
  *
- * Generic Graphics library for ToaruOS
+ * Generic Graphics library for ToyOS
  */
 
 #include <syscall.h>
@@ -784,4 +784,3 @@ void draw_sprite_scaled_alpha(gfx_context_t * ctx, sprite_t * sprite, int32_t x,
 		}
 	}
 }
-

@@ -3,7 +3,7 @@
  * of the NCSA / University of Illinois License - see LICENSE.md
  * Copyright (C) 2011-2014 Kevin Lange
  *
- * ToAruOS PCI Initialization
+ * ToyOS PCI Initialization
  */
 
 #include <system.h>
@@ -110,4 +110,3 @@ void pci_scan(pci_func_t f, int type, void * extra) {
 		}
 	}
 }
-

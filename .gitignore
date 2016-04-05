@@ -59,9 +59,9 @@ initrd/etc
 tags
 toaru-pdfviewer
 toaru-toolkit
-toaruos-disk.img
-toaruos-initrd
-toaruos-kernel
+toyos-disk.img
+toyos-initrd
+toyos-kernel
 toolchain/build
 toolchain/local
 toolchain/tarballs
@@ -72,7 +72,7 @@ _hdd
 qemu-vlan0.pcap
 contrib
 cdrom
-toaruos.iso
+toyos.iso
 modpack.kop
 .vagrant
 Vagrantfile
@@ -80,4 +80,3 @@ hdd/usr/etc
 hdd/usr/share/doc
 hdd/usr/share/fontconfig
 hdd/usr/share/xml
-

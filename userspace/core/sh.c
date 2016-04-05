@@ -971,7 +971,7 @@ uint32_t shell_cmd_exit(int argc, char * argv[]) {
 uint32_t shell_cmd_set(int argc, char * argv[]) {
 	char * term = getenv("TERM");
 	if (!term || strstr(term, "toyos") != term) {
-		fprintf(stderr, "Unrecognized terminal. These commands are for the とある terminal only.\n");
+		fprintf(stderr, "Unrecognized terminal. These commands are for the ToyOS terminal only.\n");
 		return 1;
 	}
 	if (argc < 2) {
