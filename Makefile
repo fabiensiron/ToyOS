@@ -8,11 +8,11 @@ endif
 
 # We always build with our targetted cross-compiler
 # TODO: Change this to i686-pc-toyos
-CC = i686-pc-toaru-gcc
-NM = i686-pc-toaru-nm
-CXX= i686-pc-toaru-g++
-AR = i686-pc-toaru-ar
-AS = i686-pc-toaru-as
+CC = i686-pc-toyos-gcc
+NM = i686-pc-toyos-nm
+CXX= i686-pc-toyos-g++
+AR = i686-pc-toyos-ar
+AS = i686-pc-toyos-as
 
 # Build flags
 CFLAGS  = -O2 -std=c99
