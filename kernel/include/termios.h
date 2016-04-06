@@ -1,1 +1,1 @@
-../../toolchain/patches/newlib/toaru/sys/termios.h
+../../toolchain/patches/newlib/toyos/sys/termios.h

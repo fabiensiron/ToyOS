@@ -1,1 +1,1 @@
-../../toolchain/patches/newlib/toaru/sys/utsname.h
+../../toolchain/patches/newlib/toyos/sys/utsname.h

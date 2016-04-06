@@ -27,7 +27,7 @@ echo "Rebuilding... (ignore warnings about time skew, this is intentional)"
 eval rm $BLACKLIST
 touch -d tomorrow toyos-disk.img
 make
-i686-pc-toaru-strip hdd/bin/*
+i686-pc-toyos-strip hdd/bin/*
 
 echo "Cloning CD source directory..."
 rm -rf cdrom

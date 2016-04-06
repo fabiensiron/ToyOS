@@ -236,11 +236,11 @@ $1: $2 $(shell util/auto-dep.py --deps $2)
 endef
 $(foreach file,$(USER_CXXFILES),$(eval $(call user-cxx-rule,$(patsubst %.c++,hdd/bin/%,$(notdir ${file})),${file})))
 
-hdd/usr/lib/libtoaru.a: ${CORE_LIBS}
+hdd/usr/lib/libtoyos.a: ${CORE_LIBS}
 	@${BEG} "AR" "$@"
 	@${AR} rcs $@ ${CORE_LIBS}
-	@mkdir -p hdd/usr/include/toaru
-	@cp userspace/lib/*.h hdd/usr/include/toaru/
+	@mkdir -p hdd/usr/include/toyos
+	@cp userspace/lib/*.h hdd/usr/include/toyos/
 	@${END} "AR" "$@"
 
 ####################

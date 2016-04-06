@@ -1,1 +1,1 @@
-../../toolchain/patches/newlib/toaru/sys/ioctl.h
+../../toolchain/patches/newlib/toyos/sys/ioctl.h

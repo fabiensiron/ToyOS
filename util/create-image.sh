@@ -13,7 +13,7 @@ if [[ $# -lt 1 ]]; then
     exit 1
 fi
 
-DISK=toaru-disk.img
+DISK=toyos-disk.img
 SRCDIR=$1
 BOOT=./boot
 SIZE=1G

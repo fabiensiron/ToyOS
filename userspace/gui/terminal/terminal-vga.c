@@ -260,7 +260,7 @@ void draw_cursor() {
 	render_cursor();
 }
 
-void term_redraw_all() { 
+void term_redraw_all() {
 	for (uint16_t y = 0; y < term_height; ++y) {
 		for (uint16_t x = 0; x < term_width; ++x) {
 			cell_redraw(x,y);
@@ -696,7 +696,7 @@ int main(int argc, char ** argv) {
 		}
 	}
 
-	putenv("TERM=toaru");
+	putenv("TERM=toyos");
 
 	syscall_openpty(&fd_master, &fd_slave, NULL, NULL, NULL);
 

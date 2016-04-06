@@ -1,1 +1,1 @@
-../../toolchain/patches/newlib/toaru/sys/signal_defs.h
+../../toolchain/patches/newlib/toyos/sys/signal_defs.h
