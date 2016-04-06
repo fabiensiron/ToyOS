@@ -1,10 +1,4 @@
 # ToyOS Primary Build Script
-ifneq ($(MAKECMDGOALS),toolchain)
- ifeq ($(TOOLCHAIN),)
-  $(error No toolchain available and you did not ask to build it. Did you forget to source the toolchain config?)
- endif
-endif
-
 
 # We always build with our targetted cross-compiler
 # TODO: Change this to i686-pc-toyos
