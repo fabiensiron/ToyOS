@@ -43,7 +43,7 @@ cache:
 notifications:
   irc:
     channels:
-      - "irc.freenode.org#toaruos"
+      - "irc.freenode.org#ToyOS"
     use_notice: false
     skip_join: true
 
