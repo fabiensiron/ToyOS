@@ -97,7 +97,7 @@ static void redraw(void) {
 			draw_centered_label(100+102,12, "of the operating system, as well as give you a feel");
 			draw_centered_label(100+116,12, "for the UI and design principles.");
 			draw_centered_label(100+180,12, "When you're ready to continue, press \"Next\".");
-			draw_centered_label(120+200,12, "https://github.com/klange/toaruos - http://toaruos.org");
+			draw_centered_label(120+200,12, "https://github.com/PoisonNinja/ToyOS");
 			draw_centered_label(120+220,12, "ToyOS is free software, released under the terms");
 			draw_centered_label(120+234,12, "of the NCSA/University of Illinois license.");
 			draw_next_button(0);
