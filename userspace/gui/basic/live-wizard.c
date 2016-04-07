@@ -75,7 +75,7 @@ static void draw_centered_label(int y, int size, char * label) {
 	draw_string(ctx_wizard, x, y, rgb(0,0,0), label);
 }
 
-static char * LOGO = "/usr/share/ussr_star.png";
+static char * LOGO = "/usr/share/logo_login.png";
 static void draw_logo(void) {
 	sprite_t logo;
 	load_sprite_png(&logo, LOGO);
