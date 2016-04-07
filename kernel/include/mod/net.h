@@ -16,31 +16,10 @@ struct netif {
 	uint32_t source;
 };
 
-struct dns_header {
-	unsigned short id; // identification number
-
-    unsigned char recursion;
-    unsigned char truncated;
-    unsigned char authoritive;
-    unsigned char opcode;
-    unsigned char query_response;
-
-    unsigned char response_code;
-    unsigned char checking;
-    unsigned char authenticated;
-    unsigned char z;
-    unsigned char recursion_available;
-
-    unsigned short qestion_count; // number of question entries
-    unsigned short answer_count; // number of answer entries
-    unsigned short authority_count; // number of authority entries
-    unsigned short add_count; // number of resource entries
-};
-
 extern void init_netif_funcs(get_mac_func mac_func, get_packet_func get_func, send_packet_func send_func);
 extern void net_handler(void * data, char * name);
 extern size_t write_dhcp_packet(uint8_t * buffer);
-extern void lookup_host(char * address);
+extern size_t lookup_host(char * address);
 
 extern struct socket* net_open(uint32_t type);
 extern int net_send(struct socket* socket, uint8_t* payload, size_t payload_size, int flags);

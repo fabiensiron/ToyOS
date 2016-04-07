@@ -311,7 +311,7 @@ static fs_node_t * finddir_netfs(fs_node_t * node, char * name) {
 			ip = ip_aton(hashmap_get(dns_cache, name));
 			debug_print(WARNING, "   In Cache: %s → %x", name, ip);
 		} else {
-			lookup_host(name);
+			ip = lookup_host(name);
 			debug_print(WARNING, "   Still needs look up.");
 			return NULL;
 		}
@@ -332,8 +332,75 @@ static fs_node_t * finddir_netfs(fs_node_t * node, char * name) {
 	return fnode;
 }
 
-void lookup_host(char * address) {
-	// TODO
+size_t lookup_host(char * address) {
+	uint8_t * buffer[2048];
+	size_t offset = 0;
+	size_t payload_size = sizeof(struct dns_packet) + strlen(address);
+	struct ethernet_packet eth_out = {
+		.source = { mac[0], mac[1], mac[2], mac[3], mac[4], mac[5] },
+		.destination = BROADCAST_MAC,
+		.type = htons(0x0800),
+	};
+
+	memcpy(&buffer[offset], &eth_out, sizeof(struct ethernet_packet));
+	offset += sizeof(struct ethernet_packet);
+
+	/* Prepare the IPv4 header */
+	uint16_t _length = htons(sizeof(struct ipv4_packet) + sizeof(struct udp_packet) + payload_size);
+	uint16_t _ident  = htons(1);
+
+	struct ipv4_packet ipv4_out = {
+		.version_ihl = ((0x4 << 4) | (0x5 << 0)), /* 4 = ipv4, 5 = no options */
+		.dscp_ecn = 0, /* not setting either of those */
+		.length = _length,
+		.ident = _ident,
+		.flags_fragment = 0,
+		.ttl = 0x40,
+		.protocol = IPV4_PROT_UDP,
+		.checksum = 0, /* fill this in later */
+		.source = htonl(ip_aton("10.0.2.15")),
+		.destination = htonl(ip_aton("8.8.8.8")),
+	};
+
+	uint16_t checksum = calculate_ipv4_checksum(&ipv4_out);
+	ipv4_out.checksum = htons(checksum);
+
+	memcpy(&buffer[offset], &ipv4_out, sizeof(struct ipv4_packet));
+	offset += sizeof(struct ipv4_packet);
+
+	uint16_t _udp_source = htons(50053); /* Use an ephemeral port */
+	uint16_t _udp_destination = htons(53);
+	uint16_t _udp_length = htons(sizeof(struct udp_packet) + payload_size);
+
+	/* Now let's build a UDP packet */
+	struct udp_packet udp_out = {
+		.source_port = _udp_source,
+		.destination_port = _udp_destination,
+		.length = _udp_length,
+		.checksum = 0,
+	};
+
+	/* XXX calculate checksum here */
+
+	memcpy(&buffer[offset], &udp_out, sizeof(struct udp_packet));
+	offset += sizeof(struct udp_packet);
+
+	/* DNS header */
+	struct dns_packet dns_out = {
+		.qid = htons(0),
+		.flags = htons(0x0100), /* Standard query */
+		.questions = htons(1), /* 1 question */
+		.answers = htons(0),
+		.authorities = htons(0),
+		.additional = htons(0),
+	};
+
+	memcpy(&buffer[offset], &dns_out, sizeof(struct dns_packet));
+	offset += sizeof(struct dns_packet);
+
+	memcpy(&buffer[offset], address, strlen(address));
+	offset += strlen(address);
+	return offset;
 }
 
 static size_t write_dns_packet(uint8_t * buffer, size_t queries_len, uint8_t * queries) {
