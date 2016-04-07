@@ -311,6 +311,7 @@ static fs_node_t * finddir_netfs(fs_node_t * node, char * name) {
 			ip = ip_aton(hashmap_get(dns_cache, name));
 			debug_print(WARNING, "   In Cache: %s → %x", name, ip);
 		} else {
+			lookup_host(name);
 			debug_print(WARNING, "   Still needs look up.");
 			return NULL;
 		}
@@ -329,6 +330,10 @@ static fs_node_t * finddir_netfs(fs_node_t * node, char * name) {
 	net_connect((struct socket *)fnode->device, ip, port);
 
 	return fnode;
+}
+
+void lookup_host(char * address) {
+	// TODO
 }
 
 static size_t write_dns_packet(uint8_t * buffer, size_t queries_len, uint8_t * queries) {
