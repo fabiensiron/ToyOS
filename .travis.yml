@@ -24,7 +24,7 @@ cache:
   - directories:
     - toolchain/local
     - hdd/usr/bin
-    - hdd/usr/i686-pc-toaru
+    - hdd/usr/i686-pc-toyos
     - hdd/usr/include
     - hdd/usr/lib
     - hdd/usr/libexec
