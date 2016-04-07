@@ -1,6 +1,3 @@
-![Screenshot](http://i.imgur.com/oeGNxX7.png)
-![More Screenshots](http://i.imgur.com/mogzwiO.png)
-
 # ToyOS [![Build Status](https://travis-ci.org/PoisonNinja/ToyOS.svg?branch=master)](https://travis-ci.org/PoisonNinja/ToyOS)
 
 ToyOS is a fork of とあるOS (ToaruOS).
