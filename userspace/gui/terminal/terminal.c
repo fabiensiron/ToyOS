@@ -1269,7 +1269,7 @@ void * blink_cursor(void * garbage) {
 			flip_cursor();
 			spin_unlock(&display_lock);
 		}
-		usleep(90000);
+		usleep(190000);
 	}
 	pthread_exit(0);
 }
