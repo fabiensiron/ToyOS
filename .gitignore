@@ -35,7 +35,7 @@ hdd/home/root/*
 hdd/lib
 hdd/opt
 hdd/usr/bin
-hdd/usr/i686-pc-toaru
+hdd/usr/i686-pc-toyos
 hdd/usr/include
 hdd/usr/lib
 hdd/usr/libexec
@@ -66,8 +66,8 @@ toolchain/build
 toolchain/local
 toolchain/tarballs
 util/bin/*
-util/toaru-toolchain
-util/toaru-toolchain/*
+util/toyos-toolchain
+util/toyos-toolchain/*
 _hdd
 qemu-vlan0.pcap
 contrib

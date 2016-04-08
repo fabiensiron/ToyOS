@@ -1,4 +1,4 @@
-toaru|toaru terminal,
+toyos|toyos terminal,
 	mc5i,
 	xenl,
 	km,
@@ -83,7 +83,6 @@ toaru|toaru terminal,
 	kLFT6=\E[6D,
 	kLFT7=\E[7D,
 
-toaru-vga|toaru vga terminal,
-	use=toaru,
+toyos-vga|toyos vga terminal,
+	use=toyos,
 	colors#8,
-

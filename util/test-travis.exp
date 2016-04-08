@@ -6,7 +6,7 @@ set send_slow { 1 0.001 }
 
 sleep 0.1
 
-expect "toaru-"
+expect "toyos-"
 
 sleep 1
 

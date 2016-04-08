@@ -4,7 +4,7 @@ spawn qemu-system-i386 -kernel toyos-kernel -m 512 -serial stdio -hda toyos-disk
 
 set send_slow { 1 0.001 }
 
-expect "toaru-"
+expect "toyos-"
 
 sleep 0.1
 
