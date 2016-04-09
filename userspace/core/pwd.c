@@ -35,11 +35,10 @@ main(int argc, char *argv[])
 	while((c = getopt(argc, argv, "LP")) != -1) {
 		switch(c) {
 		case 'L':
-			/* XXX: add logical pwd handling */
-			lFlag = 1;
+			lFlag = 0;
 			break;
 		case 'P':
-			lFlag = 0;
+			lFlag = 1;
 			break;
 		default:
 			usage();
@@ -54,6 +53,11 @@ main(int argc, char *argv[])
 	r = getcwd(p, 1024);
 	lstat(p, &file);
 
+
+	if (r == NULL) {
+		exit(1);
+	}
+
 	if (lFlag && S_ISLNK(file.st_mode)) {
 		z = readlink(p, a, sizeof(a) - 1);
 		if (z != -1) {
@@ -63,9 +67,6 @@ main(int argc, char *argv[])
 	} else {
 		puts(p);
 	}
-
-	if (r == NULL)
-		exit(1);
 
 	fflush(stdout);
 
