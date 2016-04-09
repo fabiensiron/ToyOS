@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+#include <sys/stat.h>
 
 char *__progname;
 
@@ -24,8 +25,9 @@ usage(void)
 int
 main(int argc, char *argv[])
 {
-	char p[1024], *r;
-	int c, lFlag = 0;
+	char p[1024], a[1024], *r;
+	int c, z, lFlag = 0;
+	struct stat file;
 
 	__progname = argv[0];
 
@@ -49,13 +51,21 @@ main(int argc, char *argv[])
 	if (argc != 0)
 		usage();
 
-
 	r = getcwd(p, 1024);
+	lstat(p, &file);
+
+	if (lFlag && S_ISLNK(file.st_mode)) {
+		z = readlink(p, a, sizeof(a) - 1);
+		if (z != -1) {
+			a[z] = '\0';
+		}
+		puts(a);
+	} else {
+		puts(p);
+	}
 
 	if (r == NULL)
 		exit(1);
-
-	puts(p);
 
 	fflush(stdout);
 
