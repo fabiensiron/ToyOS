@@ -92,6 +92,7 @@ DEFN_SYSCALL5(mount, SYS_MOUNT, char *, char *, char *, unsigned long, void *);
 DEFN_SYSCALL2(symlink, SYS_SYMLINK, char *, char *);
 DEFN_SYSCALL3(readlink, SYS_READLINK, char *, char *, int);
 DEFN_SYSCALL2(lstat, SYS_LSTAT, char *, void *);
+DEFN_SYSCALL1(rmdir, 59, char *);
 
 static int toyos_debug_stubs_enabled(void) {
 	static int checked = 0;
@@ -498,8 +499,7 @@ int chown(const char *path, uid_t owner, gid_t group) {
 }
 
 int rmdir(const char *pathname) {
-	DEBUG_STUB("[user/debug] Unsupported operation [rmdir]\n");
-	return 0;
+	return syscall_rmdir(pathname);
 }
 
 

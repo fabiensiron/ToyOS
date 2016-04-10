@@ -74,6 +74,7 @@ static void refresh_inode(ext2_fs_t * this, ext2_inodetable_t * inodet,  uint32_
 static int write_inode(ext2_fs_t * this, ext2_inodetable_t *inode, uint32_t index);
 static fs_node_t * finddir_ext2(fs_node_t *node, char *name);
 static unsigned int allocate_block(ext2_fs_t * this);
+static int dirempty(ext2_fs_t *this, ext2_inodetable_t *inode);
 
 /**
  * ext2->get_cache_time Increment and return the current cache time
@@ -1034,6 +1035,121 @@ static fs_node_t * finddir_ext2(fs_node_t *node, char *name) {
 	return outnode;
 }
 
+static int
+dirempty(ext2_fs_t *this, ext2_inodetable_t *inode)
+{
+	if (!this) return -1;
+	assert(inode->mode & EXT2_S_IFDIR);
+	uint8_t *block = malloc(this->block_size);
+	uint8_t block_nr = 0;
+	inode_read_block(this, inode, block_nr, block);
+	uint32_t dir_offset = 0;
+	uint32_t total_offset = 0;
+	while (total_offset < inode->size) {
+		if (dir_offset >= this->block_size) {
+			block_nr++;
+			dir_offset -= this->block_size;
+			inode_read_block(this, inode, block_nr, block);
+		}
+		ext2_dir_t *d_ent =
+			(ext2_dir_t *)((uintptr_t)block + dir_offset);
+
+		if (d_ent->inode == 0)
+		{
+			dir_offset += d_ent->rec_len;
+			total_offset += d_ent->rec_len;
+			continue;
+		}
+		if (!(d_ent->name_len == 1 && d_ent->name[0] == '.') &&
+		    !(d_ent->name_len == 2 &&
+		      d_ent->name[0] == '.' &&
+		      d_ent->name[1] == '.'))
+			goto release;
+
+		dir_offset += d_ent->rec_len;
+		total_offset += d_ent->rec_len;
+	}
+
+	free(block);
+	return 1;
+release:
+	free(block);
+	return 0;
+}
+
+static int rmdir_ext2(fs_node_t * node, char * name) {
+	ext2_fs_t *this = (ext2_fs_t *)node->device;
+
+	if (!name) return -1;
+	ext2_inodetable_t *inode = read_inode(this, node->inode);
+	ext2_inodetable_t *inode_;
+	assert(inode->mode & EXT2_S_IFDIR);
+	uint8_t *block = malloc(this->block_size);
+	ext2_dir_t *direntry = NULL;
+	uint8_t block_nr = 0;
+	inode_read_block(this, inode, block_nr, block);
+	uint32_t dir_offset = 0;
+	uint32_t total_offset = 0;
+
+
+	while (total_offset < inode->size) {
+		if (dir_offset >= this->block_size) {
+			block_nr++;
+			dir_offset -= this->block_size;
+			inode_read_block(this, inode, block_nr, block);
+		}
+		ext2_dir_t *d_ent = (ext2_dir_t *)((uintptr_t)block + dir_offset);
+
+		if (d_ent->inode == 0 || strlen(name) != d_ent->name_len) {
+			dir_offset += d_ent->rec_len;
+			total_offset += d_ent->rec_len;
+
+			continue;
+		}
+
+		char *dname = malloc(sizeof(char) * (d_ent->name_len + 1));
+		memcpy(dname, &(d_ent->name), d_ent->name_len);
+		dname[d_ent->name_len] = '\0';
+		if (!strcmp(dname, name)) {
+			free(dname);
+			direntry = d_ent;
+			break;
+		}
+		free(dname);
+
+		dir_offset += d_ent->rec_len;
+		total_offset += d_ent->rec_len;
+	}
+	if (!direntry)
+		goto error2;
+
+	inode_ = read_inode(this, direntry->inode);
+
+	if (!(inode_->mode & EXT2_S_IFDIR))
+		goto error;
+
+	if (!dirempty(this, inode_))
+		goto error;
+
+	direntry->inode = 0;
+
+	inode_write_block(this, inode, node->inode, block_nr, block);
+
+	free(inode);
+	free(inode_);
+
+	ext2_sync(this);
+
+	return 0;
+
+error:
+	free(inode_);
+error2:
+	free(inode);
+	free(block);
+	return -1;
+}
+
 static void unlink_ext2(fs_node_t * node, char * name) {
 	/* XXX this is a very bad implementation */
 	ext2_fs_t * this = (ext2_fs_t *)node->device;
@@ -1384,7 +1500,7 @@ static uint32_t node_from_file(ext2_fs_t * this, ext2_inodetable_t *inode, ext2_
 		fnode->readdir  = readdir_ext2;
 		fnode->finddir  = finddir_ext2;
 		fnode->unlink   = unlink_ext2;
-		fnode->rmdir    = NULL;
+		fnode->rmdir    = rmdir_ext2;
 		fnode->write    = NULL;
 		fnode->symlink  = symlink_ext2;
 		fnode->readlink = NULL;
@@ -1486,7 +1602,7 @@ static uint32_t ext2_root(ext2_fs_t * this, ext2_inodetable_t *inode, fs_node_t 
 	fnode->create  = create_ext2;
 	fnode->mkdir   = mkdir_ext2;
 	fnode->unlink  = unlink_ext2;
-	fnode->rmdir   = NULL;
+	fnode->rmdir   = rmdir_ext2;
 	return 1;
 }
 
