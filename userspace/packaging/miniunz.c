@@ -64,7 +64,7 @@
 #  define CHDIR(d) chdir(d)
 #endif
 
-#include "unzip.h"
+#include "lib/unzip.h"
 
 #define WRITEBUFFERSIZE (8192)
 #define MAXFILENAME     (256)

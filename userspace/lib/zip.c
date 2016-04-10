@@ -27,7 +27,7 @@
 #include <string.h>
 #include <time.h>
 #include <zlib.h>
-#include "zip.h"
+#include "lib/zip.h"
 
 #include <stddef.h>
 #include <string.h>
