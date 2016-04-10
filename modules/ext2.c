@@ -1384,6 +1384,7 @@ static uint32_t node_from_file(ext2_fs_t * this, ext2_inodetable_t *inode, ext2_
 		fnode->readdir  = readdir_ext2;
 		fnode->finddir  = finddir_ext2;
 		fnode->unlink   = unlink_ext2;
+		fnode->rmdir    = NULL;
 		fnode->write    = NULL;
 		fnode->symlink  = symlink_ext2;
 		fnode->readlink = NULL;
@@ -1485,6 +1486,7 @@ static uint32_t ext2_root(ext2_fs_t * this, ext2_inodetable_t *inode, fs_node_t 
 	fnode->create  = create_ext2;
 	fnode->mkdir   = mkdir_ext2;
 	fnode->unlink  = unlink_ext2;
+	fnode->rmdir   = NULL;
 	return 1;
 }
 

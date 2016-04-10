@@ -45,6 +45,7 @@ typedef struct dirent *(*readdir_type_t) (struct fs_node *, uint32_t);
 typedef struct fs_node *(*finddir_type_t) (struct fs_node *, char *name);
 typedef void (*create_type_t) (struct fs_node *, char *name, uint16_t permission);
 typedef void (*unlink_type_t) (struct fs_node *, char *name);
+typedef int  (*rmdir_type_t) (struct fs_node *, char *name);
 typedef void (*mkdir_type_t) (struct fs_node *, char *name, uint16_t permission);
 typedef int (*ioctl_type_t) (struct fs_node *, int request, void * argp);
 typedef int (*get_size_type_t) (struct fs_node *);
@@ -82,6 +83,8 @@ typedef struct fs_node {
 	get_size_type_t get_size;
 	chmod_type_t chmod;
 	unlink_type_t unlink;
+	rmdir_type_t rmdir;
+
 	symlink_type_t symlink;
 	readlink_type_t readlink;
 
@@ -135,6 +138,7 @@ fs_node_t *clone_fs(fs_node_t * source);
 int ioctl_fs(fs_node_t *node, int request, void * argp);
 int chmod_fs(fs_node_t *node, int mode);
 int unlink_fs(char * name);
+int rmdir_fs(char *name);
 int symlink_fs(char * value, char * name);
 int readlink_fs(fs_node_t * node, char * buf, size_t size);
 

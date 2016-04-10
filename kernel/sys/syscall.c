@@ -572,6 +572,11 @@ static int sys_unlink(char * file) {
 	return unlink_fs(file);
 }
 
+static int sys_rmdir(char *directory) {
+	PTR_VALIDATE(directory);
+	return rmdir_fs(directory);
+}
+
 static int sys_fork(void) {
 	return (int)fork();
 }

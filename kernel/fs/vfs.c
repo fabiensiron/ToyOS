@@ -319,6 +319,43 @@ int unlink_fs(char * name) {
 	return 0;
 }
 
+int rmdir_fs(char *name) {
+	fs_node_t *parent;
+	char *cwd = (char *)(current_process->wd_name);
+	char *path = canonicalize_path(cwd, name);
+
+	char *parent_path = malloc(strlen(path) + 4);
+	sprintf(parent_path, "%s/..", path);
+
+	char * f_path = path + strlen(path) - 1;
+	while (f_path > path) {
+		if (*f_path == '/') {
+			f_path += 1;
+			break;
+		}
+		f_path--;
+	}
+
+	debug_print(WARNING, "rmdir directory %s within %s (hope these strings are good)", f_path, parent_path);
+
+	parent = kopen(parent_path, 0);
+	free(parent_path);
+
+	if (!parent) {
+		free(path);
+		return -1;
+	}
+
+	if (parent->rmdir) {
+		parent->rmdir(parent, f_path);
+	}
+
+	free(path);
+	free(parent);
+
+	return 0;
+}
+
 int mkdir_fs(char *name, uint16_t permission) {
 	fs_node_t * parent;
 	char *cwd = (char *)(current_process->wd_name);
