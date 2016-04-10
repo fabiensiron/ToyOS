@@ -320,6 +320,7 @@ int unlink_fs(char * name) {
 }
 
 int rmdir_fs(char *name) {
+	int r;
 	fs_node_t *parent;
 	char *cwd = (char *)(current_process->wd_name);
 	char *path = canonicalize_path(cwd, name);
@@ -347,13 +348,13 @@ int rmdir_fs(char *name) {
 	}
 
 	if (parent->rmdir) {
-		parent->rmdir(parent, f_path);
+		r = parent->rmdir(parent, f_path);
 	}
 
 	free(path);
 	free(parent);
 
-	return 0;
+	return r;
 }
 
 int mkdir_fs(char *name, uint16_t permission) {
