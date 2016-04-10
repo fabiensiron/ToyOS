@@ -749,6 +749,7 @@ static int (*syscalls[])() = {
 	[SYS_SYMLINK]      = sys_symlink,
 	[SYS_READLINK]     = sys_readlink,
 	[SYS_LSTAT]        = sys_lstat,
+	[SYS_RMDIR]        = sys_rmdir,
 };
 
 uint32_t num_syscalls = sizeof(syscalls) / sizeof(*syscalls);
