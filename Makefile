@@ -243,11 +243,22 @@ hdd/usr/lib/libtoyos.a: ${CORE_LIBS}
 	@cp userspace/lib/*.h hdd/usr/include/toyos/
 	@${END} "AR" "$@"
 
+##############
+#  External  #
+##############
+
+external: packaging
+
+packaging: $(wildcard external/packaging/*)
+	make -C external/packaging
+	make -C external/packaging install
+
+
 ####################
 # Hard Disk Images #
 ####################
 
-toyos-disk.img: ${USERSPACE} util/devtable
+toyos-disk.img: external ${USERSPACE} util/devtable
 	@${BEG} "hdd" "Generating a Hard Disk image..."
 	@-rm -f toyos-disk.img
 	@${GENEXT} -B 4096 -d hdd -D util/devtable -U -b ${DISK_SIZE} -N 4096 toyos-disk.img ${ERRORS}
