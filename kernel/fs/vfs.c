@@ -320,7 +320,7 @@ int unlink_fs(char * name) {
 }
 
 int rmdir_fs(char *name) {
-	int r;
+	int r = 0;
 	fs_node_t *parent;
 	char *cwd = (char *)(current_process->wd_name);
 	char *path = canonicalize_path(cwd, name);
