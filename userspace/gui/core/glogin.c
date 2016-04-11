@@ -59,7 +59,7 @@ static int BOX_COLOR_R=0;
 static int BOX_COLOR_G=0;
 static int BOX_COLOR_B=0;
 static int BOX_COLOR_A=127;
-static char * WALLPAPER = "/usr/share/wallpapers/paris.png";
+static char * WALLPAPER = "/usr/share/wallpapers/newyork.png";
 static char * LOGO = "/usr/share/toy_login.png";
 
 #define TEXTBOX_INTERIOR_LEFT 4
