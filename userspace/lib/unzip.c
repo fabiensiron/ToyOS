@@ -1278,13 +1278,13 @@ extern int ZEXPORT unzOpenCurrentFile3(unzFile file, int* method, int* level, in
         {
             int i;
             s->pcrc_32_tab = (const unsigned int*)get_crc_table();
-            init_keys(password, s->keys, s->pcrc_32_tab);
+            init_keys(password, (long unsigned int *)s->keys, s->pcrc_32_tab);
 
             if (ZREAD64(s->z_filefunc, s->filestream, source, 12) < 12)
                 return UNZ_INTERNALERROR;
 
             for (i = 0; i < 12; i++)
-                zdecode(s->keys, s->pcrc_32_tab, source[i]);
+                zdecode((long unsigned int *)s->keys, s->pcrc_32_tab, source[i]);
 
             s->pfile_in_zip_read->rest_read_compressed -= 12;
 
@@ -1410,7 +1410,7 @@ extern int ZEXPORT unzReadCurrentFile(unzFile file, voidp buf, unsigned len)
                     uInt i;
                     for(i = 0; i < total_bytes_read; i++)
                       s->pfile_in_zip_read->read_buffer[i] =
-                          zdecode(s->keys, s->pcrc_32_tab, s->pfile_in_zip_read->read_buffer[i]);
+                          zdecode((long unsigned int *)s->keys, s->pcrc_32_tab, s->pfile_in_zip_read->read_buffer[i]);
                 }
             }
 #endif
