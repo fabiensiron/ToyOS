@@ -14,7 +14,7 @@
 #include "lib/graphics.h"
 
 #include "gui/terminal/lib/termemu.h"
-#include "toaru_logo.h"
+#include "toyos_logo.h"
 
 #define NUM_DATA_LINES 30
 
