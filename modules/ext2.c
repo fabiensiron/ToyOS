@@ -1015,7 +1015,6 @@ static fs_node_t * finddir_ext2(fs_node_t *node, char *name) {
 		dir_offset += d_ent->rec_len;
 		total_offset += d_ent->rec_len;
 	}
-	free(inode);
 	if (!direntry) {
 		free(block);
 		return NULL;
@@ -1191,7 +1190,6 @@ static void unlink_ext2(fs_node_t * node, char * name) {
 		dir_offset += d_ent->rec_len;
 		total_offset += d_ent->rec_len;
 	}
-	free(inode);
 	if (!direntry) {
 		free(block);
 		return;
