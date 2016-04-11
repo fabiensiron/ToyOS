@@ -658,7 +658,7 @@ void * blink_cursor(void * garbage) {
 			timer_tick = 0;
 			flip_cursor();
 		}
-		usleep(90000);
+		usleep(190000);
 	}
 	pthread_exit(0);
 }
