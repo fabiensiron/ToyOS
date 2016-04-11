@@ -110,18 +110,25 @@ static void redraw(void) {
 			break;
 		case 2:
 			draw_logo();
+			draw_centered_label(100+70, 12,"In the top left corner, you have a application menu. Click on it!");
+			draw_centered_label(100+84, 12,"On the right corner, we have the logout button, clock, and sound.");
+			draw_centered_label(100+98, 12,"There is a shortcut to the terminal on the desktop.");
+			draw_next_button(0);
+			break;
+		case 3:
+			draw_logo();
 			draw_centered_label(100+70, 12,"As a reminder, ToyOS is a hobby project with few developers.");
 			draw_centered_label(100+84, 12,"As such, do not expect things to work perfectly, or in some cases,");
 			draw_centered_label(100+98, 12,"at all, as the kernel and drivers are very much \"work-in-progress\".");
 			draw_next_button(0);
 			break;
-		case 3:
+		case 4:
 			draw_logo();
 			draw_centered_label(100+70, 12,"This tutorial itself is still a work-in-progress,");
 			draw_centered_label(100+84, 12,"so there's nothing else to see.");
 			draw_next_button(0);
 			break;
-		case 4:
+		case 5:
 			draw_logo();
 			draw_centered_label(100+70,12,"Congratulations!");
 			draw_centered_label(100+88,12,"You've finished the tutorial!");
