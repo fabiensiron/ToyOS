@@ -381,8 +381,15 @@ void tab_complete_func(rline_context_t * context) {
 		// 	printf("arg %d: %s\n", i, argv[i]);
 		// }
 
-		if (matches != 1) {
-			printf("Number of matches: %d\n", numberOfFiles);
+		if (matches <= 0) {
+			return;
+		} else if (matches != 1) {
+			printf("\nNumber of matches: %d\n", matches);
+			for (int i = 0; i < numberOfFiles; i++) {
+				if (files[i][0] != '\0') {
+					printf("%s\n", files[i]);
+				}
+			}
 			context->callbacks->redraw_prompt(context);
 			fprintf(stderr, "\033[s");
 			rline_redraw(context);
