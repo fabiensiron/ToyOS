@@ -370,21 +370,16 @@ void tab_complete_func(rline_context_t * context) {
 		closedir (dir);
 		int matches = 0;
 		for (int i = 0; i < numberOfFiles; i++) {
-			if (strstr(files[i], argv[argc - 1])) {
-				// printf("Match: %s\n", files[i]);
+			if (strncmp(files[i], argv[argc - 1], strlen(argv[argc-1])) == 0) {
 				matches++;
 			} else {
 				files[i][0] = '\0';
 			}
 		}
-		// for (int i = 0; i < argc; i++) {
-		// 	printf("arg %d: %s\n", i, argv[i]);
-		// }
 
 		if (matches <= 0) {
 			return;
 		} else if (matches != 1) {
-			printf("\nNumber of matches: %d\n", matches);
 			for (int i = 0; i < numberOfFiles; i++) {
 				if (files[i][0] != '\0') {
 					printf("%s\n", files[i]);
