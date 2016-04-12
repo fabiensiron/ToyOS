@@ -47,6 +47,7 @@
 #include <process.h>
 #include <shm.h>
 #include <args.h>
+#include <cpuinfo.h>
 #include <module.h>
 
 uintptr_t initial_esp = 0;
@@ -91,6 +92,7 @@ int kmain(struct multiboot *mboot, uint32_t mboot_mag, uintptr_t esp) {
 	debug_print(NOTICE, "Processing Multiboot information.");
 
 	/* Initialize core modules */
+	cpuinfo_dump();     /* Extract cpuinfo */
 	gdt_install();      /* Global descriptor table */
 	idt_install();      /* IDT */
 	isrs_install();     /* Interrupt service requests */
