@@ -350,9 +350,8 @@ void tab_complete_func(rline_context_t * context) {
 		struct dirent *ent;
 		int numberOfFiles = 0;
 		// Loop through once to get the number of files in the directory
-		// This is so we don't have to allocate a constant sized array
+		// This is so we don't have to allocate a hardcoded sized array
 		if ((dir = opendir(".")) != NULL) {
-			/* print all the files and directories within directory */
 			while ((ent = readdir (dir)) != NULL) {
 				numberOfFiles++;
 			}

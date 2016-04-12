@@ -260,11 +260,7 @@ toyos-disk.img: ${USERSPACE} util/devtable
 
 cdrom: toyos.iso
 
-<<<<<<< HEAD
 toyos.iso:
-=======
-toaruos.iso:
->>>>>>> parent of 5686d22... Disable sound in QEMU
 	util/make-cdrom.sh
 
 ##############
