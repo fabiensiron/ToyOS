@@ -346,6 +346,59 @@ void tab_complete_func(rline_context_t * context) {
 			}
 		}
 	} else {
+		DIR *dir;
+		struct dirent *ent;
+		int numberOfFiles = 0;
+		if ((dir = opendir (".")) != NULL) {
+			/* print all the files and directories within directory */
+			while ((ent = readdir (dir)) != NULL) {
+				numberOfFiles++;
+			}
+			closedir (dir);
+		} else {
+			/* could not open directory */
+			perror ("");
+		}
+		char files[numberOfFiles][256];
+		int counter = 0;
+		/* print all the files and directories within directory */
+		dir = opendir (".");
+		while ((ent = readdir (dir)) != NULL) {
+			strcpy(files[counter], ent->d_name);
+			counter++;
+		}
+		closedir (dir);
+		int matches = 0;
+		for (int i = 0; i < numberOfFiles; i++) {
+			if (strstr(files[i], argv[1])) {
+				// printf("Match: %s\n", files[i]);
+				matches++;
+			} else {
+				files[i][0] = '\0';
+			}
+		}
+		if (matches != 1) {
+			printf("Number of matches: %d\n", numberOfFiles);
+			context->callbacks->redraw_prompt(context);
+			fprintf(stderr, "\033[s");
+			rline_redraw(context);
+		} else {
+			for (int i = 0; i < numberOfFiles; i++) {
+				if (files[i][0] != '\0') {
+					for (int j = 0; j < strlen(context->buffer); ++j) {
+						printf("\010 \010");
+					}
+					char final[2048] = "cat ";
+					strcat(final, files[i]);
+					printf("%s", final);
+					fflush(stdout);
+					memcpy(context->buffer, final, strlen(final + 1));
+					context->collected = strlen(context->buffer);
+					context->offset = context->collected;
+				}
+			}
+		}
+		return;
 		/* XXX Should complete to file names here */
 	}
 }
