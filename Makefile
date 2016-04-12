@@ -106,7 +106,7 @@ EMUARGS += -hda toyos-disk.img -k en-us
 EMUARGS += -rtc base=localtime -net nic,model=rtl8139 -net user
 EMUARGS += -net dump -no-kvm-irqchip
 EMUARGS += $(BOOT_MODULES_X)
-EMUKVM   = -enable-kvm
+EMUKVM   = -enable-kvm -cpu host
 
 DISK_ROOT = root=/dev/hda
 VID_QEMU  = vid=qemu,,1280,,720

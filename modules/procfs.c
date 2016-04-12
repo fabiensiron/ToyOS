@@ -10,6 +10,7 @@
 #include <process.h>
 #include <printf.h>
 #include <module.h>
+#include <cpuinfo.h>
 
 #define PROCFS_STANDARD_ENTRIES (sizeof(std_entries) / sizeof(struct procfs_entry))
 #define PROCFS_PROCDIR_ENTRIES  (sizeof(procdir_entries) / sizeof(struct procfs_entry))
@@ -195,7 +196,24 @@ static fs_node_t * procfs_procdir_create(pid_t pid) {
 }
 
 static uint32_t cpuinfo_func(fs_node_t *node, uint32_t offset, uint32_t size, uint8_t *buffer) {
-	return 0;
+	char buf[1024];
+	sprintf(buf, "processor\t: 0\n"
+		"vendor_id\t: %s\n"
+		"cpu_family\t: %d\n"
+		"model\t\t: %d\n"
+		"model name\t: %s\n"
+		"stepping\t: %d\n"
+		"flags\t\t: %s\n",
+		cpu_info.vendor, cpu_info.family_value,
+		cpu_info.model_value, cpu_info.model_name,
+		cpu_info.stepping_value, cpu_info.cap);
+
+	size_t _bsize = strlen(buf);
+	if (offset > _bsize) return 0;
+	if (size > _bsize - offset) size = _bsize - offset;
+
+	memcpy(buffer, buf, size);
+	return size;
 }
 
 static uint32_t meminfo_func(fs_node_t *node, uint32_t offset, uint32_t size, uint8_t *buffer) {
