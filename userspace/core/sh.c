@@ -370,7 +370,7 @@ void tab_complete_func(rline_context_t * context) {
 		closedir (dir);
 		int matches = 0;
 		for (int i = 0; i < numberOfFiles; i++) {
-			if (strstr(files[i], argv[1])) {
+			if (strstr(files[i], argv[argc - 1])) {
 				// printf("Match: %s\n", files[i]);
 				matches++;
 			} else {
@@ -392,7 +392,7 @@ void tab_complete_func(rline_context_t * context) {
 					strcat(final, files[i]);
 					printf("%s", final);
 					fflush(stdout);
-					memcpy(context->buffer, final, strlen(final + 1));
+					memcpy(context->buffer, final, strlen(final));
 					context->collected = strlen(context->buffer);
 					context->offset = context->collected;
 				}
