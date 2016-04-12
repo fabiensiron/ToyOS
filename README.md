@@ -62,10 +62,10 @@ License for the included third-party tools and libraries can be found [here](LIC
 
 ### Wiki ###
 
-For additional screenshots, see [Screenshots](https://github.com/klange/toaruos/wiki/Screenshots).
+For additional screenshots, see [Screenshots](https://github.com/PoisonNinja/ToyOS/wiki/Screenshots).
 
-For instructions on building, see [Testing and Building](https://github.com/klange/toaruos/wiki/Testing-and-Building).
+For instructions on building, see [Testing and Building](https://github.com/PoisonNinja/ToyOS/wiki/Testing-and-Building).
 
 ### IRC ###
 
-For help building the kernel and userspace, join us in `#toaruos` on Freenode (`irc.freenode.net`).
+For help building the kernel and userspace, join us in `#ToyOS` on Freenode (`irc.freenode.net`).
