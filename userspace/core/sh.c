@@ -377,6 +377,10 @@ void tab_complete_func(rline_context_t * context) {
 				files[i][0] = '\0';
 			}
 		}
+		// for (int i = 0; i < argc; i++) {
+		// 	printf("arg %d: %s\n", i, argv[i]);
+		// }
+
 		if (matches != 1) {
 			printf("Number of matches: %d\n", numberOfFiles);
 			context->callbacks->redraw_prompt(context);
@@ -388,13 +392,20 @@ void tab_complete_func(rline_context_t * context) {
 					for (int j = 0; j < strlen(context->buffer); ++j) {
 						printf("\010 \010");
 					}
-					char final[2048] = "cat ";
+					char * final = malloc(sizeof(char) * (2048));
+					strcat(final, argv[0]);
+					for (int z = 1; z < argc - 1; ++z) {
+						strcat(final, " ");
+						strcat(final, argv[z]);
+					}
+					strcat(final, " ");
 					strcat(final, files[i]);
 					printf("%s", final);
 					fflush(stdout);
 					memcpy(context->buffer, final, strlen(final));
 					context->collected = strlen(context->buffer);
 					context->offset = context->collected;
+					free(final);
 				}
 			}
 		}
