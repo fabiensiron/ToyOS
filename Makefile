@@ -103,7 +103,7 @@ EMU = qemu-system-i386
 EMUARGS  = -sdl -kernel toyos-kernel -m 1024
 EMUARGS += -serial stdio -vga std
 EMUARGS += -hda toyos-disk.img -k en-us
-EMUARGS += -rtc base=localtime -net nic,model=rtl8139 -net user
+EMUARGS += -rtc base=localtime -net nic,model=rtl8139 -net user -soundhw pcspk,ac97
 EMUARGS += -net dump -no-kvm-irqchip
 EMUARGS += $(BOOT_MODULES_X)
 EMUKVM   = -enable-kvm -cpu host
@@ -260,7 +260,11 @@ toyos-disk.img: ${USERSPACE} util/devtable
 
 cdrom: toyos.iso
 
+<<<<<<< HEAD
 toyos.iso:
+=======
+toaruos.iso:
+>>>>>>> parent of 5686d22... Disable sound in QEMU
 	util/make-cdrom.sh
 
 ##############
