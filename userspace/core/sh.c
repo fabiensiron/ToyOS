@@ -349,27 +349,40 @@ void tab_complete_func(rline_context_t * context) {
 		DIR *dir;
 		struct dirent *ent;
 		int numberOfFiles = 0;
-		if ((dir = opendir (".")) != NULL) {
+		// Loop through once to get the number of files in the directory
+		// This is so we don't have to allocate a constant sized array
+		if ((dir = opendir(".")) != NULL) {
 			/* print all the files and directories within directory */
 			while ((ent = readdir (dir)) != NULL) {
 				numberOfFiles++;
 			}
-			closedir (dir);
+			closedir(dir);
 		} else {
-			/* could not open directory */
-			perror ("");
+			// Something happened, so just bail
+			return;
 		}
+		// Our 2D array of file names (limited to 256 characters for file names)
+		// TODO: Convert this into a pointer
 		char files[numberOfFiles][256];
-		int counter = 0;
-		/* print all the files and directories within directory */
-		dir = opendir (".");
-		while ((ent = readdir (dir)) != NULL) {
-			strcpy(files[counter], ent->d_name);
-			counter++;
+		// Read all the files into the character array
+		if ((dir = opendir(".")) != NULL) {
+			// Copy the file name into the the character array using a special for loop
+			for (int i = 0; (ent = readdir(dir)) != NULL; i++) {
+				strcpy(files[i], ent->d_name);
+			}
+			closedir(dir);
+		} else {
+			return;
 		}
-		closedir (dir);
 		int matches = 0;
 		for (int i = 0; i < numberOfFiles; i++) {
+			/* The following function compares the number of letters in argv[argc-1],
+			 * which is the current file name argument that we want to complete. It
+			 * only compares it against the same number of letters in the file name.
+			 * This prevents us from matching a file that contains the search term, but
+			 * not necessarily in the correct location. If it matches, we increment the
+			 * match counter and leave the string as it is. Otherwise, we set it to
+			 * a null string so later we know that it's not a match. */
 			if (strncmp(files[i], argv[argc - 1], strlen(argv[argc-1])) == 0) {
 				matches++;
 			} else {
@@ -378,9 +391,14 @@ void tab_complete_func(rline_context_t * context) {
 		}
 
 		if (matches <= 0) {
+			// No matches or negative (invalid!), so we return
 			return;
 		} else if (matches != 1) {
+			// More than one match!
+			// Print a newline to prevent it from combining with the argument
+			printf("\n");
 			for (int i = 0; i < numberOfFiles; i++) {
+				// For each match (non-null string), print it out
 				if (files[i][0] != '\0') {
 					printf("%s\n", files[i]);
 				}
@@ -389,6 +407,7 @@ void tab_complete_func(rline_context_t * context) {
 			fprintf(stderr, "\033[s");
 			rline_redraw(context);
 		} else {
+			// Only one match
 			for (int i = 0; i < numberOfFiles; i++) {
 				if (files[i][0] != '\0') {
 					for (int j = 0; j < strlen(context->buffer); ++j) {
@@ -412,7 +431,6 @@ void tab_complete_func(rline_context_t * context) {
 			}
 		}
 		return;
-		/* XXX Should complete to file names here */
 	}
 }
 
