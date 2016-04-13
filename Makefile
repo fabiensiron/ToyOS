@@ -100,7 +100,7 @@ BOOT_MODULES_X = -initrd "$(subst $(SPACE),$(COMMA),$(foreach mod,$(BOOT_MODULES
 
 # Emulator settings
 EMU = qemu-system-i386
-EMUARGS  = -sdl -kernel toyos-kernel -m 1024
+EMUARGS  = -sdl -kernel toyos-kernel -m 512
 EMUARGS += -serial stdio -vga std
 EMUARGS += -hda toyos-disk.img -k en-us
 EMUARGS += -rtc base=localtime -net nic,model=rtl8139 -net user -soundhw pcspk,ac97
