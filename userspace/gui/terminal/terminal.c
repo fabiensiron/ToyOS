@@ -41,6 +41,7 @@
 #include "lib/decorations.h"
 #include "lib/pthread.h"
 #include "lib/kbd.h"
+#include "lib/trace.h"
 #include "lib/spinlock.h"
 
 #include "terminal-palette.h"
@@ -49,6 +50,8 @@
 #include "gui/terminal/lib/termemu.h"
 
 #define USE_BELL 0
+
+#define TRACE_APP_NAME "terminal"
 
 /* master and slave pty descriptors */
 static int fd_master, fd_slave;
@@ -247,7 +250,7 @@ term_write_char(
 		) {
 
 	uint32_t _fg, _bg;
-
+	TRACE("term_write_char");
 	if (fg < PALETTE_COLORS) {
 		_fg = term_colors[fg];
 		_fg |= 0xFF << 24;
