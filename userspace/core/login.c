@@ -126,6 +126,8 @@ int main(int argc, char ** argv) {
 		child = 0;
 		free(username);
 		free(password);
+		printf("\033[H\033[2J");
+		fflush(stdout);
 	}
 
 	return 0;
