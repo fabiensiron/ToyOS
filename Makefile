@@ -110,8 +110,8 @@ EMUKVM   = -enable-kvm -cpu host
 
 DISK_ROOT = root=/dev/hda
 VID_QEMU  = vid=qemu,,1280,,720
-START_VGA = start=--vga
-START_SINGLE = start=--single
+START_VGA = runlevel=1
+START_SINGLE = runlevel=3
 START_LIVE = start=live-welcome
 WITH_LOGS = logtoserial=1
 

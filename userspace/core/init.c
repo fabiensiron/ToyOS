@@ -119,19 +119,19 @@ int main(int argc, char * argv[]) {
 	/* Hostname */
 	set_hostname();
 	if (argc > 1) {
-		// char * args = NULL;
+		char * args = NULL;
 		// if (argc > 2) {
 		// 	args = argv[2];
 		// }
         for (int i = 1; i < argc; i++) {
-    		if (!strcmp(argv[i],"--single")) {
-    			return start_options((char *[]){"/bin/compositor","--","/bin/terminal","-Fl",NULL});
-    		} else if (!strcmp(argv[i], "--vga")) {
-    			return start_options((char *[]){"/bin/terminal-vga","-l",NULL});
-    		} else {
-    			/* Pass it to the compositor... */
-    			return start_options((char *[]){"/bin/compositor","--",NULL});
-    		}
+            if (!strcmp(argv[i], "3")) {
+                return start_options((char *[]){"/bin/compositor","--","/bin/terminal","-Fl", args, NULL});
+            } else if (!strcmp(argv[i], "1")) {
+                return start_options((char *[]){"/bin/terminal-vga","-l",NULL});
+            } else {
+                /* Pass it to the compositor... */
+                return start_options((char *[]){"/bin/compositor","--", args, NULL});
+            }
         }
 	}
 	return start_options((char *[]){"/bin/compositor",NULL});

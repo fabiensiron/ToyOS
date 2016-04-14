@@ -214,8 +214,8 @@ int kmain(struct multiboot *mboot, uint32_t mboot_mag, uintptr_t esp) {
 		vfs_mount_type("ext2", args_value("root"), "/");
 	}
 
-	if (args_present("start")) {
-		char * c = args_value("start");
+	if (args_present("runlevel")) {
+		char * c = args_value("runlevel");
 		if (!c) {
 			debug_print(WARNING, "Expected an argument to kernel option `start`. Ignoring.");
 		} else {
@@ -244,4 +244,3 @@ int kmain(struct multiboot *mboot, uint32_t mboot_mag, uintptr_t esp) {
 
 	return 0;
 }
-
