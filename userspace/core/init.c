@@ -96,11 +96,6 @@ void set_hostname() {
 }
 
 int start_options(char * args[]) {
-	pid_t initPid = proc_find("init");
-	if (initPid != -1) {
-	   printf("%s\n", "init is already running!");
-	   return 1;
-	}
 	int pid = fork();
 	if (!pid) {
 		int i = execvp(args[0], args);
@@ -114,6 +109,11 @@ int start_options(char * args[]) {
 }
 
 int main(int argc, char * argv[]) {
+	pid_t initPid = proc_find("init");
+	if (initPid != -1) {
+	   printf("%s\n", "init is already running!");
+	   return 1;
+	}
 	/* stdin/out/err */
 	set_console();
 	/* Hostname */
