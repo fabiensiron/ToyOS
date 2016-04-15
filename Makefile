@@ -131,6 +131,13 @@ all: system tags userspace
 system: toyos-disk.img toyos-kernel modules
 userspace: ${USERSPACE}
 modules: ${MODULES}
+help:
+	@echo "run/kvm for full GUI"
+	@echo "vga/vga-kvm for basic VGA terminal"
+	@echo "term/term-kvm for high resolution terminal"
+	@echo "headless/headless-kvm for headless"
+	@echo "live/live-kvm for a live CD boot"
+	@echo "clean-user, clean-core, clean-mods, clean-disk, clean, clean-soft, clean-hard"
 
 # Various different quick options
 run: system
@@ -305,7 +312,7 @@ clean-disk:
 clean: clean-soft clean-core
 	@${INFO} "--" "Finished soft cleaning"
 
-clean-hard: clean clean-user clean-mods
+clean-hard: clean clean-user clean-mods clean-disk
 	@${INFO} "--" "Finished hard cleaning"
 
 
