@@ -8,7 +8,7 @@ cd $DIR
 git clone https://github.com/PoisonNinja/star.git
 cd star
 make CC=i686-pc-toyos-gcc archive
-cp libstar.a $TOYOS_SYSROOT/usr/lib/
+make INSTALL=$TOYOS_SYSROOT install
 cd $PWD
 rm $DIR -rf
 echo "Done"

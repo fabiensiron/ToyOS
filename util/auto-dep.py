@@ -25,7 +25,8 @@ class Classifier(object):
         '<menu.h>':            (None, '-lmenu', ['<ncurses.h>']),
         '<zlib.h>':            (None, '-lz', ['<math.h>']),
         '<png.h>':             (None, '-lpng', ['<zlib.h>']),
-        # Toaru Standard Library
+		'<star/libstar.h>':	   (None, '-lstar', []),
+        # ToyOS Standard Library
         '"lib/toyos_auth.h"':  (None, 'userspace/lib/toyos_auth.o',  ['"lib/sha2.h"']),
         '"lib/kbd.h"':         (None, 'userspace/lib/kbd.o',         []),
         '"lib/list.h"':        (None, 'userspace/lib/list.o',        []),
