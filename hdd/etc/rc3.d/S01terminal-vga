@@ -1,1 +1,1 @@
-/bin/compositor:--:/bin/terminal:-Fl
+/bin/compositor:-- /bin/terminal -Fl:
