@@ -24,7 +24,7 @@ if [[ "$INSTALL_PACKAGES" == "true" ]] ; then
     echo "If you don't want to do this and you're sure you have all of the required system packages, then interrupt the password prompt and run this script again with -q."
 
     if [ -f /etc/debian_version ]; then
-        sudo apt-get install yasm genext2fs build-essential wget libmpfr-dev libmpc-dev libgmp3-dev qemu autoconf automake texinfo pkg-config git ctags
+        sudo apt-get install yasm genext2fs build-essential wget libmpfr-dev libmpc-dev libgmp3-dev qemu autoconf automake texinfo pkg-config git ctags expect
     elif [ -f /etc/fedora-release ]; then
         sudo yum groupinstall 'Development Tools'
         sudo yum groupinstall 'Development Libraries'
@@ -47,7 +47,8 @@ if [[ "$INSTALL_PACKAGES" == "true" ]] ; then
         echo "  - pkg-config"
         echo "  - git"
         echo "  - ctags"
-        echo "(If you are on Arch, install: gcc yasm genext2fs base-devel wget mpfr libmpc gmp qemu autoconf automake texinfo pkg-config git ctags)"
+        echo "  - expect"
+        echo "(If you are on Arch, install: gcc yasm genext2fs base-devel wget mpfr libmpc gmp qemu autoconf automake texinfo pkg-config git ctags expect)"
         echo ""
         echo "... then run this script (toolchain/toolchain-build.sh) again with the -q flag."
         exit 1
