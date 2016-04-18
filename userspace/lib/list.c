@@ -1,1 +1,1 @@
-../../kernel/ds/list.c
+../../kernel/lib/list.c

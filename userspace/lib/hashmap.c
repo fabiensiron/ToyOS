@@ -1,1 +1,1 @@
-../../kernel/ds/hashmap.c
+../../kernel/lib/hashmap.c
