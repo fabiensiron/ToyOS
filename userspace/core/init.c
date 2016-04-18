@@ -20,8 +20,11 @@
 #include <dirent.h>
 #include <sys/wait.h>
 
+#include "lib/trace.h"
+
 #define DEFAULT_HOSTNAME "toyos-test"
 
+#define TRACE_APP_NAME "init"
 
 pid_t proc_find(const char* name)
 {
@@ -108,6 +111,17 @@ int start_options(char * args[]) {
 	}
 }
 
+const char* parseFile(char* line, int num) {
+    const char* tok;
+    for (tok = strtok(line, ":"); tok && *tok; tok = strtok(NULL, ":\n"))
+    {
+        // fprintf(stderr, "%s\n", tok);
+        if (!--num)
+            return tok;
+    }
+    return NULL;
+}
+
 int main(int argc, char * argv[]) {
 	pid_t initPid = proc_find("init");
 	if (initPid != -1) {
@@ -118,6 +132,7 @@ int main(int argc, char * argv[]) {
 	set_console();
 	/* Hostname */
 	set_hostname();
+    int runlevel = 1;
 	if (argc > 1) {
 		char * args = NULL;
 		// if (argc > 2) {
@@ -134,5 +149,24 @@ int main(int argc, char * argv[]) {
             }
         }
 	}
-	return start_options((char *[]){"/bin/compositor",NULL});
+    // No arguments! Read default inittab
+    FILE* inittab = fopen("/etc/inittab", "r");
+    char line[512];
+    while (fgets(line, 512, inittab)) {
+        char* tmp = strdup(line);
+        // fprintf(stderr, "%s\n", (strcmp(parseFile(tmp, 3), "initdefault") == 0) ? "match" : "no match");
+        if (strcmp(parseFile(tmp, 3), "initdefault") == 0) {
+            tmp = strdup(line);
+            runlevel = atoi(parseFile(tmp, 2));
+        }
+        fprintf(stderr, "%d\n", runlevel);
+    }
+    if (runlevel == 5) {
+       return start_options((char *[]){"/bin/compositor",NULL});
+    } else if (runlevel == 3) {
+        return start_options((char *[]){"/bin/compositor","--","/bin/terminal","-Fl", NULL});
+    } else {
+        // Emergency mode
+        return start_options((char *[]){"/bin/terminal-vga","-l",NULL});
+    }
 }
