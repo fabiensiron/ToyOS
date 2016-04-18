@@ -43,7 +43,6 @@ class Classifier(object):
         '"lib/ioapi.h"':       (None, 'userspace/lib/ioapi.o',       ['<zlib.h>']),
         '"lib/zip.h"':         (None, 'userspace/lib/zip.o',         ['"lib/ioapi.h"']),
         '"lib/unzip.h"':       (None, 'userspace/lib/unzip.o',       ['"lib/ioapi.h"']),
-		'"lib/libtar.h"': 	   (None, 'userspace/lib/libtar.o', []),
         # Yutani Libraries
         '"lib/yutani.h"':      (None, 'userspace/lib/yutani.o',      ['"lib/list.h"', '"lib/pex.h"', '"lib/graphics.h"', '"lib/hashmap.h"']),
         '"lib/decorations.h"': (None, 'userspace/lib/decorations.o', ['"lib/shmemfonts.h"', '"lib/graphics.h"', '"lib/yutani.h"']),
