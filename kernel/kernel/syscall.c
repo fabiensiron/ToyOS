@@ -55,6 +55,14 @@ static int __attribute__((noreturn)) sys_exit(int retval) {
 	for (;;) ;
 }
 
+static int sys_flock(int fd, unsigned int cmd) {
+	if (FD_CHECK(fd)) {
+		fs_node_t *node = FD_ENTRY(fd);
+		return do_flock(node, cmd);
+	}
+	return -1;
+}
+
 static int sys_read(int fd, char * ptr, int len) {
 	if (FD_CHECK(fd)) {
 		PTR_VALIDATE(ptr);
@@ -750,6 +758,7 @@ static int (*syscalls[])() = {
 	[SYS_READLINK]     = sys_readlink,
 	[SYS_LSTAT]        = sys_lstat,
 	[SYS_RMDIR]        = sys_rmdir,
+	[SYS_FLOCK]        = sys_flock,
 };
 
 uint32_t num_syscalls = sizeof(syscalls) / sizeof(*syscalls);
