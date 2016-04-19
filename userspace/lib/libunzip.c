@@ -30,7 +30,7 @@
 #endif*/
 
 #include <zlib.h>
-#include "unzip.h"
+#include "libunzip.h"
 
 #ifdef STDC
 #  include <stddef.h>

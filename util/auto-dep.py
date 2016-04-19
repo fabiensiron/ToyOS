@@ -25,7 +25,7 @@ class Classifier(object):
         '<menu.h>':            (None, '-lmenu', ['<ncurses.h>']),
         '<zlib.h>':            (None, '-lz', ['<math.h>']),
         '<png.h>':             (None, '-lpng', ['<zlib.h>']),
-        # Toaru Standard Library
+        # ToyOS Standard Library
         '"lib/toyos_auth.h"':  (None, 'userspace/lib/toyos_auth.o',  ['"lib/sha2.h"']),
         '"lib/kbd.h"':         (None, 'userspace/lib/kbd.o',         []),
         '"lib/list.h"':        (None, 'userspace/lib/list.o',        []),
@@ -41,8 +41,9 @@ class Classifier(object):
         '"lib/confreader.h"':  (None, 'userspace/lib/confreader.o',  ['"lib/hashmap.h"']),
         '"lib/http_parser.h"': (None, 'userspace/lib/http_parser.o', []),
         '"lib/ioapi.h"':       (None, 'userspace/lib/ioapi.o',       ['<zlib.h>']),
-        '"lib/zip.h"':         (None, 'userspace/lib/zip.o',         ['"lib/ioapi.h"']),
-        '"lib/unzip.h"':       (None, 'userspace/lib/unzip.o',       ['"lib/ioapi.h"']),
+        '"lib/libzip.h"':      (None, 'userspace/lib/libzip.o',      ['"lib/ioapi.h"']),
+        '"lib/libunzip.h"':    (None, 'userspace/lib/libunzip.o',    ['"lib/ioapi.h"']),
+        '"lib/libtar.h"':      (None, 'userspace/lib/libtar.o',     []),
         # Yutani Libraries
         '"lib/yutani.h"':      (None, 'userspace/lib/yutani.o',      ['"lib/list.h"', '"lib/pex.h"', '"lib/graphics.h"', '"lib/hashmap.h"']),
         '"lib/decorations.h"': (None, 'userspace/lib/decorations.o', ['"lib/shmemfonts.h"', '"lib/graphics.h"', '"lib/yutani.h"']),
