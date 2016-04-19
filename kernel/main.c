@@ -160,6 +160,7 @@ int kmain(struct multiboot *mboot, uint32_t mboot_mag, uintptr_t esp) {
 	}
 
 	vfs_install();
+	flock_install();
 	tasking_install();  /* Multi-tasking */
 	timer_install();    /* PIC driver */
 	fpu_install();      /* FPU/SSE magic */

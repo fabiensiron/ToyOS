@@ -156,4 +156,7 @@ void map_vfs_directory(char *);
 
 int make_unix_pipe(fs_node_t ** pipes);
 
+int do_flock(fs_node_t *node, unsigned int cmd);
+void flock_install(void);
+
 #endif

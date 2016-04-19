@@ -46,3 +46,4 @@
 #define SYS_READLINK 57
 #define SYS_LSTAT 58
 #define SYS_RMDIR 59
+#define SYS_FLOCK 60
