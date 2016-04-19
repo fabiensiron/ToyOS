@@ -8,7 +8,7 @@
 #include <stdarg.h>
 #include <stdio.h>
 #include <dirent.h>
-#include "libstar.h"
+#include "libtar.h"
 
 extern int errno;
 

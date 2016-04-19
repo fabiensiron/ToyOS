@@ -58,7 +58,7 @@
 # include <sys/stat.h>
 #endif
 
-#include "lib/zip.h"
+#include "lib/libzip.h"
 
 #ifdef _WIN32
         #define USEWIN32IOAPI
