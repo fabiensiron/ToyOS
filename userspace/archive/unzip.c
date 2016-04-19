@@ -1,6 +1,6 @@
-/* miniunz.c
-   Version 1.1, February 14h, 2010
-   sample part of the MiniZip project
+/* unzip.c
+   Version 1.0
+   Port of miniunz for ToyOS
 
    Copyright (C) 1998-2010 Gilles Vollant
      http://www.winimage.com/zLibDll/minizip.html
@@ -9,6 +9,9 @@
    Modifications for Zip64 support
      Copyright (C) 2009-2010 Mathias Svensson
      http://result42.com
+   Modifications for ToyOS support
+     Copyright (C) 2016 Jason Lu
+     http://github.com/PoisonNinja/ToyOS
 
    This program is distributed under the terms of the same license as zlib.
    See the accompanying LICENSE file for the full text of the license.
@@ -200,13 +203,12 @@ void display_zpos64(ZPOS64_T n, int size_char)
 
 void do_banner()
 {
-    printf("MiniUnz 1.01b, demo of zLib + Unz package written by Gilles Vollant\n");
-    printf("more info at http://www.winimage.com/zLibDll/minizip.html\n\n");
+    printf("unzip 1.01b, port of Miniunz for ToyOSt\n");
 }
 
 void do_help()
 {
-    printf("Usage : miniunz [-e] [-x] [-v] [-l] [-o] [-p password] file.zip [file_to_extr.] [-d extractdir]\n\n" \
+    printf("Usage : unzip [-e] [-x] [-v] [-l] [-o] [-p password] file.zip [file_to_extr.] [-d extractdir]\n\n" \
            "  -e  Extract without pathname (junk paths)\n" \
            "  -x  Extract with pathname\n" \
            "  -v  list files\n" \

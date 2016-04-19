@@ -1,7 +1,7 @@
 /*
-   minizip.c
-   Version 1.1, February 14h, 2010
-   sample part of the MiniZip project - ( http://www.winimage.com/zLibDll/minizip.html )
+   zip.c
+   Version 1.0
+   Port of minizip for ToyOS
 
          Copyright (C) 1998-2010 Gilles Vollant (minizip) ( http://www.winimage.com/zLibDll/minizip.html )
 
@@ -10,6 +10,9 @@
 
          Modifications for Zip64 support on both zip and unzip
          Copyright (C) 2009-2010 Mathias Svensson ( http://result42.com )
+
+         Modifications for ToyOS support
+         Copyright (C) 2016 Jason Lu
 */
 
 
@@ -165,13 +168,12 @@ int check_exist_file(filename)
 
 void do_banner()
 {
-    printf("MiniZip 1.1, demo of zLib + MiniZip64 package, written by Gilles Vollant\n");
-    printf("more info on MiniZip at http://www.winimage.com/zLibDll/minizip.html\n\n");
+    printf("zip 1.0, port of minizip for ToyOS\n");
 }
 
 void do_help()
 {
-    printf("Usage : minizip [-o] [-a] [-0 to -9] [-p password] [-j] file.zip [files_to_add]\n\n" \
+    printf("Usage : zip [-o] [-a] [-0 to -9] [-p password] [-j] file.zip [files_to_add]\n\n" \
            "  -o  Overwrite existing file.zip\n" \
            "  -a  Append to existing file.zip\n" \
            "  -0  Store only\n" \
