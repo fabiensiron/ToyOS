@@ -17,7 +17,6 @@ BUILD_CAIRO=true
 BUILD_MESA=true
 BUILD_NCURSES=true
 BUILD_VIM=true
-BUILD_EXTERNAL=true
 
 #BUILD_BINUTILS=false
 #BUILD_GCC=false
@@ -31,7 +30,6 @@ BUILD_EXTERNAL=true
 #BUILD_MESA=false
 #BUILD_NCURSES=false
 #BUILD_VIM=false
-#BUILD_EXTERNAL=false
 
 echo "Building a toolchain with a sysroot of $TOYOS_SYSROOT with host binaries in $PREFIX targeting $TARGET"
 
@@ -215,10 +213,6 @@ pushd build
             make || bail
             make DESTDIR=$TOYOS_SYSROOT install || bail
         popd
-    fi
-
-    if $BUILD_EXTERNAL; then
-        $DIR/external.sh
     fi
 
     pushd $TOYOS_SYSROOT/usr/bin || bail

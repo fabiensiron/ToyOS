@@ -25,7 +25,6 @@ class Classifier(object):
         '<menu.h>':            (None, '-lmenu', ['<ncurses.h>']),
         '<zlib.h>':            (None, '-lz', ['<math.h>']),
         '<png.h>':             (None, '-lpng', ['<zlib.h>']),
-		'<star/libstar.h>':	   (None, '-lstar', []),
         # ToyOS Standard Library
         '"lib/toyos_auth.h"':  (None, 'userspace/lib/toyos_auth.o',  ['"lib/sha2.h"']),
         '"lib/kbd.h"':         (None, 'userspace/lib/kbd.o',         []),
@@ -44,6 +43,7 @@ class Classifier(object):
         '"lib/ioapi.h"':       (None, 'userspace/lib/ioapi.o',       ['<zlib.h>']),
         '"lib/zip.h"':         (None, 'userspace/lib/zip.o',         ['"lib/ioapi.h"']),
         '"lib/unzip.h"':       (None, 'userspace/lib/unzip.o',       ['"lib/ioapi.h"']),
+        '"lib/libstar.h"':     (None, 'userspace/lib/libstar.o',     []),
         # Yutani Libraries
         '"lib/yutani.h"':      (None, 'userspace/lib/yutani.o',      ['"lib/list.h"', '"lib/pex.h"', '"lib/graphics.h"', '"lib/hashmap.h"']),
         '"lib/decorations.h"': (None, 'userspace/lib/decorations.o', ['"lib/shmemfonts.h"', '"lib/graphics.h"', '"lib/yutani.h"']),

@@ -1,4 +1,4 @@
-#include <star/libstar.h>
+#include "lib/libstar.h"
 #include <stdio.h>
 #include <stdlib.h>
 
