@@ -1,4 +1,4 @@
-title-text: "ToaruOS Bootable CD"
+title-text: "ToyOS Bootable CD"
 title-color: "white"
 message-color: "white"
 message-bg-color: "black"
@@ -46,14 +46,14 @@ desktop-color: "#000000"
     width = 100%
     align = center
     color = #fff
-    text = "ToaruOS is free software, released under the NCSA/University of Illinois License"
+    text = "ToyOS is free software, released under the NCSA/University of Illinois License"
 }
 + label {
     top = 80%
     width = 100%
     align = center
     color = #fff
-    text = "http://toaruos.org | https://github.com/klange/toaruos"
+    text = "https://github.com/PoisonNinja/ToyOS"
 }
 
 + boot_menu {
@@ -78,4 +78,3 @@ desktop-color: "#000000"
     text_color = "255, 255, 255"
     text = "@TIMEOUT_NOTIFICATION_LONG@"
 }
-
