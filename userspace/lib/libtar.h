@@ -24,15 +24,17 @@
 /* Structure to be stored in a tarball for each file */
 typedef struct
 {
-	struct stat st;
-	char path[_POSIX_PATH_MAX+1];
+    struct stat st;
+    char path[_POSIX_PATH_MAX+1];
 }
 file_struct;
 
-int tar_flag;
-int tar_cmd;
+int verbose;
+int followSymlink;
 
-int create_tarball(const char *tar_path, int argc, char **argv);
-int extract_tarball(const char *tar_path, int argc, char **argv);
-
+int create(const char *path, char ** files, int number);
+int extract(const char *path);
+int list(const char *path);
+int update(const char *path, char ** files, int number);
+int append(const char *path, char ** files, int number);
 #endif
