@@ -15,8 +15,7 @@
 
 static char *__progname;
 
-int
-rm_path(char *path)
+int rm_path(char *path)
 {
 	char *p;
 
@@ -35,8 +34,7 @@ rm_path(char *path)
 	return (0);
 }
 
-void
-usage(void) {
+void usage(void) {
 	fprintf(stderr, "usage: %s [-p] directory ...\n", __progname);
 	exit(1);
 }
@@ -49,14 +47,15 @@ main(int argc, char *argv[]) {
 	__progname = argv[0];
 
 	pflag = 0;
-	while ((ch = getopt(argc, argv, "p")) != -1)
-		switch(ch) {
-		case 'p':
-			pflag = 1;
-			break;
-		default:
-			usage();
+	while ((ch = getopt(argc, argv, "p")) != -1) {
+	   switch(ch) {
+    		case 'p':
+    			pflag = 1;
+    			break;
+    		default:
+    			usage();
 		}
+    }
 	argc -= optind;
 	argv += optind;
 
