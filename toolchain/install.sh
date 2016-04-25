@@ -79,10 +79,10 @@ pushd build
             rm -r newlib
             mkdir newlib
         fi
-        pushd $DIR/tarballs/newlib-1.19.0
+        pushd $DIR/tarballs/newlib-2.4.0
             find -type f -exec sed 's|--cygnus||g;s|cygnus||g' -i {} + || bail
         popd
-        pushd $DIR/tarballs/newlib-1.19.0/newlib/libc/sys
+        pushd $DIR/tarballs/newlib-2.4.0/newlib/libc/sys
             autoconf || bail
             pushd toyos
                 touch INSTALL NEWS README AUTHORS ChangeLog COPYING || bail
@@ -106,8 +106,8 @@ pushd build
             rm /tmp/__toyos_crti.o
             cp /tmp/__toyos_crtn.o $TARGET/newlib/libc/sys/crtn.o
             rm /tmp/__toyos_crtn.o
-            echo "" > $DIR/tarballs/newlib-1.19.0/newlib/libc/stdlib/malign.c
-            $DIR/tarballs/newlib-1.19.0/configure --target=$TARGET --prefix=$VIRTPREFIX || bail
+            echo "" > $DIR/tarballs/newlib-2.4.0/newlib/libc/stdlib/malign.c
+            $DIR/tarballs/newlib-2.4.0/configure --target=$TARGET --prefix=$VIRTPREFIX || bail
             # Fix the damned tooldir
             sed -s 's/prefix}\/i686-pc-toyos/prefix}/' Makefile > Makefile.tmp
             mv Makefile.tmp Makefile

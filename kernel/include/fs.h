@@ -140,7 +140,7 @@ int chmod_fs(fs_node_t *node, int mode);
 int unlink_fs(char * name);
 int rmdir_fs(char *name);
 int symlink_fs(char * value, char * name);
-int readlink_fs(fs_node_t * node, char * buf, size_t size);
+int readlink_fs(fs_node_t * node, char * buf, uint32_t size);
 
 void vfs_install(void);
 void * vfs_mount(char * path, fs_node_t * local_root);

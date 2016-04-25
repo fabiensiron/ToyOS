@@ -9,7 +9,7 @@ DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 function deleteUnusedGCC () {
     # If you are running from the non-core GCC, run this function delete the stuff we don't care about
-    rm -r $1/boehm-gc $1/gcc/ada $1/gcc/go $1/gcc/java $1/gcc/objc $1/gcc/objcp $1/gcc/testsuite $1/gnattools $1/libada $1/libffi $1/libgo $1/libjava $1/libobjc 
+    rm -r $1/boehm-gc $1/gcc/ada $1/gcc/go $1/gcc/java $1/gcc/objc $1/gcc/objcp $1/gcc/testsuite $1/gnattools $1/libada $1/libffi $1/libgo $1/libjava $1/libobjc
 }
 
 pushd "$DIR" > /dev/null
@@ -25,7 +25,7 @@ pushd "$DIR" > /dev/null
         #grab "mpfr" "http://www.mpfr.org/mpfr-3.0.1" "mpfr-3.0.1.tar.gz"
         #grab "gmp"  "ftp://ftp.gmplib.org/pub/gmp-5.0.1" "gmp-5.0.1.tar.gz"
         grab "binutils" "http://ftp.gnu.org/gnu/binutils" "binutils-2.22.tar.gz" || bail
-        grab "newlib" "http://b.dakko.us/~klange/mirrors" "newlib-1.19.0.tar.gz" || bail
+        grab "newlib" "ftp://sourceware.org/pub/newlib" "newlib-2.4.0.tar.gz" || bail
         grab "freetype" "http://download.savannah.gnu.org/releases/freetype" "freetype-2.4.9.tar.gz" || bail
         grab "zlib" "http://zlib.net" "zlib-1.2.8.tar.gz" || bail
         grab "libpng" "http://b.dakko.us/~klange/mirrors" "libpng-1.5.13.tar.gz" || bail
@@ -35,7 +35,7 @@ pushd "$DIR" > /dev/null
         grab "ncurses" "http://b.dakko.us/~klange/mirrors" "ncurses-5.9.tar.gz" || bail
         grab "vim" "ftp://ftp.vim.org/pub/vim/unix" "vim-7.3.tar.bz2" || bail
         $INFO "wget" "Pulled source packages."
-        rm -rf "binutils-2.22" "freetype-2.4.9" "gcc-4.6.4" "gmp-5.0.1" "libpng-1.5.13" "mpc-0.9" "mpfr-3.0.1" "newlib-1.19.0" "zlib-1.2.7" "pixman-0.28.2" "Mesa-7.5.2" "ncurses-5.9" "vim73"
+        rm -rf "binutils-2.22" "freetype-2.4.9" "gcc-4.6.4" "gmp-5.0.1" "libpng-1.5.13" "mpc-0.9" "mpfr-3.0.1" "newlib-2.4.0" "zlib-1.2.7" "pixman-0.28.2" "Mesa-7.5.2" "ncurses-5.9" "vim73"
         $INFO "tar"  "Decompressing..."
         deco "gcc"  "gcc-core-4.6.4.tar.gz" || bail
         deco "g++"  "gcc-g++-4.6.4.tar.gz" || bail
@@ -43,7 +43,7 @@ pushd "$DIR" > /dev/null
         #deco "mpfr" "mpfr-3.0.1.tar.gz"
         #deco "gmp"  "gmp-5.0.1.tar.gz"
         deco "binutils" "binutils-2.22.tar.gz" || bail
-        deco "newlib" "newlib-1.19.0.tar.gz" || bail
+        deco "newlib" "newlib-2.4.0.tar.gz" || bail
         deco "freetype" "freetype-2.4.9.tar.gz" || bail
         deco "zlib" "zlib-1.2.8.tar.gz" || bail
         deco "libpng" "libpng-1.5.13.tar.gz" || bail
@@ -59,7 +59,7 @@ pushd "$DIR" > /dev/null
         #patc "mpfr" "mpfr-3.0.1"
         #patc "gmp"  "gmp-5.0.1"
         patc "binutils" "binutils-2.22" || bail
-        patc "newlib" "newlib-1.19.0" || bail
+        patc "newlib" "newlib-2.4.0" || bail
         patc "freetype" "freetype-2.4.9" || bail
         patc "libpng" "libpng-1.5.13" || bail
         patc "pixman" "pixman-0.26.2" || bail
@@ -69,7 +69,7 @@ pushd "$DIR" > /dev/null
         patc "vim" "vim73" || bail
         $INFO "patch" "Patched third-party software."
         $INFO "--" "Running additional bits..."
-        installNewlibStuff "newlib-1.19.0" || bail
+        installNewlibStuff "newlib-2.4.0" || bail
     popd > /dev/null
 
     if [ ! -d build ]; then

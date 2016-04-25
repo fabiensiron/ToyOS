@@ -33,6 +33,8 @@ extern void *realloc(void *ptr, size_t size);
 extern void _init();
 extern void _fini();
 
+typedef void (*sighandler_t)(int);
+
 DEFN_SYSCALL1(exit,  0, int);
 DEFN_SYSCALL1(print, 1, const char *);
 DEFN_SYSCALL3(open,  2, const char *, int, int);
@@ -93,7 +95,7 @@ DEFN_SYSCALL2(symlink, SYS_SYMLINK, char *, char *);
 DEFN_SYSCALL3(readlink, SYS_READLINK, char *, char *, int);
 DEFN_SYSCALL2(lstat, SYS_LSTAT, char *, void *);
 DEFN_SYSCALL1(rmdir, 59, char *);
-DEFN_SYSCALL2(flock, 60, int, unsigned int);
+// DEFN_SYSCALL2(flock, 60, int, unsigned int);
 
 static int toyos_debug_stubs_enabled(void) {
 	static int checked = 0;
@@ -502,10 +504,10 @@ int chown(const char *path, uid_t owner, gid_t group) {
 int rmdir(const char *pathname) {
 	return syscall_rmdir(pathname);
 }
-
-int flock(int fd, unsigned int cmd) {
-	return syscall_flock(fd, cmd);
-}
+//
+// int flock(int fd, unsigned int cmd) {
+// 	return syscall_flock(fd, cmd);
+// }
 
 
 char *ttyname(int fd) {
