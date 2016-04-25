@@ -175,6 +175,56 @@ int execv(const char * file, char *const argv[]) {
 	return execve(file,argv,environ);
 }
 
+int execlp(const char * file, char * argv[]) {
+    // int i;
+    // va_list args;
+    // _CONST char *argv[256];
+    //
+    // va_start (args, arg0);
+    // argv[0] = arg0;
+    // i = 1;
+    // do
+    //     argv[i] = va_arg (args, _CONST char *);
+    // while (argv[i++] != NULL);
+    // va_end (args);
+    //
+    // return execvp (path, (char * _CONST *) argv);
+}
+
+int execl(const char * file, char * argv[]) {
+    // int i;
+    // va_list args;
+    // _CONST char *argv[256];
+    //
+    // va_start (args, arg0);
+    // argv[0] = arg0;
+    // i = 1;
+    // do
+    //     argv[i] = va_arg (args, _CONST char *);
+    // while (argv[i++] != NULL);
+    // va_end (args);
+    //
+    // return _execve (path, (char * _CONST  *) argv, *p_environ);
+}
+
+int execle(const char * file, char *argv[]) {
+    // int i;
+    // va_list args;
+    // _CONST char * _CONST *envp;
+    // _CONST char *argv[256];
+    //
+    // va_start (args, arg0);
+    // argv[0] = arg0;
+    // i = 1;
+    // do
+    //   argv[i] = va_arg (args, _CONST char *);
+    // while (argv[i++] != NULL);
+    // envp = va_arg (args, _CONST char * _CONST *);
+    // va_end (args);
+    //
+    // return _execve (path, (char * _CONST *) argv, (char * _CONST *) envp);
+}
+
 /*
  * getpid -- only one process, so just return 1.
  */

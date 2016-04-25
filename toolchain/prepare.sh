@@ -34,6 +34,7 @@ pushd "$DIR" > /dev/null
         grab "mesa" "http://b.dakko.us/~klange/mirrors" "MesaLib-7.5.2.tar.gz" || bail
         grab "ncurses" "http://b.dakko.us/~klange/mirrors" "ncurses-5.9.tar.gz" || bail
         grab "vim" "ftp://ftp.vim.org/pub/vim/unix" "vim-7.3.tar.bz2" || bail
+        grab "nano" "http://ftp.gnu.org/gnu/nano" "nano-2.4.2.tar.gz" || bail
         $INFO "wget" "Pulled source packages."
         rm -rf "binutils-2.22" "freetype-2.4.9" "gcc-4.6.4" "gmp-5.0.1" "libpng-1.5.13" "mpc-0.9" "mpfr-3.0.1" "newlib-2.4.0" "zlib-1.2.7" "pixman-0.28.2" "Mesa-7.5.2" "ncurses-5.9" "vim73"
         $INFO "tar"  "Decompressing..."
@@ -52,6 +53,7 @@ pushd "$DIR" > /dev/null
         deco "mesa" "MesaLib-7.5.2.tar.gz" || bail
         deco "ncurses" "ncurses-5.9.tar.gz" || bail
         deco "vim" "vim-7.3.tar.bz2" || bail
+        deco "nano" "nano-2.4.2.tar.gz" || bail
         $INFO "tar"  "Decompressed source packages."
         $INFO "patch" "Patching..."
         patc "gcc"  "gcc-4.6.4" || bail
@@ -67,6 +69,7 @@ pushd "$DIR" > /dev/null
         patc "mesa" "Mesa-7.5.2" || bail
         patc "ncurses" "ncurses-5.9" || bail
         patc "vim" "vim73" || bail
+        patc "nano" "nano-2.4.2" || bail
         $INFO "patch" "Patched third-party software."
         $INFO "--" "Running additional bits..."
         installNewlibStuff "newlib-2.4.0" || bail

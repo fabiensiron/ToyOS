@@ -42,7 +42,7 @@ MODULES = $(patsubst modules/%.c,hdd/mod/%.ko,$(wildcard modules/*.c))
 HEADERS     = $(shell find kernel/include/ -type f -name '*.h')
 
 # Userspace build flags
-USER_CFLAGS   = -O3 -m32 -Wa,--32 -g -Iuserspace -std=c99 -U__STRICT_ANSI__ -Wl,--allow-multiple-definition
+USER_CFLAGS   = -O3 -m32 -Wa,--32 -g -Iuserspace -std=c99 -U__STRICT_ANSI__
 USER_CXXFLAGS = -O3 -m32 -Wa,--32 -g -Iuserspace
 USER_BINFLAGS =
 

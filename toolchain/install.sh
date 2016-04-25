@@ -17,19 +17,21 @@ BUILD_CAIRO=true
 BUILD_MESA=true
 BUILD_NCURSES=true
 BUILD_VIM=true
+BUILD_NANO=true
 
-#BUILD_BINUTILS=false
-#BUILD_GCC=false
-#BUILD_NEWLIB=false
-#BUILD_LIBSTDCPP=false
-#BUILD_ZLIB=false
-#BUILD_FREETYPE=false
-#BUILD_PNG=false
-#BUILD_PIXMAN=false
-#BUILD_CAIRO=false
-#BUILD_MESA=false
-#BUILD_NCURSES=false
-#BUILD_VIM=false
+# BUILD_BINUTILS=false
+# BUILD_GCC=false
+# BUILD_NEWLIB=false
+# BUILD_LIBSTDCPP=false
+# BUILD_ZLIB=false
+# BUILD_FREETYPE=false
+# BUILD_PNG=false
+# BUILD_PIXMAN=false
+# BUILD_CAIRO=false
+# BUILD_MESA=false
+# BUILD_NCURSES=false
+# BUILD_VIM=false
+# BUILD_NANO=false
 
 echo "Building a toolchain with a sysroot of $TOYOS_SYSROOT with host binaries in $PREFIX targeting $TARGET"
 
@@ -210,6 +212,14 @@ pushd build
         pushd $DIR/tarballs/vim73
             make distclean
             ac_cv_sizeof_int=4 vim_cv_getcwd_broken=no vim_cv_memmove_handles_overlap=yes vim_cv_stat_ignores_slash=no vim_cv_tgetent=zero vim_cv_terminfo=yes vim_cv_toupper_broken=no vim_cv_tty_group=world ./configure --host=$TARGET --target=$TARGET --with-sysroot=$TOYOS_SYSROOT --prefix=$VIRTPREFIX --with-tlib=ncurses --enable-gui=no --disable-gtktest --disable-xim --with-features=normal --disable-gpm --without-x --disable-netbeans --enable-multibyte
+            make || bail
+            make DESTDIR=$TOYOS_SYSROOT install || bail
+        popd
+    fi
+
+    if $BUILD_NANO; then
+        pushd $DIR/tarballs/nano-2.4.2
+            ./configure --prefix=$VIRTPREFIX --host=$TARGET --enable-tiny || bail
             make || bail
             make DESTDIR=$TOYOS_SYSROOT install || bail
         popd

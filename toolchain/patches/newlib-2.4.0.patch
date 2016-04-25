@@ -1,6 +1,6 @@
 diff -rupN old/config.sub new/config.sub
 --- old/config.sub	2016-03-29 16:33:42.000000000 -0500
-+++ new/config.sub	2016-04-25 09:29:02.364829846 -0500
++++ new/config.sub	2016-04-25 13:32:39.432105797 -0500
 @@ -1391,7 +1391,7 @@ case $os in
  	      | -cygwin* | -msys* | -pe* | -psos* | -moss* | -proelf* | -rtems* \
  	      | -mingw32* | -mingw64* | -linux-gnu* | -linux-android* \
@@ -12,7 +12,7 @@ diff -rupN old/config.sub new/config.sub
  	      | -storm-chaos* | -tops10* | -tenex* | -tops20* | -its* \
 diff -rupN old/newlib/configure.host new/newlib/configure.host
 --- old/newlib/configure.host	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/configure.host	2016-04-25 09:29:40.448735639 -0500
++++ new/newlib/configure.host	2016-04-25 13:32:39.432105797 -0500
 @@ -448,6 +448,10 @@ case "${host}" in
    h8500-*-elf*)
  	sys_dir=h8500hms
@@ -36,7 +36,7 @@ diff -rupN old/newlib/configure.host new/newlib/configure.host
  	export cygwin_srcdir
 diff -rupN old/newlib/configure.host.orig new/newlib/configure.host.orig
 --- old/newlib/configure.host.orig	1969-12-31 18:00:00.000000000 -0600
-+++ new/newlib/configure.host.orig	2016-03-29 16:33:42.000000000 -0500
++++ new/newlib/configure.host.orig	2016-04-25 13:32:39.436105776 -0500
 @@ -0,0 +1,892 @@
 +# configure.host
 +
@@ -932,7 +932,7 @@ diff -rupN old/newlib/configure.host.orig new/newlib/configure.host.orig
 +fi
 diff -rupN old/newlib/libc/include/sys/_intsup.h new/newlib/libc/include/sys/_intsup.h
 --- old/newlib/libc/include/sys/_intsup.h	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/include/sys/_intsup.h	2016-04-25 09:29:02.364829846 -0500
++++ new/newlib/libc/include/sys/_intsup.h	2016-04-25 13:32:39.436105776 -0500
 @@ -79,14 +79,15 @@
  #elif (__INTPTR_TYPE__ == 1 || __INTPTR_TYPE__ == 3)
  #define _INTPTR_EQ_SHORT
@@ -953,7 +953,7 @@ diff -rupN old/newlib/libc/include/sys/_intsup.h new/newlib/libc/include/sys/_in
  #if (__INT8_TYPE__ == 0)
 diff -rupN old/newlib/libc/include/sys/stat.h new/newlib/libc/include/sys/stat.h
 --- old/newlib/libc/include/sys/stat.h	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/include/sys/stat.h	2016-04-25 09:29:02.364829846 -0500
++++ new/newlib/libc/include/sys/stat.h	2016-04-25 13:32:39.440105754 -0500
 @@ -152,8 +152,8 @@ int	_EXFUN(mkfifo,( const char *__path,
  int	_EXFUN(stat,( const char *__restrict __path, struct stat *__restrict __sbuf ));
  mode_t	_EXFUN(umask,( mode_t __mask ));
@@ -966,7 +966,7 @@ diff -rupN old/newlib/libc/include/sys/stat.h new/newlib/libc/include/sys/stat.h
  
 diff -rupN old/newlib/libc/include/sys/utime.h new/newlib/libc/include/sys/utime.h
 --- old/newlib/libc/include/sys/utime.h	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/include/sys/utime.h	2016-04-25 09:29:02.368829851 -0500
++++ new/newlib/libc/include/sys/utime.h	2016-04-25 13:32:39.440105754 -0500
 @@ -15,6 +15,8 @@ struct utimbuf
    time_t modtime; 
  };
@@ -978,7 +978,7 @@ diff -rupN old/newlib/libc/include/sys/utime.h new/newlib/libc/include/sys/utime
  #endif
 diff -rupN old/newlib/libc/include/sys/utime.h.orig new/newlib/libc/include/sys/utime.h.orig
 --- old/newlib/libc/include/sys/utime.h.orig	1969-12-31 18:00:00.000000000 -0600
-+++ new/newlib/libc/include/sys/utime.h.orig	2016-03-29 16:33:42.000000000 -0500
++++ new/newlib/libc/include/sys/utime.h.orig	2016-04-25 13:32:39.440105754 -0500
 @@ -0,0 +1,22 @@
 +#ifndef _SYS_UTIME_H
 +#define _SYS_UTIME_H
@@ -1004,11 +1004,62 @@ diff -rupN old/newlib/libc/include/sys/utime.h.orig new/newlib/libc/include/sys/
 +#endif /* _SYS_UTIME_H */
 diff -rupN old/newlib/libc/posix/closedir.c new/newlib/libc/posix/closedir.c
 --- old/newlib/libc/posix/closedir.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/closedir.c	2016-04-25 09:25:43.854478659 -0500
-@@ -52,20 +52,20 @@ int
- _DEFUN(closedir, (dirp),
-        register DIR *dirp)
- {
++++ new/newlib/libc/posix/closedir.c	2016-04-25 14:05:00.370125144 -0500
+@@ -1,71 +1,71 @@
+-#ifndef HAVE_OPENDIR
+-
+-/*
+- * Copyright (c) 1983 Regents of the University of California.
+- * All rights reserved.
+- *
+- * Redistribution and use in source and binary forms, with or without
+- * modification, are permitted provided that the following conditions
+- * are met:
+- * 1. Redistributions of source code must retain the above copyright
+- *    notice, this list of conditions and the following disclaimer.
+- * 2. Redistributions in binary form must reproduce the above copyright
+- *    notice, this list of conditions and the following disclaimer in the
+- *    documentation and/or other materials provided with the distribution.
+- * 3. All advertising materials mentioning features or use of this software
+- *    must display the following acknowledgement:
+- *	This product includes software developed by the University of
+- *	California, Berkeley and its contributors.
+- * 4. Neither the name of the University nor the names of its contributors
+- *    may be used to endorse or promote products derived from this software
+- *    without specific prior written permission.
+- *
+- * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+- * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+- * SUCH DAMAGE.
+- */
+-
+-#if defined(LIBC_SCCS) && !defined(lint)
+-static char sccsid[] = "@(#)closedir.c	5.9 (Berkeley) 2/23/91";
+-#endif /* LIBC_SCCS and not lint */
+-
+-#include <sys/types.h>
+-#include <dirent.h>
+-#include <stdlib.h>
+-#include <unistd.h>
+-#include <sys/lock.h>
+-
+-extern void _cleanupdir (DIR *dirp);
+-
+-/*
+- * close a directory.
+- */
+-int
+-_DEFUN(closedir, (dirp),
+-       register DIR *dirp)
+-{
 -	int rc;
 -
 -#ifdef HAVE_DD_LOCK
@@ -1023,6 +1074,63 @@ diff -rupN old/newlib/libc/posix/closedir.c new/newlib/libc/posix/closedir.c
 -#endif
 -	free((void *)dirp);
 -	return rc;
+-}
+-
+-#endif /* ! HAVE_OPENDIR */
++// #ifndef HAVE_OPENDIR
++//
++// /*
++//  * Copyright (c) 1983 Regents of the University of California.
++//  * All rights reserved.
++//  *
++//  * Redistribution and use in source and binary forms, with or without
++//  * modification, are permitted provided that the following conditions
++//  * are met:
++//  * 1. Redistributions of source code must retain the above copyright
++//  *    notice, this list of conditions and the following disclaimer.
++//  * 2. Redistributions in binary form must reproduce the above copyright
++//  *    notice, this list of conditions and the following disclaimer in the
++//  *    documentation and/or other materials provided with the distribution.
++//  * 3. All advertising materials mentioning features or use of this software
++//  *    must display the following acknowledgement:
++//  *	This product includes software developed by the University of
++//  *	California, Berkeley and its contributors.
++//  * 4. Neither the name of the University nor the names of its contributors
++//  *    may be used to endorse or promote products derived from this software
++//  *    without specific prior written permission.
++//  *
++//  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
++//  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
++//  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
++//  * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
++//  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
++//  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
++//  * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
++//  * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
++//  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
++//  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
++//  * SUCH DAMAGE.
++//  */
++//
++// #if defined(LIBC_SCCS) && !defined(lint)
++// static char sccsid[] = "@(#)closedir.c	5.9 (Berkeley) 2/23/91";
++// #endif /* LIBC_SCCS and not lint */
++//
++// #include <sys/types.h>
++// #include <dirent.h>
++// #include <stdlib.h>
++// #include <unistd.h>
++// #include <sys/lock.h>
++//
++// extern void _cleanupdir (DIR *dirp);
++//
++// /*
++//  * close a directory.
++//  */
++// int
++// _DEFUN(closedir, (dirp),
++//        register DIR *dirp)
++// {
 +// 	int rc;
 +//
 +// #ifdef HAVE_DD_LOCK
@@ -1037,16 +1145,674 @@ diff -rupN old/newlib/libc/posix/closedir.c new/newlib/libc/posix/closedir.c
 +// #endif
 +// 	free((void *)dirp);
 +	// return rc;
++// }
++//
++// #endif /* ! HAVE_OPENDIR */
+diff -rupN old/newlib/libc/posix/execl.c new/newlib/libc/posix/execl.c
+--- old/newlib/libc/posix/execl.c	2016-03-29 16:33:42.000000000 -0500
++++ new/newlib/libc/posix/execl.c	2016-04-25 14:12:28.145935570 -0500
+@@ -1,52 +1,52 @@
+-#ifndef _NO_EXECVE
+-
+-/* execl.c */
+-
+-/* This and the other exec*.c files in this directory require 
+-   the target to provide the _execve syscall.  */
+-
+-#include <_ansi.h>
+-#include <unistd.h>
+-
+-/* Only deal with a pointer to environ, to work around subtle bugs with shared
+-   libraries and/or small data systems where the user declares his own
+-   'environ'.  */
+-static char ***p_environ = &environ;
+-
+-#ifdef _HAVE_STDC
+-
+-#include <stdarg.h>
+-
+-int
+-_DEFUN(execl, (path, arg0, ...), 
+-      _CONST char *path _AND
+-      _CONST char *arg0 _DOTS)
+-
+-#else
+-
+-#include <varargs.h>
+-
+-int
+-_DEFUN(execl, (path, arg0, va_alist),
+-     _CONST char *path _AND
+-     _CONST char *arg0 _AND
+-     va_dcl)
+-
+-#endif
+-
+-{
+-  int i;
+-  va_list args;
+-  _CONST char *argv[256];
+-
+-  va_start (args, arg0);
+-  argv[0] = arg0;
+-  i = 1;
+-  do
+-      argv[i] = va_arg (args, _CONST char *);
+-  while (argv[i++] != NULL);
+-  va_end (args);
+-
+-  return _execve (path, (char * _CONST  *) argv, *p_environ);
+-}
+-#endif /* !_NO_EXECVE  */
++// #ifndef _NO_EXECVE
++//
++// /* execl.c */
++//
++// /* This and the other exec*.c files in this directory require
++//    the target to provide the _execve syscall.  */
++//
++// #include <_ansi.h>
++// #include <unistd.h>
++//
++// /* Only deal with a pointer to environ, to work around subtle bugs with shared
++//    libraries and/or small data systems where the user declares his own
++//    'environ'.  */
++// static char ***p_environ = &environ;
++//
++// #ifdef _HAVE_STDC
++//
++// #include <stdarg.h>
++//
++// int
++// _DEFUN(execl, (path, arg0, ...),
++//       _CONST char *path _AND
++//       _CONST char *arg0 _DOTS)
++//
++// #else
++//
++// #include <varargs.h>
++//
++// int
++// _DEFUN(execl, (path, arg0, va_alist),
++//      _CONST char *path _AND
++//      _CONST char *arg0 _AND
++//      va_dcl)
++//
++// #endif
++//
++// {
++//   int i;
++//   va_list args;
++//   _CONST char *argv[256];
++//
++//   va_start (args, arg0);
++//   argv[0] = arg0;
++//   i = 1;
++//   do
++//       argv[i] = va_arg (args, _CONST char *);
++//   while (argv[i++] != NULL);
++//   va_end (args);
++//
++//   return _execve (path, (char * _CONST  *) argv, *p_environ);
++// }
++// #endif /* !_NO_EXECVE  */
+diff -rupN old/newlib/libc/posix/execle.c new/newlib/libc/posix/execle.c
+--- old/newlib/libc/posix/execle.c	2016-03-29 16:33:42.000000000 -0500
++++ new/newlib/libc/posix/execle.c	2016-04-25 14:06:54.232624102 -0500
+@@ -2,7 +2,7 @@
+ 
+ /* execle.c */
+ 
+-/* This and the other exec*.c files in this directory require 
++/* This and the other exec*.c files in this directory require
+    the target to provide the _execve syscall.  */
+ 
+ #include <_ansi.h>
+@@ -30,21 +30,21 @@ _DEFUN(execle, (path, arg0, va_alist),
+ #endif
+ 
+ {
+-  int i;
+-  va_list args;
+-  _CONST char * _CONST *envp;
+-  _CONST char *argv[256];
+-
+-  va_start (args, arg0);
+-  argv[0] = arg0;
+-  i = 1;
+-  do
+-    argv[i] = va_arg (args, _CONST char *);
+-  while (argv[i++] != NULL);
+-  envp = va_arg (args, _CONST char * _CONST *);
+-  va_end (args);
+-
+-  return _execve (path, (char * _CONST *) argv, (char * _CONST *) envp);
++  // int i;
++  // va_list args;
++  // _CONST char * _CONST *envp;
++  // _CONST char *argv[256];
++  //
++  // va_start (args, arg0);
++  // argv[0] = arg0;
++  // i = 1;
++  // do
++  //   argv[i] = va_arg (args, _CONST char *);
++  // while (argv[i++] != NULL);
++  // envp = va_arg (args, _CONST char * _CONST *);
++  // va_end (args);
++  //
++  // return _execve (path, (char * _CONST *) argv, (char * _CONST *) envp);
  }
  
- #endif /* ! HAVE_OPENDIR */
+ #endif /* !_NO_EXECVE  */
+diff -rupN old/newlib/libc/posix/execlp.c new/newlib/libc/posix/execlp.c
+--- old/newlib/libc/posix/execlp.c	2016-03-29 16:33:42.000000000 -0500
++++ new/newlib/libc/posix/execlp.c	2016-04-25 14:11:38.260616814 -0500
+@@ -1,48 +1,48 @@
+-#ifndef _NO_EXECVE
+-
+-/* execlp.c */
+-
+-/* This and the other exec*.c files in this directory require 
+-   the target to provide the _execve syscall.  */
+-
+-#include <_ansi.h>
+-#include <unistd.h>
+-
+-#ifdef _HAVE_STDC
+-
+-#include <stdarg.h>
+-
+-int
+-_DEFUN(execlp, (path, arg0, ...),
+-      _CONST char *path _AND
+-      _CONST char *arg0 _DOTS)
+-
+-#else
+-
+-#include <varargs.h>
+-
+-int
+-_DEFUN(execlp, (path, arg0, va_alist),
+-     _CONST char *path _AND
+-     _CONST char *arg0 _AND
+-     va_dcl)
+-
+-#endif
+-
+-{
+-  int i;
+-  va_list args;
+-  _CONST char *argv[256];
+-
+-  va_start (args, arg0);
+-  argv[0] = arg0;
+-  i = 1;
+-  do
+-      argv[i] = va_arg (args, _CONST char *);
+-  while (argv[i++] != NULL);
+-  va_end (args);
+-
+-  return execvp (path, (char * _CONST *) argv);
+-}
+-
+-#endif /* !_NO_EXECVE  */
++// #ifndef _NO_EXECVE
++//
++// /* execlp.c */
++//
++// /* This and the other exec*.c files in this directory require
++//    the target to provide the _execve syscall.  */
++//
++// #include <_ansi.h>
++// #include <unistd.h>
++//
++// #ifdef _HAVE_STDC
++//
++// #include <stdarg.h>
++//
++// int
++// _DEFUN(execlp, (path, arg0, ...),
++//       _CONST char *path _AND
++//       _CONST char *arg0 _DOTS)
++//
++// #else
++//
++// #include <varargs.h>
++//
++// int
++// _DEFUN(execlp, (path, arg0, va_alist),
++//      _CONST char *path _AND
++//      _CONST char *arg0 _AND
++//      va_dcl)
++//
++// #endif
++//
++// {
++//   int i;
++//   va_list args;
++//   _CONST char *argv[256];
++//
++//   va_start (args, arg0);
++//   argv[0] = arg0;
++//   i = 1;
++//   do
++//       argv[i] = va_arg (args, _CONST char *);
++//   while (argv[i++] != NULL);
++//   va_end (args);
++//
++//   return execvp (path, (char * _CONST *) argv);
++// }
++//
++// #endif /* !_NO_EXECVE  */
+diff -rupN old/newlib/libc/posix/execv.c new/newlib/libc/posix/execv.c
+--- old/newlib/libc/posix/execv.c	2016-03-29 16:33:42.000000000 -0500
++++ new/newlib/libc/posix/execv.c	2016-04-25 14:05:00.366124896 -0500
+@@ -1,24 +1,24 @@
+-#ifndef _NO_EXECVE
+-
+-/* execv.c */
+-
+-/* This and the other exec*.c files in this directory require 
+-   the target to provide the _execve syscall.  */
+-
+-#include <_ansi.h>
+-#include <unistd.h>
+-
+-/* Only deal with a pointer to environ, to work around subtle bugs with shared
+-   libraries and/or small data systems where the user declares his own
+-   'environ'.  */
+-static char ***p_environ = &environ;
+-
+-int
+-_DEFUN (execv, (path, argv), 
+-	const char *path _AND
+-	char * const argv[])
+-{
+-  return _execve (path, (char * _CONST *) argv, *p_environ);
+-}
+-
+-#endif /* !_NO_EXECVE  */
++// #ifndef _NO_EXECVE
++//
++// /* execv.c */
++//
++// /* This and the other exec*.c files in this directory require
++//    the target to provide the _execve syscall.  */
++//
++// #include <_ansi.h>
++// #include <unistd.h>
++//
++// /* Only deal with a pointer to environ, to work around subtle bugs with shared
++//    libraries and/or small data systems where the user declares his own
++//    'environ'.  */
++// static char ***p_environ = &environ;
++//
++// int
++// _DEFUN (execv, (path, argv),
++// 	const char *path _AND
++// 	char * const argv[])
++// {
++//   return _execve (path, (char * _CONST *) argv, *p_environ);
++// }
++//
++// #endif /* !_NO_EXECVE  */
+diff -rupN old/newlib/libc/posix/execve.c new/newlib/libc/posix/execve.c
+--- old/newlib/libc/posix/execve.c	2016-03-29 16:33:42.000000000 -0500
++++ new/newlib/libc/posix/execve.c	2016-04-25 14:05:00.382125889 -0500
+@@ -1,21 +1,21 @@
+-#ifndef _NO_EXECVE
+-
+-/* execve.c */
+-
+-/* This and the other exec*.c files in this directory require 
+-   the target to provide the _execve syscall.  */
+-
+-
+-#include <unistd.h>
+-
+-
+-int
+-_DEFUN(execve, (path, argv, envp),
+-      const char *path _AND
+-      char * const argv[] _AND
+-      char * const envp[])
+-{
+-  return _execve (path, argv, envp);
+-}
+-
+-#endif /* !_NO_EXECVE  */
++// #ifndef _NO_EXECVE
++//
++// /* execve.c */
++//
++// /* This and the other exec*.c files in this directory require
++//    the target to provide the _execve syscall.  */
++//
++//
++// #include <unistd.h>
++//
++//
++// int
++// _DEFUN(execve, (path, argv, envp),
++//       const char *path _AND
++//       char * const argv[] _AND
++//       char * const envp[])
++// {
++//   return _execve (path, argv, envp);
++// }
++//
++// #endif /* !_NO_EXECVE  */
+diff -rupN old/newlib/libc/posix/execvp.c new/newlib/libc/posix/execvp.c
+--- old/newlib/libc/posix/execvp.c	2016-03-29 16:33:42.000000000 -0500
++++ new/newlib/libc/posix/execvp.c	2016-04-25 14:05:00.410127625 -0500
+@@ -1,73 +1,73 @@
+-#ifndef _NO_EXECVE
+-
+-/* execvp.c */
+-
+-/* This and the other exec*.c files in this directory require 
+-   the target to provide the _execve syscall.  */
+-
+-#include <_ansi.h>
+-#include <stdlib.h>
+-#include <unistd.h>
+-#include <dirent.h>
+-#include <string.h>
+-#include <errno.h>
+-#include <ctype.h>
+-
+-#define PATH_DELIM ':'
+-
+-/*
+- * Copy string, until c or <nul> is encountered.
+- * NUL-terminate the destination string (s1).
+- */
+-
+-static char *
+-_DEFUN (strccpy, (s1, s2, c),
+-	char *s1 _AND
+-	char *s2 _AND
+-	char c)
+-{
+-  char *dest = s1;
+-
+-  while (*s2 && *s2 != c)
+-    *s1++ = *s2++;
+-  *s1 = 0;
+-
+-  return dest;
+-}
+-
+-int
+-_DEFUN (execvp, (file, argv),
+-	_CONST char *file _AND
+-	char * _CONST argv[])
+-{
+-  char *path = getenv ("PATH");
+-  char buf[MAXNAMLEN];
+-
+-  /* If $PATH doesn't exist, just pass FILE on unchanged.  */
+-  if (!path)
+-    return execv (file, argv);
+-
+-  /* If FILE contains a directory, don't search $PATH.  */
+-  if (strchr (file, '/')
+-      )
+-    return execv (file, argv);
+-
+-  while (*path)
+-    {
+-      strccpy (buf, path, PATH_DELIM);
+-      /* An empty entry means the current directory.  */
+-      if (*buf != 0 && buf[strlen(buf) - 1] != '/')
+-	strcat (buf, "/");
+-      strcat (buf, file);
+-      if (execv (buf, argv) == -1 && errno != ENOENT)
+-	return -1;
+-      while (*path && *path != PATH_DELIM)
+-	path++;
+-      if (*path == PATH_DELIM)
+-	path++;			/* skip over delim */
+-    }
+-
+-  return -1;
+-}
+-
+-#endif /* !_NO_EXECVE  */
++// #ifndef _NO_EXECVE
++//
++// /* execvp.c */
++//
++// /* This and the other exec*.c files in this directory require
++//    the target to provide the _execve syscall.  */
++//
++// #include <_ansi.h>
++// #include <stdlib.h>
++// #include <unistd.h>
++// #include <dirent.h>
++// #include <string.h>
++// #include <errno.h>
++// #include <ctype.h>
++//
++// #define PATH_DELIM ':'
++//
++// /*
++//  * Copy string, until c or <nul> is encountered.
++//  * NUL-terminate the destination string (s1).
++//  */
++//
++// static char *
++// _DEFUN (strccpy, (s1, s2, c),
++// 	char *s1 _AND
++// 	char *s2 _AND
++// 	char c)
++// {
++//   char *dest = s1;
++//
++//   while (*s2 && *s2 != c)
++//     *s1++ = *s2++;
++//   *s1 = 0;
++//
++//   return dest;
++// }
++//
++// int
++// _DEFUN (execvp, (file, argv),
++// 	_CONST char *file _AND
++// 	char * _CONST argv[])
++// {
++//   char *path = getenv ("PATH");
++//   char buf[MAXNAMLEN];
++//
++//   /* If $PATH doesn't exist, just pass FILE on unchanged.  */
++//   if (!path)
++//     return execv (file, argv);
++//
++//   /* If FILE contains a directory, don't search $PATH.  */
++//   if (strchr (file, '/')
++//       )
++//     return execv (file, argv);
++//
++//   while (*path)
++//     {
++//       strccpy (buf, path, PATH_DELIM);
++//       /* An empty entry means the current directory.  */
++//       if (*buf != 0 && buf[strlen(buf) - 1] != '/')
++// 	strcat (buf, "/");
++//       strcat (buf, file);
++//       if (execv (buf, argv) == -1 && errno != ENOENT)
++// 	return -1;
++//       while (*path && *path != PATH_DELIM)
++// 	path++;
++//       if (*path == PATH_DELIM)
++// 	path++;			/* skip over delim */
++//     }
++//
++//   return -1;
++// }
++//
++// #endif /* !_NO_EXECVE  */
+diff -rupN old/newlib/libc/posix/_isatty.c new/newlib/libc/posix/_isatty.c
+--- old/newlib/libc/posix/_isatty.c	2016-03-29 16:33:42.000000000 -0500
++++ new/newlib/libc/posix/_isatty.c	2016-04-25 14:05:00.406127376 -0500
+@@ -1,21 +1,21 @@
+-/* isatty.c */
++// /* isatty.c */
++//
++// /* Dumb implementation so programs will at least run.  */
++//
++// #include <sys/stat.h>
++// #include <errno.h>
+ 
+-/* Dumb implementation so programs will at least run.  */
+-
+-#include <sys/stat.h>
+-#include <errno.h>
+-
+-int
+-_DEFUN(_isatty, (fd), int fd)
+-{
+-  struct stat buf;
+-
+-  if (fstat (fd, &buf) < 0) {
+-    errno = EBADF;
+-    return 0;
+-  }
+-  if (S_ISCHR (buf.st_mode))
+-    return 1;
+-  errno = ENOTTY;
+-  return 0;
+-}
++// int
++// _DEFUN(_isatty, (fd), int fd)
++// {
++//   struct stat buf;
++//
++//   if (fstat (fd, &buf) < 0) {
++//     errno = EBADF;
++//     return 0;
++//   }
++//   if (S_ISCHR (buf.st_mode))
++//     return 1;
++//   errno = ENOTTY;
++//   return 0;
++// }
+diff -rupN old/newlib/libc/posix/isatty.c new/newlib/libc/posix/isatty.c
+--- old/newlib/libc/posix/isatty.c	2016-03-29 16:33:42.000000000 -0500
++++ new/newlib/libc/posix/isatty.c	2016-04-25 14:05:00.410127625 -0500
+@@ -1,10 +1,10 @@
+-/* isatty.c */
+-
+-#include <unistd.h>
+-#include <reent.h>
+-
+-int
+-_DEFUN(isatty, (fd), int fd)
+-{
+-  return _isatty (fd);
+-}
++// /* isatty.c */
++//
++// #include <unistd.h>
++// #include <reent.h>
++//
++// int
++// _DEFUN(isatty, (fd), int fd)
++// {
++//   return _isatty (fd);
++// }
+diff -rupN old/newlib/libc/posix/Makefile.am new/newlib/libc/posix/Makefile.am
+--- old/newlib/libc/posix/Makefile.am	2016-03-29 16:33:42.000000000 -0500
++++ new/newlib/libc/posix/Makefile.am	2016-04-25 14:05:00.406127376 -0500
+@@ -1,6 +1,6 @@
+ ## Process this file with automake to generate Makefile.in
+ 
+-AUTOMAKE_OPTIONS = cygnus
++AUTOMAKE_OPTIONS = 
+ 
+ INCLUDES = $(NEWLIB_CFLAGS) $(CROSS_CFLAGS) $(TARGET_CFLAGS)
+ 
+diff -rupN old/newlib/libc/posix/Makefile.in new/newlib/libc/posix/Makefile.in
+--- old/newlib/libc/posix/Makefile.in	2016-03-29 16:33:42.000000000 -0500
++++ new/newlib/libc/posix/Makefile.in	2016-04-25 14:05:00.378125640 -0500
+@@ -287,7 +287,7 @@ target_alias = @target_alias@
+ top_build_prefix = @top_build_prefix@
+ top_builddir = @top_builddir@
+ top_srcdir = @top_srcdir@
+-AUTOMAKE_OPTIONS = cygnus
++AUTOMAKE_OPTIONS = 
+ INCLUDES = $(NEWLIB_CFLAGS) $(CROSS_CFLAGS) $(TARGET_CFLAGS)
+ GENERAL_SOURCES = \
+ 	closedir.c collate.c collcmp.c creat.c \
+@@ -345,9 +345,9 @@ $(srcdir)/Makefile.in: @MAINTAINER_MODE_
+ 	      exit 1;; \
+ 	  esac; \
+ 	done; \
+-	echo ' cd $(top_srcdir) && $(AUTOMAKE) --cygnus posix/Makefile'; \
++	echo ' cd $(top_srcdir) && $(AUTOMAKE)  posix/Makefile'; \
+ 	$(am__cd) $(top_srcdir) && \
+-	  $(AUTOMAKE) --cygnus posix/Makefile
++	  $(AUTOMAKE)  posix/Makefile
+ .PRECIOUS: Makefile
+ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
+ 	@case '$?' in \
 diff -rupN old/newlib/libc/posix/opendir.c new/newlib/libc/posix/opendir.c
 --- old/newlib/libc/posix/opendir.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/opendir.c	2016-04-25 09:08:53.547396380 -0500
-@@ -50,47 +50,47 @@ DIR *
- _DEFUN(opendir, (name),
- 	const char *name)
- {
++++ new/newlib/libc/posix/opendir.c	2016-04-25 14:05:00.406127376 -0500
+@@ -1,96 +1,96 @@
+-#ifndef HAVE_OPENDIR
+-
+-/*
+- * Copyright (c) 1983 Regents of the University of California.
+- * All rights reserved.
+- *
+- * Redistribution and use in source and binary forms, with or without
+- * modification, are permitted provided that the following conditions
+- * are met:
+- * 1. Redistributions of source code must retain the above copyright
+- *    notice, this list of conditions and the following disclaimer.
+- * 2. Redistributions in binary form must reproduce the above copyright
+- *    notice, this list of conditions and the following disclaimer in the
+- *    documentation and/or other materials provided with the distribution.
+- * 3. All advertising materials mentioning features or use of this software
+- *    must display the following acknowledgement:
+- *	This product includes software developed by the University of
+- *	California, Berkeley and its contributors.
+- * 4. Neither the name of the University nor the names of its contributors
+- *    may be used to endorse or promote products derived from this software
+- *    without specific prior written permission.
+- *
+- * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+- * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+- * SUCH DAMAGE.
+- */
+-
+-#if defined(LIBC_SCCS) && !defined(lint)
+-static char sccsid[] = "@(#)opendir.c	5.11 (Berkeley) 2/23/91";
+-#endif /* LIBC_SCCS and not lint */
+-
+-#include <dirent.h>
+-#include <fcntl.h>
+-#include <stdlib.h>
+-#include <unistd.h>
+-#include <sys/lock.h>
+-
+-/*
+- * open a directory.
+- */
+-DIR *
+-_DEFUN(opendir, (name),
+-	const char *name)
+-{
 -	register DIR *dirp;
 -	register int fd;
 -	int rc = 0;
@@ -1088,6 +1854,61 @@ diff -rupN old/newlib/libc/posix/opendir.c new/newlib/libc/posix/opendir.c
 -#endif
 -
 -	return dirp;
+-}
+-
+-#endif /* ! HAVE_OPENDIR */
++// #ifndef HAVE_OPENDIR
++//
++// /*
++//  * Copyright (c) 1983 Regents of the University of California.
++//  * All rights reserved.
++//  *
++//  * Redistribution and use in source and binary forms, with or without
++//  * modification, are permitted provided that the following conditions
++//  * are met:
++//  * 1. Redistributions of source code must retain the above copyright
++//  *    notice, this list of conditions and the following disclaimer.
++//  * 2. Redistributions in binary form must reproduce the above copyright
++//  *    notice, this list of conditions and the following disclaimer in the
++//  *    documentation and/or other materials provided with the distribution.
++//  * 3. All advertising materials mentioning features or use of this software
++//  *    must display the following acknowledgement:
++//  *	This product includes software developed by the University of
++//  *	California, Berkeley and its contributors.
++//  * 4. Neither the name of the University nor the names of its contributors
++//  *    may be used to endorse or promote products derived from this software
++//  *    without specific prior written permission.
++//  *
++//  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
++//  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
++//  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
++//  * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
++//  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
++//  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
++//  * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
++//  * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
++//  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
++//  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
++//  * SUCH DAMAGE.
++//  */
++//
++// #if defined(LIBC_SCCS) && !defined(lint)
++// static char sccsid[] = "@(#)opendir.c	5.11 (Berkeley) 2/23/91";
++// #endif /* LIBC_SCCS and not lint */
++//
++// #include <dirent.h>
++// #include <fcntl.h>
++// #include <stdlib.h>
++// #include <unistd.h>
++// #include <sys/lock.h>
++//
++// /*
++//  * open a directory.
++//  */
++// DIR *
++// _DEFUN(opendir, (name),
++// 	const char *name)
++// {
 +// 	register DIR *dirp;
 +// 	register int fd;
 +// 	int rc = 0;
@@ -1129,16 +1950,59 @@ diff -rupN old/newlib/libc/posix/opendir.c new/newlib/libc/posix/opendir.c
 +// #endif
 +//
 +// 	return dirp;
- }
- 
- #endif /* ! HAVE_OPENDIR */
++// }
++//
++// #endif /* ! HAVE_OPENDIR */
 diff -rupN old/newlib/libc/posix/readdir.c new/newlib/libc/posix/readdir.c
 --- old/newlib/libc/posix/readdir.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/readdir.c	2016-04-25 09:10:10.905484282 -0500
-@@ -44,49 +44,49 @@ extern int getdents (int fd, void *dp, i
- /*
-  * get next entry in a directory.
-  */
++++ new/newlib/libc/posix/readdir.c	2016-04-25 14:05:00.402127129 -0500
+@@ -1,92 +1,92 @@
+-#ifndef HAVE_OPENDIR
+-
+-/*
+- * Copyright (c) 1983 Regents of the University of California.
+- * All rights reserved.
+- *
+- * Redistribution and use in source and binary forms, with or without
+- * modification, are permitted provided that the following conditions
+- * are met:
+- * 1. Redistributions of source code must retain the above copyright
+- *    notice, this list of conditions and the following disclaimer.
+- * 2. Redistributions in binary form must reproduce the above copyright
+- *    notice, this list of conditions and the following disclaimer in the
+- *    documentation and/or other materials provided with the distribution.
+- * 3. All advertising materials mentioning features or use of this software
+- *    must display the following acknowledgement:
+- *	This product includes software developed by the University of
+- *	California, Berkeley and its contributors.
+- * 4. Neither the name of the University nor the names of its contributors
+- *    may be used to endorse or promote products derived from this software
+- *    without specific prior written permission.
+- *
+- * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+- * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+- * SUCH DAMAGE.
+- */
+-
+-#if defined(LIBC_SCCS) && !defined(lint)
+-static char sccsid[] = "@(#)readdir.c	5.7 (Berkeley) 6/1/90";
+-#endif /* LIBC_SCCS and not lint */
+-
+-#include <dirent.h>
+-
+-extern int getdents (int fd, void *dp, int count);
+-
+-/*
+- * get next entry in a directory.
+- */
 -struct dirent *
 -_DEFUN(readdir, (dirp),
 -       register DIR *dirp)
@@ -1183,6 +2047,54 @@ diff -rupN old/newlib/libc/posix/readdir.c new/newlib/libc/posix/readdir.c
 -    return (dp);
 -  }
 -}
+-
+-#endif /* ! HAVE_OPENDIR */
++// #ifndef HAVE_OPENDIR
++//
++// /*
++//  * Copyright (c) 1983 Regents of the University of California.
++//  * All rights reserved.
++//  *
++//  * Redistribution and use in source and binary forms, with or without
++//  * modification, are permitted provided that the following conditions
++//  * are met:
++//  * 1. Redistributions of source code must retain the above copyright
++//  *    notice, this list of conditions and the following disclaimer.
++//  * 2. Redistributions in binary form must reproduce the above copyright
++//  *    notice, this list of conditions and the following disclaimer in the
++//  *    documentation and/or other materials provided with the distribution.
++//  * 3. All advertising materials mentioning features or use of this software
++//  *    must display the following acknowledgement:
++//  *	This product includes software developed by the University of
++//  *	California, Berkeley and its contributors.
++//  * 4. Neither the name of the University nor the names of its contributors
++//  *    may be used to endorse or promote products derived from this software
++//  *    without specific prior written permission.
++//  *
++//  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
++//  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
++//  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
++//  * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
++//  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
++//  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
++//  * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
++//  * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
++//  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
++//  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
++//  * SUCH DAMAGE.
++//  */
++//
++// #if defined(LIBC_SCCS) && !defined(lint)
++// static char sccsid[] = "@(#)readdir.c	5.7 (Berkeley) 6/1/90";
++// #endif /* LIBC_SCCS and not lint */
++//
++// #include <dirent.h>
++//
++// extern int getdents (int fd, void *dp, int count);
++//
++// /*
++//  * get next entry in a directory.
++//  */
 +// struct dirent *
 +// _DEFUN(readdir, (dirp),
 +//        register DIR *dirp)
@@ -1227,15 +2139,63 @@ diff -rupN old/newlib/libc/posix/readdir.c new/newlib/libc/posix/readdir.c
 +//     return (dp);
 +//   }
 +// }
- 
- #endif /* ! HAVE_OPENDIR */
++//
++// #endif /* ! HAVE_OPENDIR */
 diff -rupN old/newlib/libc/posix/readdir_r.c new/newlib/libc/posix/readdir_r.c
 --- old/newlib/libc/posix/readdir_r.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/readdir_r.c	2016-04-25 09:10:30.395994717 -0500
-@@ -49,57 +49,57 @@ extern int getdents (int fd, void *dp, i
- /*
-  * get next entry in a directory using supplied dirent structure.
-  */
++++ new/newlib/libc/posix/readdir_r.c	2016-04-25 14:05:00.426128616 -0500
+@@ -1,105 +1,105 @@
+-#ifndef HAVE_OPENDIR
+-
+-/*
+- * Copyright (c) 1983 Regents of the University of California.
+- * All rights reserved.
+- *
+- * Redistribution and use in source and binary forms, with or without
+- * modification, are permitted provided that the following conditions
+- * are met:
+- * 1. Redistributions of source code must retain the above copyright
+- *    notice, this list of conditions and the following disclaimer.
+- * 2. Redistributions in binary form must reproduce the above copyright
+- *    notice, this list of conditions and the following disclaimer in the
+- *    documentation and/or other materials provided with the distribution.
+- * 3. All advertising materials mentioning features or use of this software
+- *    must display the following acknowledgement:
+- *	This product includes software developed by the University of
+- *	California, Berkeley and its contributors.
+- * 4. Neither the name of the University nor the names of its contributors
+- *    may be used to endorse or promote products derived from this software
+- *    without specific prior written permission.
+- *
+- * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+- * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+- * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+- * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+- * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+- * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+- * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+- * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+- * SUCH DAMAGE.
+- */
+-
+-/* this code is modified from readdir.c by Jeff Johnston, June 5, 2002 */
+-
+-#if defined(LIBC_SCCS) && !defined(lint)
+-static char sccsid[] = "@(#)readdir.c	5.7 (Berkeley) 6/1/90";
+-#endif /* LIBC_SCCS and not lint */
+-
+-#include <dirent.h>
+-#include <errno.h>
+-#include <string.h>
+-#include <sys/param.h>
+-
+-extern int getdents (int fd, void *dp, int count);
+-
+-/*
+- * get next entry in a directory using supplied dirent structure.
+- */
 -int
 -_DEFUN(readdir_r, (dirp, dp, dpp),
 -	register DIR *__restrict dirp _AND
@@ -1288,6 +2248,59 @@ diff -rupN old/newlib/libc/posix/readdir_r.c new/newlib/libc/posix/readdir_r.c
 -    return 0;
 -  }
 -}
+-
+-#endif /* ! HAVE_OPENDIR */
++// #ifndef HAVE_OPENDIR
++//
++// /*
++//  * Copyright (c) 1983 Regents of the University of California.
++//  * All rights reserved.
++//  *
++//  * Redistribution and use in source and binary forms, with or without
++//  * modification, are permitted provided that the following conditions
++//  * are met:
++//  * 1. Redistributions of source code must retain the above copyright
++//  *    notice, this list of conditions and the following disclaimer.
++//  * 2. Redistributions in binary form must reproduce the above copyright
++//  *    notice, this list of conditions and the following disclaimer in the
++//  *    documentation and/or other materials provided with the distribution.
++//  * 3. All advertising materials mentioning features or use of this software
++//  *    must display the following acknowledgement:
++//  *	This product includes software developed by the University of
++//  *	California, Berkeley and its contributors.
++//  * 4. Neither the name of the University nor the names of its contributors
++//  *    may be used to endorse or promote products derived from this software
++//  *    without specific prior written permission.
++//  *
++//  * THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
++//  * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
++//  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
++//  * ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
++//  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
++//  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
++//  * OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
++//  * HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
++//  * LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
++//  * OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
++//  * SUCH DAMAGE.
++//  */
++//
++// /* this code is modified from readdir.c by Jeff Johnston, June 5, 2002 */
++//
++// #if defined(LIBC_SCCS) && !defined(lint)
++// static char sccsid[] = "@(#)readdir.c	5.7 (Berkeley) 6/1/90";
++// #endif /* LIBC_SCCS and not lint */
++//
++// #include <dirent.h>
++// #include <errno.h>
++// #include <string.h>
++// #include <sys/param.h>
++//
++// extern int getdents (int fd, void *dp, int count);
++//
++// /*
++//  * get next entry in a directory using supplied dirent structure.
++//  */
 +// int
 +// _DEFUN(readdir_r, (dirp, dp, dpp),
 +// 	register DIR *__restrict dirp _AND
@@ -1340,19 +2353,15 @@ diff -rupN old/newlib/libc/posix/readdir_r.c new/newlib/libc/posix/readdir_r.c
 +//     return 0;
 +//   }
 +// }
- 
- #endif /* ! HAVE_OPENDIR */
++//
++// #endif /* ! HAVE_OPENDIR */
 diff -rupN old/newlib/libc/posix/rewinddir.c new/newlib/libc/posix/rewinddir.c
 --- old/newlib/libc/posix/rewinddir.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/rewinddir.c	2016-04-25 09:12:07.864545673 -0500
-@@ -41,17 +41,17 @@ static char sccsid[] = "@(#)rewinddir.c
- #include <dirent.h>
- #include <sys/lock.h>
- 
--void
--_DEFUN(rewinddir, (dirp),
--	DIR *dirp)
--{
++++ new/newlib/libc/posix/rewinddir.c	2016-04-25 14:25:47.680383863 -0500
+@@ -45,13 +45,13 @@ void
+ _DEFUN(rewinddir, (dirp),
+ 	DIR *dirp)
+ {
 -#ifdef HAVE_DD_LOCK
 -	__lock_acquire_recursive(dirp->dd_lock);
 -#endif
@@ -1360,11 +2369,6 @@ diff -rupN old/newlib/libc/posix/rewinddir.c new/newlib/libc/posix/rewinddir.c
 -#ifdef HAVE_DD_LOCK
 -	__lock_release_recursive(dirp->dd_lock);
 -#endif
--}
-+// void
-+// _DEFUN(rewinddir, (dirp),
-+// 	DIR *dirp)
-+// {
 +// #ifdef HAVE_DD_LOCK
 +// 	__lock_acquire_recursive(dirp->dd_lock);
 +// #endif
@@ -1372,23 +2376,16 @@ diff -rupN old/newlib/libc/posix/rewinddir.c new/newlib/libc/posix/rewinddir.c
 +// #ifdef HAVE_DD_LOCK
 +// 	__lock_release_recursive(dirp->dd_lock);
 +// #endif
-+// }
+ }
  
  #endif /* ! HAVE_OPENDIR */
 diff -rupN old/newlib/libc/posix/scandir.c new/newlib/libc/posix/scandir.c
 --- old/newlib/libc/posix/scandir.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/scandir.c	2016-04-25 09:11:53.497643666 -0500
-@@ -67,113 +67,113 @@ static char sccsid[] = "@(#)scandir.c	5.
- #define __P(args) ()
- #endif
- 
--int
--_DEFUN(scandir, (dirname, namelist, select, dcomp),
--	const char *dirname _AND
--	struct dirent ***namelist _AND
--	int (*select) __P((const struct dirent *)) _AND
--	int (*dcomp) __P((const struct dirent **, const struct dirent **)))
--{
++++ new/newlib/libc/posix/scandir.c	2016-04-25 14:30:48.612888574 -0500
+@@ -74,95 +74,95 @@ _DEFUN(scandir, (dirname, namelist, sele
+ 	int (*select) __P((const struct dirent *)) _AND
+ 	int (*dcomp) __P((const struct dirent **, const struct dirent **)))
+ {
 -	register struct dirent *d, *p, **names;
 -	register size_t nitems;
 -	struct stat stb;
@@ -1478,25 +2475,6 @@ diff -rupN old/newlib/libc/posix/scandir.c new/newlib/libc/posix/scandir.c
 -	__lock_release_recursive(dirp->dd_lock);
 -#endif
 -	return(rc);
--}
--
--/*
-- * Alphabetic order comparison routine for those who want it.
-- */
--int
--_DEFUN(alphasort, (d1, d2),
--       const struct dirent **d1 _AND
--       const struct dirent **d2)
--{
--       return(strcmp((*d1)->d_name, (*d2)->d_name));
--}
-+// int
-+// _DEFUN(scandir, (dirname, namelist, select, dcomp),
-+// 	const char *dirname _AND
-+// 	struct dirent ***namelist _AND
-+// 	int (*select) __P((const struct dirent *)) _AND
-+// 	int (*dcomp) __P((const struct dirent **, const struct dirent **)))
-+// {
 +// 	register struct dirent *d, *p, **names;
 +// 	register size_t nitems;
 +// 	struct stat stb;
@@ -1586,32 +2564,16 @@ diff -rupN old/newlib/libc/posix/scandir.c new/newlib/libc/posix/scandir.c
 +// 	__lock_release_recursive(dirp->dd_lock);
 +// #endif
 +// 	return(rc);
-+// }
-+//
-+// /*
-+//  * Alphabetic order comparison routine for those who want it.
-+//  */
-+// int
-+// _DEFUN(alphasort, (d1, d2),
-+//        const struct dirent **d1 _AND
-+//        const struct dirent **d2)
-+// {
-+//        return(strcmp((*d1)->d_name, (*d2)->d_name));
-+// }
+ }
  
- #endif /* ! HAVE_OPENDIR */
+ /*
 diff -rupN old/newlib/libc/posix/seekdir.c new/newlib/libc/posix/seekdir.c
 --- old/newlib/libc/posix/seekdir.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/seekdir.c	2016-04-25 09:12:00.345120347 -0500
-@@ -45,18 +45,18 @@ static char sccsid[] = "@(#)seekdir.c	5.
-  * Seek to an entry in a directory.
-  * _seekdir is in telldir.c so that it can share opaque data structures.
-  */
--void
--_DEFUN(seekdir, (dirp, loc),
--	DIR *dirp _AND
--	long loc)
--{
++++ new/newlib/libc/posix/seekdir.c	2016-04-25 14:41:11.443349548 -0500
+@@ -50,13 +50,13 @@ _DEFUN(seekdir, (dirp, loc),
+ 	DIR *dirp _AND
+ 	long loc)
+ {
 -#ifdef HAVE_DD_LOCK
 -	__lock_acquire_recursive(dirp->dd_lock);
 -#endif
@@ -1619,12 +2581,6 @@ diff -rupN old/newlib/libc/posix/seekdir.c new/newlib/libc/posix/seekdir.c
 -#ifdef HAVE_DD_LOCK
 -	__lock_release_recursive(dirp->dd_lock);
 -#endif
--}
-+// void
-+// _DEFUN(seekdir, (dirp, loc),
-+// 	DIR *dirp _AND
-+// 	long loc)
-+// {
 +// #ifdef HAVE_DD_LOCK
 +// 	__lock_acquire_recursive(dirp->dd_lock);
 +// #endif
@@ -1632,12 +2588,60 @@ diff -rupN old/newlib/libc/posix/seekdir.c new/newlib/libc/posix/seekdir.c
 +// #ifdef HAVE_DD_LOCK
 +// 	__lock_release_recursive(dirp->dd_lock);
 +// #endif
-+// }
+ }
  
  #endif /* ! HAVE_OPENDIR */
+diff -rupN old/newlib/libc/posix/sleep.c new/newlib/libc/posix/sleep.c
+--- old/newlib/libc/posix/sleep.c	2016-03-29 16:33:42.000000000 -0500
++++ new/newlib/libc/posix/sleep.c	2016-04-25 14:05:00.378125640 -0500
+@@ -1,22 +1,22 @@
+-/* libc/posix/sleep.c - sleep function */
+-
+-/* Written 2000 by Werner Almesberger */
+-
+-#ifdef HAVE_NANOSLEEP
+-
+-#include <errno.h>
+-#include <time.h>
+-#include <unistd.h>
+-
+-unsigned sleep(unsigned seconds)
+-{
+-    struct timespec ts;
+-
+-    ts.tv_sec = seconds;
+-    ts.tv_nsec = 0;
+-    if (!nanosleep(&ts,&ts)) return 0;
+-    if (errno == EINTR) return ts.tv_sec;
+-    return -1;
+-}
+-
+-#endif
++// /* libc/posix/sleep.c - sleep function */
++//
++// /* Written 2000 by Werner Almesberger */
++//
++// #ifdef HAVE_NANOSLEEP
++//
++// #include <errno.h>
++// #include <time.h>
++// #include <unistd.h>
++//
++// unsigned sleep(unsigned seconds)
++// {
++//     struct timespec ts;
++//
++//     ts.tv_sec = seconds;
++//     ts.tv_nsec = 0;
++//     if (!nanosleep(&ts,&ts)) return 0;
++//     if (errno == EINTR) return ts.tv_sec;
++//     return -1;
++// }
++//
++// #endif
 diff -rupN old/newlib/libc/posix/telldir.c new/newlib/libc/posix/telldir.c
 --- old/newlib/libc/posix/telldir.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/telldir.c	2016-04-25 09:11:35.834993535 -0500
++++ new/newlib/libc/posix/telldir.c	2016-04-25 14:42:25.235652723 -0500
 @@ -52,7 +52,7 @@ static char sccsid[] = "@(#)telldir.c	5.
  
  /*
@@ -1647,17 +2651,10 @@ diff -rupN old/newlib/libc/posix/telldir.c new/newlib/libc/posix/telldir.c
   * cookie returned by getdirentries and the offset within the buffer
   * associated with that return value.
   */
-@@ -78,130 +78,130 @@ __LOCK_INIT(static, dd_hash_lock);
-  * return a pointer into a directory
-  */
- 
--#if !defined(_ELIX_LEVEL) || (_ELIX_LEVEL >= 2)
-+// #if !defined(_ELIX_LEVEL) || (_ELIX_LEVEL >= 2)
- 
--long
--_DEFUN(telldir, (dirp),
--       DIR *dirp)
--{
+@@ -84,28 +84,28 @@ long
+ _DEFUN(telldir, (dirp),
+        DIR *dirp)
+ {
 -	register int index;
 -	register struct ddloc *lp;
 -
@@ -1680,19 +2677,35 @@ diff -rupN old/newlib/libc/posix/telldir.c new/newlib/libc/posix/telldir.c
 -	__lock_release_recursive(dirp->dd_lock);
 -#endif
 -	return (index);
--}
--
--#endif /* !_ELIX_LEVEL || _ELIX_LEVEL >= 2 */
--
--/*
-- * seek to an entry in a directory.
-- * Only values returned by "telldir" should be passed to seekdir.
-- */
--void
--_DEFUN(_seekdir, (dirp, loc),
--	register DIR *dirp _AND
--	long loc)
--{
++// 	register int index;
++// 	register struct ddloc *lp;
++//
++// 	if ((lp = (struct ddloc *)malloc(sizeof(struct ddloc))) == NULL)
++// 		return (-1);
++//
++// #ifdef HAVE_DD_LOCK
++// 	__lock_acquire_recursive(dirp->dd_lock);
++// 	__lock_acquire(dd_hash_lock);
++// #endif
++// 	index = dd_loccnt++;
++// 	lp->loc_index = index;
++// 	lp->loc_seek = dirp->dd_seek;
++// 	lp->loc_loc = dirp->dd_loc;
++// 	lp->loc_dirp = dirp;
++// 	lp->loc_next = dd_hash[LOCHASH(index)];
++// 	dd_hash[LOCHASH(index)] = lp;
++// #ifdef HAVE_DD_LOCK
++// 	__lock_release(dd_hash_lock);
++// 	__lock_release_recursive(dirp->dd_lock);
++// #endif
++// 	return (index);
+ }
+ 
+ #endif /* !_ELIX_LEVEL || _ELIX_LEVEL >= 2 */
+@@ -119,52 +119,52 @@ _DEFUN(_seekdir, (dirp, loc),
+ 	register DIR *dirp _AND
+ 	long loc)
+ {
 -	register struct ddloc *lp;
 -	register struct ddloc **prevlp;
 -	struct dirent *dp;
@@ -1739,84 +2752,6 @@ diff -rupN old/newlib/libc/posix/telldir.c new/newlib/libc/posix/telldir.c
 -#ifdef HAVE_DD_LOCK
 -	__lock_release(dd_hash_lock);
 -#endif
--}
--
--/* clean out any hash entries from a closed directory */
--void
--_DEFUN(_cleanupdir, (dirp),
--	register DIR *dirp)
--{
--	int i;
--
--#ifdef HAVE_DD_LOCK
--	__lock_acquire(dd_hash_lock);
--#endif
--	for (i = 0; i < NDIRHASH; ++i) {
--		struct ddloc head;
--		register struct ddloc *lp;
--		register struct ddloc *prevlp;
--
--		lp = dd_hash[i];
--		head.loc_next = lp;
--		prevlp = &head;
--		while (lp != NULL) {
--			struct ddloc *nextlp;
--
--			nextlp = lp->loc_next;
--			if (lp->loc_dirp == dirp) {
--				prevlp->loc_next = nextlp;
--				free((caddr_t)lp);
--			}
--			else
--				prevlp = lp;
--			lp = nextlp;
--		}
--		dd_hash[i] = head.loc_next;
--	}
--#ifdef HAVE_DD_LOCK
--	__lock_release(dd_hash_lock);
--#endif
--
--}
-+// long
-+// _DEFUN(telldir, (dirp),
-+//        DIR *dirp)
-+// {
-+// 	register int index;
-+// 	register struct ddloc *lp;
-+//
-+// 	if ((lp = (struct ddloc *)malloc(sizeof(struct ddloc))) == NULL)
-+// 		return (-1);
-+//
-+// #ifdef HAVE_DD_LOCK
-+// 	__lock_acquire_recursive(dirp->dd_lock);
-+// 	__lock_acquire(dd_hash_lock);
-+// #endif
-+// 	index = dd_loccnt++;
-+// 	lp->loc_index = index;
-+// 	lp->loc_seek = dirp->dd_seek;
-+// 	lp->loc_loc = dirp->dd_loc;
-+// 	lp->loc_dirp = dirp;
-+// 	lp->loc_next = dd_hash[LOCHASH(index)];
-+// 	dd_hash[LOCHASH(index)] = lp;
-+// #ifdef HAVE_DD_LOCK
-+// 	__lock_release(dd_hash_lock);
-+// 	__lock_release_recursive(dirp->dd_lock);
-+// #endif
-+// 	return (index);
-+// }
-+//
-+// #endif /* !_ELIX_LEVEL || _ELIX_LEVEL >= 2 */
-+//
-+// /*
-+//  * seek to an entry in a directory.
-+//  * Only values returned by "telldir" should be passed to seekdir.
-+//  */
-+// void
-+// _DEFUN(_seekdir, (dirp, loc),
-+// 	register DIR *dirp _AND
-+// 	long loc)
-+// {
 +// 	register struct ddloc *lp;
 +// 	register struct ddloc **prevlp;
 +// 	struct dirent *dp;
@@ -1863,13 +2798,43 @@ diff -rupN old/newlib/libc/posix/telldir.c new/newlib/libc/posix/telldir.c
 +// #ifdef HAVE_DD_LOCK
 +// 	__lock_release(dd_hash_lock);
 +// #endif
-+// }
-+//
-+// /* clean out any hash entries from a closed directory */
-+// void
-+// _DEFUN(_cleanupdir, (dirp),
-+// 	register DIR *dirp)
-+// {
+ }
+ 
+ /* clean out any hash entries from a closed directory */
+@@ -172,36 +172,36 @@ void
+ _DEFUN(_cleanupdir, (dirp),
+ 	register DIR *dirp)
+ {
+-	int i;
+-
+-#ifdef HAVE_DD_LOCK
+-	__lock_acquire(dd_hash_lock);
+-#endif
+-	for (i = 0; i < NDIRHASH; ++i) {
+-		struct ddloc head;
+-		register struct ddloc *lp;
+-		register struct ddloc *prevlp;
+-
+-		lp = dd_hash[i];
+-		head.loc_next = lp;
+-		prevlp = &head;
+-		while (lp != NULL) {
+-			struct ddloc *nextlp;
+-
+-			nextlp = lp->loc_next;
+-			if (lp->loc_dirp == dirp) {
+-				prevlp->loc_next = nextlp;
+-				free((caddr_t)lp);
+-			}
+-			else
+-				prevlp = lp;
+-			lp = nextlp;
+-		}
+-		dd_hash[i] = head.loc_next;
+-	}
+-#ifdef HAVE_DD_LOCK
+-	__lock_release(dd_hash_lock);
+-#endif
 +// 	int i;
 +//
 +// #ifdef HAVE_DD_LOCK
@@ -1900,12 +2865,60 @@ diff -rupN old/newlib/libc/posix/telldir.c new/newlib/libc/posix/telldir.c
 +// #ifdef HAVE_DD_LOCK
 +// 	__lock_release(dd_hash_lock);
 +// #endif
-+//
-+// }
+ 
+ }
  #endif /* ! HAVE_OPENDIR */
+diff -rupN old/newlib/libc/posix/usleep.c new/newlib/libc/posix/usleep.c
+--- old/newlib/libc/posix/usleep.c	2016-03-29 16:33:42.000000000 -0500
++++ new/newlib/libc/posix/usleep.c	2016-04-25 14:05:00.370125144 -0500
+@@ -1,22 +1,22 @@
+-/* libc/posix/usleep.c - usleep function */
+-
+-/* Written 2002 by Jeff Johnston */
+-
+-#ifdef HAVE_NANOSLEEP
+-
+-#include <errno.h>
+-#include <time.h>
+-#include <unistd.h>
+-
+-int usleep(useconds_t useconds)
+-{
+-    struct timespec ts;
+-
+-    ts.tv_sec = (long int)useconds / 1000000;
+-    ts.tv_nsec = ((long int)useconds % 1000000) * 1000;
+-    if (!nanosleep(&ts,&ts)) return 0;
+-    if (errno == EINTR) return ts.tv_sec;
+-    return -1;
+-}
+-
+-#endif
++// /* libc/posix/usleep.c - usleep function */
++//
++// /* Written 2002 by Jeff Johnston */
++//
++// #ifdef HAVE_NANOSLEEP
++//
++// #include <errno.h>
++// #include <time.h>
++// #include <unistd.h>
++//
++// int usleep(useconds_t useconds)
++// {
++//     struct timespec ts;
++//
++//     ts.tv_sec = (long int)useconds / 1000000;
++//     ts.tv_nsec = ((long int)useconds % 1000000) * 1000;
++//     if (!nanosleep(&ts,&ts)) return 0;
++//     if (errno == EINTR) return ts.tv_sec;
++//     return -1;
++// }
++//
++// #endif
 diff -rupN old/newlib/libc/stdio/fseeko.c new/newlib/libc/stdio/fseeko.c
 --- old/newlib/libc/stdio/fseeko.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/stdio/fseeko.c	2016-04-25 09:29:02.368829851 -0500
++++ new/newlib/libc/stdio/fseeko.c	2016-04-25 13:32:39.444105732 -0500
 @@ -158,202 +158,6 @@ _DEFUN(_fseeko_r, (ptr, fp, offset, when
        return EOF;
      }
@@ -2111,7 +3124,7 @@ diff -rupN old/newlib/libc/stdio/fseeko.c new/newlib/libc/stdio/fseeko.c
        || seekfn (ptr, fp->_cookie, offset, whence) == POS_ERR)
 diff -rupN old/newlib/libc/stdlib/mallocr.c new/newlib/libc/stdlib/mallocr.c
 --- old/newlib/libc/stdlib/mallocr.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/stdlib/mallocr.c	2016-04-25 09:29:02.368829851 -0500
++++ new/newlib/libc/stdlib/mallocr.c	2016-04-25 13:32:39.448105711 -0500
 @@ -609,8 +609,11 @@ do {
    operating system immediately after a free().
  */
@@ -2127,7 +3140,7 @@ diff -rupN old/newlib/libc/stdlib/mallocr.c new/newlib/libc/stdlib/mallocr.c
  /*
 diff -rupN old/newlib/libc/sys/configure new/newlib/libc/sys/configure
 --- old/newlib/libc/sys/configure	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/sys/configure	2016-04-25 09:29:02.372829857 -0500
++++ new/newlib/libc/sys/configure	2016-04-25 13:32:39.452105690 -0500
 @@ -809,6 +809,7 @@ sysvi386
  sysvnecv70
  tic80
@@ -2147,7 +3160,7 @@ diff -rupN old/newlib/libc/sys/configure new/newlib/libc/sys/configure
  	z8ksim) subdirs="$subdirs z8ksim"
 diff -rupN old/newlib/libc/sys/configure.in new/newlib/libc/sys/configure.in
 --- old/newlib/libc/sys/configure.in	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/sys/configure.in	2016-04-25 09:29:02.376829863 -0500
++++ new/newlib/libc/sys/configure.in	2016-04-25 13:32:39.468105604 -0500
 @@ -46,6 +46,7 @@ if test -n "${sys_dir}"; then
  	sysvnecv70) AC_CONFIG_SUBDIRS(sysvnecv70) ;;
  	tic80) AC_CONFIG_SUBDIRS(tic80) ;;
