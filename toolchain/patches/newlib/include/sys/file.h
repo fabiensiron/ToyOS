@@ -7,6 +7,6 @@
 
 #define LOCK_NB 4
 
-// extern int flock(int __fd, int __operation);
+extern int flock(int __fd, int __operation);
 
 #endif /* _FILE_H_ */

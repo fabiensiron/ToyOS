@@ -95,7 +95,7 @@ DEFN_SYSCALL2(symlink, SYS_SYMLINK, char *, char *);
 DEFN_SYSCALL3(readlink, SYS_READLINK, char *, char *, int);
 DEFN_SYSCALL2(lstat, SYS_LSTAT, char *, void *);
 DEFN_SYSCALL1(rmdir, 59, char *);
-// DEFN_SYSCALL2(flock, 60, int, unsigned int);
+DEFN_SYSCALL2(flock, 60, int, unsigned int);
 
 static int toyos_debug_stubs_enabled(void) {
 	static int checked = 0;
@@ -505,9 +505,9 @@ int rmdir(const char *pathname) {
 	return syscall_rmdir(pathname);
 }
 //
-// int flock(int fd, unsigned int cmd) {
-// 	return syscall_flock(fd, cmd);
-// }
+int flock(int fd, int cmd) {
+	return syscall_flock(fd, cmd);
+}
 
 
 char *ttyname(int fd) {
