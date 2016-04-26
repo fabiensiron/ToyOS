@@ -27,7 +27,7 @@ fi
 pushd tarball > /dev/null
 
     grab $PROGRAM_NAME $PROGRAM_SOURCE $PROGRAM_PACKAGE || bail
-    deco $PROGRAM_NAME $PROGRAM_FULL_NAME || bail
+    deco $PROGRAM_NAME $PROGRAM_PACKAGE || bail
     patc $PROGRAM_NAME $PROGRAM_FULL_NAME || bail
 
 popd > /dev/null
@@ -47,3 +47,5 @@ pushd build > /dev/null
     make || bail
     make DESTDIR=$TOYOS_SYSROOT install || bail
 popd
+
+rm -rf build tarball
