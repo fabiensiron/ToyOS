@@ -178,7 +178,7 @@ toolchain:
 	@cd toolchain; ./toolchain-build.sh
 
 apps:
-	@cd apps; ./build.sh
+	@cd apps; bash ./build.sh
 
 KERNEL_ASMOBJS = $(filter-out kernel/symbols.o,$(patsubst %.S,%.o,$(wildcard kernel/*.S)))
 
