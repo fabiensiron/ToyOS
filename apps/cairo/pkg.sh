@@ -37,6 +37,6 @@ pushd build > /dev/null
     echo -e "\n\n#define CAIRO_NO_MUTEX 1" >> config.h
     make || bail
     make DESTDIR=$TOYOS_SYSROOT install || bail
-popd
+popd > /dev/null
 
 rm -rf build tarball

@@ -34,6 +34,6 @@ pushd build > /dev/null
     ../tarball/$PROGRAM_FULL_NAME/configure --host=$TARGET --prefix=$VIRTPREFIX || bail
     make || bail
     make DESTDIR=$TOYOS_SYSROOT install || bail
-popd
+popd > /dev/null
 
 rm -rf build tarball

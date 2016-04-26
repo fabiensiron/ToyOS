@@ -34,6 +34,6 @@ pushd build > /dev/null
     ../tarball/pixman-0.26.2/configure --host=$TARGET --prefix=$VIRTPREFIX || bail
     make || bail
     make DESTDIR=$TOYOS_SYSROOT install || bail
-popd
+popd > /dev/null
 
 rm -rf build tarball

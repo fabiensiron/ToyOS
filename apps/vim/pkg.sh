@@ -30,6 +30,6 @@ pushd tarball/$PROGRAM_FULL_NAME > /dev/null
     ac_cv_sizeof_int=4 vim_cv_getcwd_broken=no vim_cv_memmove_handles_overlap=yes vim_cv_stat_ignores_slash=no vim_cv_tgetent=zero vim_cv_terminfo=yes vim_cv_toupper_broken=no vim_cv_tty_group=world ./configure --host=$TARGET --prefix=$VIRTPREFIX --with-tlib=ncurses --enable-gui=no --disable-gtktest --disable-xim --with-features=normal --disable-gpm --without-x --disable-netbeans --enable-multibyte || bail
     make || bail
     make DESTDIR=$TOYOS_SYSROOT install || bail
-popd
+popd > /dev/null
 
 rm -rf tarball

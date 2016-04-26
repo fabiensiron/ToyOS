@@ -36,6 +36,6 @@ pushd build > /dev/null
     make DESTDIR=$TOYOS_SYSROOT install || bail
     cp ../toyos.tic $TOYOS_SYSROOT/$VIRTPREFIX/share/terminfo/t/toyos
     cp ../toyos-vga.tic $TOYOS_SYSROOT/$VIRTPREFIX/share/terminfo/t/toyos-vga
-popd
+popd > /dev/null
 
 rm -rf build tarball

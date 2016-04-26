@@ -30,6 +30,6 @@ pushd tarball/$PROGRAM_FULL_NAME > /dev/null
     ./configure --enable-32-bit --host=$TARGET --prefix=$VIRTPREFIX  --with-osmesa-bits=8 --with-driver=osmesa --disable-egl --disable-shared --without-x --disable-glw --disable-glut --disable-driglx-direct --disable-gallium || bail
     make || bail
     make DESTDIR=$TOYOS_SYSROOT install || bail
-popd
+popd > /dev/null
 
 rm -rf tarball
