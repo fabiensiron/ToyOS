@@ -115,7 +115,7 @@ START_SINGLE = runlevel=3
 START_LIVE = start=live-welcome
 WITH_LOGS = logtoserial=1
 
-.PHONY: all system install test toolchain userspace modules cdrom toyos.iso
+.PHONY: all system install test toolchain apps userspace modules cdrom toyos.iso
 .PHONY: clean clean-soft clean-hard clean-user clean-mods clean-core clean-disk clean-once
 .PHONY: run vga term headless
 .PHONY: kvm vga-kvm term-kvm headless-kvm
