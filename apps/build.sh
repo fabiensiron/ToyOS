@@ -16,72 +16,46 @@ BUILD_NCURSES=${BUILD_NCURSES:-true}
 BUILD_VIM=${BUILD_VIM:-true}
 BUILD_NANO=${BUILD_NANO:-true}
 
-if $BUILD_FREETYPE; then
-    $INFO "Building freetype"
-    pushd freetype > /dev/null
+function build () {
+    $INFO "Building $1"
+    pushd $1 > /dev/null
         ./pkg.sh
     popd > /dev/null
-    $INFO "freetype built"
+    $INFO "$1 built"
+}
+
+if $BUILD_FREETYPE; then
+    build freetype
 fi
 
 if $BUILD_ZLIB; then
-    $INFO "Building zlib"
-    # TODO
-    $INFO "zlib built"
+    build zlib
 fi
 
 if $BUILD_PNG; then
-    $INFO "Building libpng"
-    pushd libpng > /dev/null
-        ./pkg.sh
-    popd > /dev/null
-    $INFO "libpng built"
+    build libpng
 fi
 
 if $BUILD_PIXMAN; then
-    $INFO "Building pixman"
-    pushd pixman > /dev/null
-        ./pkg.sh
-    popd > /dev/null
-    $INFO "pixman built"
+    build pixman
 fi
 
 if $BUILD_CAIRO; then
-    $INFO "Building cairo"
-    pushd cairo > /dev/null
-        ./pkg.sh
-    popd > /dev/null
-    $INFO "cairo built"
+    build cairo
 fi
 
 if $BUILD_MESA; then
-    $INFO "Building mesa"
-    pushd mesa > /dev/null
-        ./pkg.sh
-    popd > /dev/null
-    $INFO "mesa built"
+    build mesa
 fi
 
 if $BUILD_NCURSES; then
-    $INFO "Building ncurses"
-    pushd ncurses > /dev/null
-        ./pkg.sh
-    popd > /dev/null
-    $INFO "ncurses built"
+    build ncurses
 fi
 
 if $BUILD_VIM; then
-    $INFO "Building vim"
-    pushd vim > /dev/null
-        ./pkg.sh
-    popd > /dev/null
-    $INFO "vim built"
+    build vim
 fi
 
 if $BUILD_NANO; then
-    $INFO "Building nano"
-    pushd nano > /dev/null
-        ./pkg.sh
-    popd > /dev/null
-    $INFO "nano built"
+    build nano
 fi
