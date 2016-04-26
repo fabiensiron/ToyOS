@@ -21,7 +21,7 @@ fi
 pushd tarball > /dev/null
 
     grab $PROGRAM_NAME $PROGRAM_SOURCE $PROGRAM_PACKAGE || bail
-    deco $PROGRAM_NAME $PROGRAM_FULL_NAME || bail
+    deco $PROGRAM_NAME $PROGRAM_PACKAGE || bail
     patc $PROGRAM_NAME $PROGRAM_FULL_NAME || bail
 
 popd > /dev/null
@@ -31,7 +31,9 @@ if [ ! -d build ]; then
 fi
 
 pushd build > /dev/null
-    ../$PROGRAM_FULL_NAME/configure --prefix=$VIRTPREFIX --host=$TARGET --enable-tiny || bail
+    ../tarball/$PROGRAM_FULL_NAME/configure --prefix=$VIRTPREFIX --host=$TARGET --enable-tiny || bail
     make || bail
     make DESTDIR=$TOYOS_SYSROOT install || bail
 popd
+
+rm -rf build tarball
