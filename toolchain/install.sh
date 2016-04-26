@@ -9,29 +9,11 @@ BUILD_BINUTILS=true
 BUILD_GCC=true
 BUILD_NEWLIB=true
 BUILD_LIBSTDCPP=true
-BUILD_ZLIB=true
-BUILD_FREETYPE=true
-BUILD_PNG=true
-BUILD_PIXMAN=true
-BUILD_CAIRO=true
-BUILD_MESA=true
-BUILD_NCURSES=true
-BUILD_VIM=true
-BUILD_NANO=true
 
 # BUILD_BINUTILS=false
 # BUILD_GCC=false
 # BUILD_NEWLIB=false
 # BUILD_LIBSTDCPP=false
-# BUILD_ZLIB=false
-# BUILD_FREETYPE=false
-# BUILD_PNG=false
-# BUILD_PIXMAN=false
-# BUILD_CAIRO=false
-# BUILD_MESA=false
-# BUILD_NCURSES=false
-# BUILD_VIM=false
-# BUILD_NANO=false
 
 echo "Building a toolchain with a sysroot of $TOYOS_SYSROOT with host binaries in $PREFIX targeting $TARGET"
 
@@ -129,102 +111,7 @@ pushd build
             make install-target-libstdc++-v3 || bail
         popd
     fi
-
-    if $BUILD_FREETYPE; then
-        if [ ! -d freetype ]; then
-            mkdir freetype
-        fi
-        pushd freetype
-            $DIR/tarballs/freetype-2.4.9/configure --host=$TARGET --prefix=$VIRTPREFIX || bail
-            make || bail
-            make DESTDIR=$TOYOS_SYSROOT install || bail
-        popd
-    fi
-
-    if $BUILD_ZLIB; then
-        # XXX zlib can not be built in a separate directory
-        pushd $DIR/tarballs/zlib*
-            CC=i686-pc-toyos-gcc ./configure --static --prefix=$VIRTPREFIX || bail
-            make || bail
-            make DESTDIR=$TOYOS_SYSROOT install || bail
-        popd
-    fi
-
-    if $BUILD_PNG; then
-        if [ ! -d libpng ]; then
-            mkdir libpng
-        fi
-        pushd libpng
-            $DIR/tarballs/libpng-1.5.13/configure --host=$TARGET --prefix=$VIRTPREFIX || bail
-            make || bail
-            make DESTDIR=$TOYOS_SYSROOT install || bail
-        popd
-    fi
-
-    if $BUILD_PIXMAN; then
-        if [ ! -d pixman ]; then
-            mkdir pixman
-        fi
-        pushd pixman
-            $DIR/tarballs/pixman-0.26.2/configure --host=$TARGET --prefix=$VIRTPREFIX || bail
-            make || bail
-            make DESTDIR=$TOYOS_SYSROOT install || bail
-        popd
-    fi
-
-    if $BUILD_CAIRO; then
-        if [ ! -d cairo ]; then
-            mkdir cairo
-        fi
-        pushd cairo
-            $DIR/tarballs/cairo-1.12.2/configure --host=$TARGET --prefix=$VIRTPREFIX --enable-ps=no --enable-pdf=no --enable-interpreter=no --enable-xlib=no || bail
-            cp $DIR/patches/cairo-Makefile test/Makefile
-            cp $DIR/patches/cairo-Makefile perf/Makefile
-            echo -e "\n\n#define CAIRO_NO_MUTEX 1" >> config.h
-            make || bail
-            make DESTDIR=$TOYOS_SYSROOT install || bail
-        popd
-    fi
-
-    if $BUILD_MESA; then
-        # XXX Mesa can not be built from a separate directory (configure script doesn't provide a Makefile)
-        pushd $DIR/tarballs/Mesa-*
-            ./configure --enable-32-bit --host=$TARGET --prefix=$VIRTPREFIX  --with-osmesa-bits=8 --with-driver=osmesa --disable-egl --disable-shared --without-x --disable-glw --disable-glut --disable-driglx-direct --disable-gallium || bail
-            make || bail
-            make DESTDIR=$TOYOS_SYSROOT install || bail
-        popd
-    fi
-
-    if $BUILD_NCURSES; then
-        if [ ! -d ncurses ]; then
-            mkdir ncurses
-        fi
-        pushd ncurses
-            $DIR/tarballs/ncurses-5.9/configure --prefix=$VIRTPREFIX --host=$TARGET --with-terminfo-dirs=/usr/share/terminfo --with-default-terminfo-dir=/usr/share/terminfo --without-tests || bail
-            make || bail
-            make DESTDIR=$TOYOS_SYSROOT install || bail
-            cp $DIR/../util/toyos.tic $TOYOS_SYSROOT/$VIRTPREFIX/share/terminfo/t/toyos
-            cp $DIR/../util/toyos-vga.tic $TOYOS_SYSROOT/$VIRTPREFIX/share/terminfo/t/toyos-vga
-        popd
-    fi
-
-    if $BUILD_VIM; then
-        pushd $DIR/tarballs/vim73
-            make distclean
-            ac_cv_sizeof_int=4 vim_cv_getcwd_broken=no vim_cv_memmove_handles_overlap=yes vim_cv_stat_ignores_slash=no vim_cv_tgetent=zero vim_cv_terminfo=yes vim_cv_toupper_broken=no vim_cv_tty_group=world ./configure --host=$TARGET --target=$TARGET --with-sysroot=$TOYOS_SYSROOT --prefix=$VIRTPREFIX --with-tlib=ncurses --enable-gui=no --disable-gtktest --disable-xim --with-features=normal --disable-gpm --without-x --disable-netbeans --enable-multibyte
-            make || bail
-            make DESTDIR=$TOYOS_SYSROOT install || bail
-        popd
-    fi
-
-    if $BUILD_NANO; then
-        pushd $DIR/tarballs/nano-2.4.2
-            ./configure --prefix=$VIRTPREFIX --host=$TARGET --enable-tiny || bail
-            make || bail
-            make DESTDIR=$TOYOS_SYSROOT install || bail
-        popd
-    fi
-
+    
     pushd $TOYOS_SYSROOT/usr/bin || bail
         $TARGET-strip *
     popd
