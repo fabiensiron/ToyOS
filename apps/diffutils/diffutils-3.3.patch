@@ -1,0 +1,44 @@
+diff -rupN old/build-aux/config.sub new/build-aux/config.sub
+--- old/build-aux/config.sub	2013-03-21 23:20:48.000000000 -0500
++++ new/build-aux/config.sub	2016-04-27 13:42:24.761783589 -0500
+@@ -1367,7 +1367,7 @@ case $os in
+ 	      | -cygwin* | -msys* | -pe* | -psos* | -moss* | -proelf* | -rtems* \
+ 	      | -mingw32* | -mingw64* | -linux-gnu* | -linux-android* \
+ 	      | -linux-newlib* | -linux-musl* | -linux-uclibc* \
+-	      | -uxpv* | -beos* | -mpeix* | -udk* \
++	      | -uxpv* | -beos* | -mpeix* | -toyos* | -udk* \
+ 	      | -interix* | -uwin* | -mks* | -rhapsody* | -darwin* | -opened* \
+ 	      | -openstep* | -oskit* | -conix* | -pw32* | -nonstopux* \
+ 	      | -storm-chaos* | -tops10* | -tenex* | -tops20* | -its* \
+diff -rupN old/lib/cmpbuf.c new/lib/cmpbuf.c
+--- old/lib/cmpbuf.c	2013-02-01 22:39:05.000000000 -0600
++++ new/lib/cmpbuf.c	2016-04-27 13:49:56.669386749 -0500
+@@ -71,8 +71,8 @@ block_read (int fd, char *buf, size_t nb
+ 	     ancient AIX hosts that set errno to EINTR after uncaught
+ 	     SIGCONT.  See <news:1r77ojINN85n@ftp.UU.NET>
+ 	     (1993-04-22).  */
+-	  if (! SA_RESTART && errno == EINTR)
+-	    continue;
++//	  if (! SA_RESTART && errno == EINTR)
++//	    continue;
+
+ 	  return SIZE_MAX;
+ 	}
+diff -rupN old/src/sdiff.c new/src/sdiff.c
+--- old/src/sdiff.c	2013-02-01 22:39:05.000000000 -0600
++++ new/src/sdiff.c	2016-04-27 13:50:49.397313469 -0500
+@@ -751,10 +751,10 @@ trapsigs (void)
+   int i;
+
+ #if HAVE_SIGACTION
+-  catchaction.sa_flags = SA_RESTART;
+-  sigemptyset (&catchaction.sa_mask);
+-  for (i = 0;  i < NUM_SIGS;  i++)
+-    sigaddset (&catchaction.sa_mask, sigs[i]);
++//  catchaction.sa_flags = SA_RESTART;
++//  sigemptyset (&catchaction.sa_mask);
++//  for (i = 0;  i < NUM_SIGS;  i++)
++//    sigaddset (&catchaction.sa_mask, sigs[i]);
+ #endif
+
+   for (i = 0;  i < NUM_SIGS;  i++)
