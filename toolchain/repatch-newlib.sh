@@ -13,10 +13,10 @@ pushd "$DIR" > /dev/null
         mkdir tarballs
     fi
     pushd tarballs > /dev/null
-        rm -r newlib-1.19.0
-        deco "newlib" "newlib-1.19.0.tar.gz" || bail
-        patc "newlib" "newlib-1.19.0" || bail
-        installNewlibStuff "newlib-1.19.0" || bail
+        rm -r newlib-2.4.0
+        deco "newlib" "newlib-2.4.0.tar.gz" || bail
+        patc "newlib" "newlib-2.4.0" || bail
+        installNewlibStuff "newlib-2.4.0" || bail
     popd > /dev/null
 
     if [ ! -d build ]; then
