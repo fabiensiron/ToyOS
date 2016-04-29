@@ -115,7 +115,7 @@ static snd_device_t _snd = {
 	.mixer_write = ac97_mixer_write,
 };
 
-/* 
+/*
  * This could be unnecessary if we instead allocate just two buffers and make
  * the ac97 think there are more.
  */
@@ -227,11 +227,11 @@ static int init(void) {
 	outports(_device.nambar + AC97_PCM_OUT_VOLUME, volume);
 
 	/* Allocate our BDL and our buffers */
-	_device.bdl = (void *)kmalloc_p(AC97_BDL_LEN * sizeof(*_device.bdl), &_device.bdl_p);
+	_device.bdl = (void *)kmalloc_p(AC97_BDL_LEN * sizeof(*_device.bdl), (uintptr_t *)&_device.bdl_p);
 	memset(_device.bdl, 0, AC97_BDL_LEN * sizeof(*_device.bdl));
 	for (int i = 0; i < AC97_BDL_LEN; i++) {
 		_device.bufs[i] = (uint16_t *)kmalloc_p(AC97_BDL_BUFFER_LEN * sizeof(*_device.bufs[0]),
-												&_device.bdl[i].pointer);
+												(uintptr_t *)&_device.bdl[i].pointer);
 		memset(_device.bufs[i], 0, AC97_BDL_BUFFER_LEN * sizeof(*_device.bufs[0]));
 		AC97_CL_SET_LENGTH(_device.bdl[i].cl, AC97_BDL_BUFFER_LEN);
 		/* Set all buffers to interrupt */

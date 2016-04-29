@@ -2,15 +2,15 @@
 
 ToyOS is a fork of とあるOS (ToaruOS).
 
-とあるOS (ToaruOS) is a hobby kernel and supporting userspace, built mostly from scratch, in development since December of 2010.
+ToyOS is a hobby kernel and supporting userspace, built mostly from scratch, in development since December of 2010.
 
 This repository contains the kernel, modules, and core userspace. Some third-party libraries and utilities are required to build a working system.
 
 ## History
 
-ToyOS was forked from ToaruOS in April of 2016, as ToaruOS seemed to progress at a slow rate. I felt that it would be inappropriate to continue calling it ToaruOS. All copyrights have been kept.
+ToyOS was forked from ToaruOS in April of 2016. It was decided that it would be inappropriate to continue calling it ToaruOS, since klange does not have any affiliation with this project. All existing copyrights have been kept.
 
-ToaruOS started as a side project at the University of Illinois at Urbana-Champaign. For several months in late 2011 and early 2012, the University's [SIGOps](http://www.acm.uiuc.edu/sigops/) chapter managed development efforts focused on building the original compositing GUI. Since then, the project has mostly been a one-man effort with a handful of third party contributions.
+TOyOS started as ToaruOS at the University of Illinois at Urbana-Champaign. For several months in late 2011 and early 2012, the University's [SIGOps](http://www.acm.uiuc.edu/sigops/) chapter managed development efforts focused on building the original compositing GUI.
 
 ## Kernel ##
 
