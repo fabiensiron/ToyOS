@@ -308,37 +308,6 @@ int main (int argc, char ** argv) {
 		char * foo = malloc(sizeof(uint32_t) * width * height);
 		memcpy(foo, ctx->backbuffer, sizeof(uint32_t) * width * height);
 
-		TRACE("Begin animation.");
-		{
-			struct timeval start;
-			gettimeofday(&start, NULL);
-
-			while (1) {
-				uint32_t tick;
-				struct timeval t;
-				gettimeofday(&t, NULL);
-
-				uint32_t sec_diff = t.tv_sec - start.tv_sec;
-				uint32_t usec_diff = t.tv_usec - start.tv_usec;
-
-				if (t.tv_usec < start.tv_usec) {
-					sec_diff -= 1;
-					usec_diff = (1000000 + t.tv_usec) - start.tv_usec;
-				}
-
-				tick = (uint32_t)(sec_diff * 1000 + usec_diff / 1000);
-				int i = (float)LOGO_FINAL_OFFSET * (float)tick / 700.0f;
-				if (i >= LOGO_FINAL_OFFSET) break;
-
-				memcpy(ctx->backbuffer, foo, sizeof(uint32_t) * width * height);
-				draw_sprite(ctx, &logo, center_x(logo.width), center_y(logo.height) - i);
-				flip(ctx);
-				yutani_flip_region(y, wina, center_x(logo.width), center_y(logo.height) - i, logo.width, logo.height + 5);
-				usleep(10000);
-			}
-		}
-		TRACE("End animation.");
-
 		size_t buf_size = wina->width * wina->height * sizeof(uint32_t);
 		char * buf = malloc(buf_size);
 
