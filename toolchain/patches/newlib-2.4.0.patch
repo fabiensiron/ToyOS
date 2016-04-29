@@ -1,6 +1,6 @@
 diff -rupN old/config.sub new/config.sub
 --- old/config.sub	2016-03-29 16:33:42.000000000 -0500
-+++ new/config.sub	2016-04-25 13:32:39.432105797 -0500
++++ new/config.sub	2016-04-29 09:21:24.083384132 -0500
 @@ -1391,7 +1391,7 @@ case $os in
  	      | -cygwin* | -msys* | -pe* | -psos* | -moss* | -proelf* | -rtems* \
  	      | -mingw32* | -mingw64* | -linux-gnu* | -linux-android* \
@@ -12,7 +12,7 @@ diff -rupN old/config.sub new/config.sub
  	      | -storm-chaos* | -tops10* | -tenex* | -tops20* | -its* \
 diff -rupN old/newlib/configure.host new/newlib/configure.host
 --- old/newlib/configure.host	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/configure.host	2016-04-25 13:32:39.432105797 -0500
++++ new/newlib/configure.host	2016-04-29 09:21:24.083384132 -0500
 @@ -448,6 +448,10 @@ case "${host}" in
    h8500-*-elf*)
  	sys_dir=h8500hms
@@ -36,7 +36,7 @@ diff -rupN old/newlib/configure.host new/newlib/configure.host
  	export cygwin_srcdir
 diff -rupN old/newlib/configure.host.orig new/newlib/configure.host.orig
 --- old/newlib/configure.host.orig	1969-12-31 18:00:00.000000000 -0600
-+++ new/newlib/configure.host.orig	2016-04-25 13:32:39.436105776 -0500
++++ new/newlib/configure.host.orig	2016-04-29 09:21:24.087384166 -0500
 @@ -0,0 +1,892 @@
 +# configure.host
 +
@@ -932,7 +932,7 @@ diff -rupN old/newlib/configure.host.orig new/newlib/configure.host.orig
 +fi
 diff -rupN old/newlib/libc/include/sys/_intsup.h new/newlib/libc/include/sys/_intsup.h
 --- old/newlib/libc/include/sys/_intsup.h	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/include/sys/_intsup.h	2016-04-25 13:32:39.436105776 -0500
++++ new/newlib/libc/include/sys/_intsup.h	2016-04-29 09:21:24.087384166 -0500
 @@ -79,14 +79,15 @@
  #elif (__INTPTR_TYPE__ == 1 || __INTPTR_TYPE__ == 3)
  #define _INTPTR_EQ_SHORT
@@ -953,7 +953,7 @@ diff -rupN old/newlib/libc/include/sys/_intsup.h new/newlib/libc/include/sys/_in
  #if (__INT8_TYPE__ == 0)
 diff -rupN old/newlib/libc/include/sys/stat.h new/newlib/libc/include/sys/stat.h
 --- old/newlib/libc/include/sys/stat.h	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/include/sys/stat.h	2016-04-25 13:32:39.440105754 -0500
++++ new/newlib/libc/include/sys/stat.h	2016-04-29 09:21:24.087384166 -0500
 @@ -152,8 +152,8 @@ int	_EXFUN(mkfifo,( const char *__path,
  int	_EXFUN(stat,( const char *__restrict __path, struct stat *__restrict __sbuf ));
  mode_t	_EXFUN(umask,( mode_t __mask ));
@@ -966,7 +966,7 @@ diff -rupN old/newlib/libc/include/sys/stat.h new/newlib/libc/include/sys/stat.h
  
 diff -rupN old/newlib/libc/include/sys/utime.h new/newlib/libc/include/sys/utime.h
 --- old/newlib/libc/include/sys/utime.h	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/include/sys/utime.h	2016-04-25 13:32:39.440105754 -0500
++++ new/newlib/libc/include/sys/utime.h	2016-04-29 09:21:24.091384202 -0500
 @@ -15,6 +15,8 @@ struct utimbuf
    time_t modtime; 
  };
@@ -978,7 +978,7 @@ diff -rupN old/newlib/libc/include/sys/utime.h new/newlib/libc/include/sys/utime
  #endif
 diff -rupN old/newlib/libc/include/sys/utime.h.orig new/newlib/libc/include/sys/utime.h.orig
 --- old/newlib/libc/include/sys/utime.h.orig	1969-12-31 18:00:00.000000000 -0600
-+++ new/newlib/libc/include/sys/utime.h.orig	2016-04-25 13:32:39.440105754 -0500
++++ new/newlib/libc/include/sys/utime.h.orig	2016-04-29 09:21:24.091384202 -0500
 @@ -0,0 +1,22 @@
 +#ifndef _SYS_UTIME_H
 +#define _SYS_UTIME_H
@@ -1004,7 +1004,7 @@ diff -rupN old/newlib/libc/include/sys/utime.h.orig new/newlib/libc/include/sys/
 +#endif /* _SYS_UTIME_H */
 diff -rupN old/newlib/libc/posix/closedir.c new/newlib/libc/posix/closedir.c
 --- old/newlib/libc/posix/closedir.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/closedir.c	2016-04-25 14:05:00.370125144 -0500
++++ new/newlib/libc/posix/closedir.c	2016-04-29 09:21:24.091384202 -0500
 @@ -1,71 +1,71 @@
 -#ifndef HAVE_OPENDIR
 -
@@ -1148,9 +1148,39 @@ diff -rupN old/newlib/libc/posix/closedir.c new/newlib/libc/posix/closedir.c
 +// }
 +//
 +// #endif /* ! HAVE_OPENDIR */
+diff -rupN old/newlib/libc/posix/creat.c new/newlib/libc/posix/creat.c
+--- old/newlib/libc/posix/creat.c	2016-03-29 16:33:42.000000000 -0500
++++ new/newlib/libc/posix/creat.c	2016-04-29 09:24:32.177130993 -0500
+@@ -1,13 +1,13 @@
+-/* creat() "system call" */
+-
+-/* This is needed by f2c and therefore the SPEC benchmarks.  */
+-
+-#include <fcntl.h>
+-
+-int
+-_DEFUN(creat, (path, mode), 
+-       const char *path _AND 
+-       mode_t mode)
+-{
+-  return open (path, O_WRONLY | O_CREAT | O_TRUNC, mode);
+-}
++// /* creat() "system call" */
++//
++// /* This is needed by f2c and therefore the SPEC benchmarks.  */
++//
++// #include <fcntl.h>
++//
++// int
++// _DEFUN(creat, (path, mode), 
++//        const char *path _AND 
++//        mode_t mode)
++// {
++//   return open (path, O_WRONLY | O_CREAT | O_TRUNC, mode);
++// }
 diff -rupN old/newlib/libc/posix/execl.c new/newlib/libc/posix/execl.c
 --- old/newlib/libc/posix/execl.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/execl.c	2016-04-25 14:12:28.145935570 -0500
++++ new/newlib/libc/posix/execl.c	2016-04-29 09:21:24.091384202 -0500
 @@ -1,52 +1,52 @@
 -#ifndef _NO_EXECVE
 -
@@ -1258,7 +1288,7 @@ diff -rupN old/newlib/libc/posix/execl.c new/newlib/libc/posix/execl.c
 +// #endif /* !_NO_EXECVE  */
 diff -rupN old/newlib/libc/posix/execle.c new/newlib/libc/posix/execle.c
 --- old/newlib/libc/posix/execle.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/execle.c	2016-04-25 14:06:54.232624102 -0500
++++ new/newlib/libc/posix/execle.c	2016-04-29 09:21:24.091384202 -0500
 @@ -2,7 +2,7 @@
  
  /* execle.c */
@@ -1307,7 +1337,7 @@ diff -rupN old/newlib/libc/posix/execle.c new/newlib/libc/posix/execle.c
  #endif /* !_NO_EXECVE  */
 diff -rupN old/newlib/libc/posix/execlp.c new/newlib/libc/posix/execlp.c
 --- old/newlib/libc/posix/execlp.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/execlp.c	2016-04-25 14:11:38.260616814 -0500
++++ new/newlib/libc/posix/execlp.c	2016-04-29 09:21:24.091384202 -0500
 @@ -1,48 +1,48 @@
 -#ifndef _NO_EXECVE
 -
@@ -1407,7 +1437,7 @@ diff -rupN old/newlib/libc/posix/execlp.c new/newlib/libc/posix/execlp.c
 +// #endif /* !_NO_EXECVE  */
 diff -rupN old/newlib/libc/posix/execv.c new/newlib/libc/posix/execv.c
 --- old/newlib/libc/posix/execv.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/execv.c	2016-04-25 14:05:00.366124896 -0500
++++ new/newlib/libc/posix/execv.c	2016-04-29 09:21:24.095384236 -0500
 @@ -1,24 +1,24 @@
 -#ifndef _NO_EXECVE
 -
@@ -1459,7 +1489,7 @@ diff -rupN old/newlib/libc/posix/execv.c new/newlib/libc/posix/execv.c
 +// #endif /* !_NO_EXECVE  */
 diff -rupN old/newlib/libc/posix/execve.c new/newlib/libc/posix/execve.c
 --- old/newlib/libc/posix/execve.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/execve.c	2016-04-25 14:05:00.382125889 -0500
++++ new/newlib/libc/posix/execve.c	2016-04-29 09:21:24.095384236 -0500
 @@ -1,21 +1,21 @@
 -#ifndef _NO_EXECVE
 -
@@ -1505,7 +1535,7 @@ diff -rupN old/newlib/libc/posix/execve.c new/newlib/libc/posix/execve.c
 +// #endif /* !_NO_EXECVE  */
 diff -rupN old/newlib/libc/posix/execvp.c new/newlib/libc/posix/execvp.c
 --- old/newlib/libc/posix/execvp.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/execvp.c	2016-04-25 14:05:00.410127625 -0500
++++ new/newlib/libc/posix/execvp.c	2016-04-29 09:21:24.095384236 -0500
 @@ -1,73 +1,73 @@
 -#ifndef _NO_EXECVE
 -
@@ -1655,7 +1685,7 @@ diff -rupN old/newlib/libc/posix/execvp.c new/newlib/libc/posix/execvp.c
 +// #endif /* !_NO_EXECVE  */
 diff -rupN old/newlib/libc/posix/_isatty.c new/newlib/libc/posix/_isatty.c
 --- old/newlib/libc/posix/_isatty.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/_isatty.c	2016-04-25 14:05:00.406127376 -0500
++++ new/newlib/libc/posix/_isatty.c	2016-04-29 09:21:24.095384236 -0500
 @@ -1,21 +1,21 @@
 -/* isatty.c */
 +// /* isatty.c */
@@ -1700,7 +1730,7 @@ diff -rupN old/newlib/libc/posix/_isatty.c new/newlib/libc/posix/_isatty.c
 +// }
 diff -rupN old/newlib/libc/posix/isatty.c new/newlib/libc/posix/isatty.c
 --- old/newlib/libc/posix/isatty.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/isatty.c	2016-04-25 14:05:00.410127625 -0500
++++ new/newlib/libc/posix/isatty.c	2016-04-29 09:21:24.095384236 -0500
 @@ -1,10 +1,10 @@
 -/* isatty.c */
 -
@@ -1724,7 +1754,7 @@ diff -rupN old/newlib/libc/posix/isatty.c new/newlib/libc/posix/isatty.c
 +// }
 diff -rupN old/newlib/libc/posix/Makefile.am new/newlib/libc/posix/Makefile.am
 --- old/newlib/libc/posix/Makefile.am	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/Makefile.am	2016-04-25 14:05:00.406127376 -0500
++++ new/newlib/libc/posix/Makefile.am	2016-04-29 09:21:24.095384236 -0500
 @@ -1,6 +1,6 @@
  ## Process this file with automake to generate Makefile.in
  
@@ -1735,7 +1765,7 @@ diff -rupN old/newlib/libc/posix/Makefile.am new/newlib/libc/posix/Makefile.am
  
 diff -rupN old/newlib/libc/posix/Makefile.in new/newlib/libc/posix/Makefile.in
 --- old/newlib/libc/posix/Makefile.in	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/Makefile.in	2016-04-25 14:05:00.378125640 -0500
++++ new/newlib/libc/posix/Makefile.in	2016-04-29 09:21:24.095384236 -0500
 @@ -287,7 +287,7 @@ target_alias = @target_alias@
  top_build_prefix = @top_build_prefix@
  top_builddir = @top_builddir@
@@ -1759,7 +1789,7 @@ diff -rupN old/newlib/libc/posix/Makefile.in new/newlib/libc/posix/Makefile.in
  	@case '$?' in \
 diff -rupN old/newlib/libc/posix/opendir.c new/newlib/libc/posix/opendir.c
 --- old/newlib/libc/posix/opendir.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/opendir.c	2016-04-25 14:05:00.406127376 -0500
++++ new/newlib/libc/posix/opendir.c	2016-04-29 09:21:24.095384236 -0500
 @@ -1,96 +1,96 @@
 -#ifndef HAVE_OPENDIR
 -
@@ -1955,7 +1985,7 @@ diff -rupN old/newlib/libc/posix/opendir.c new/newlib/libc/posix/opendir.c
 +// #endif /* ! HAVE_OPENDIR */
 diff -rupN old/newlib/libc/posix/readdir.c new/newlib/libc/posix/readdir.c
 --- old/newlib/libc/posix/readdir.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/readdir.c	2016-04-25 14:05:00.402127129 -0500
++++ new/newlib/libc/posix/readdir.c	2016-04-29 09:21:24.095384236 -0500
 @@ -1,92 +1,92 @@
 -#ifndef HAVE_OPENDIR
 -
@@ -2143,7 +2173,7 @@ diff -rupN old/newlib/libc/posix/readdir.c new/newlib/libc/posix/readdir.c
 +// #endif /* ! HAVE_OPENDIR */
 diff -rupN old/newlib/libc/posix/readdir_r.c new/newlib/libc/posix/readdir_r.c
 --- old/newlib/libc/posix/readdir_r.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/readdir_r.c	2016-04-25 14:05:00.426128616 -0500
++++ new/newlib/libc/posix/readdir_r.c	2016-04-29 09:21:24.099384271 -0500
 @@ -1,105 +1,105 @@
 -#ifndef HAVE_OPENDIR
 -
@@ -2357,7 +2387,7 @@ diff -rupN old/newlib/libc/posix/readdir_r.c new/newlib/libc/posix/readdir_r.c
 +// #endif /* ! HAVE_OPENDIR */
 diff -rupN old/newlib/libc/posix/rewinddir.c new/newlib/libc/posix/rewinddir.c
 --- old/newlib/libc/posix/rewinddir.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/rewinddir.c	2016-04-25 14:25:47.680383863 -0500
++++ new/newlib/libc/posix/rewinddir.c	2016-04-29 09:21:24.099384271 -0500
 @@ -45,13 +45,13 @@ void
  _DEFUN(rewinddir, (dirp),
  	DIR *dirp)
@@ -2381,7 +2411,7 @@ diff -rupN old/newlib/libc/posix/rewinddir.c new/newlib/libc/posix/rewinddir.c
  #endif /* ! HAVE_OPENDIR */
 diff -rupN old/newlib/libc/posix/scandir.c new/newlib/libc/posix/scandir.c
 --- old/newlib/libc/posix/scandir.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/scandir.c	2016-04-25 14:30:48.612888574 -0500
++++ new/newlib/libc/posix/scandir.c	2016-04-29 09:21:24.099384271 -0500
 @@ -74,95 +74,95 @@ _DEFUN(scandir, (dirname, namelist, sele
  	int (*select) __P((const struct dirent *)) _AND
  	int (*dcomp) __P((const struct dirent **, const struct dirent **)))
@@ -2569,7 +2599,7 @@ diff -rupN old/newlib/libc/posix/scandir.c new/newlib/libc/posix/scandir.c
  /*
 diff -rupN old/newlib/libc/posix/seekdir.c new/newlib/libc/posix/seekdir.c
 --- old/newlib/libc/posix/seekdir.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/seekdir.c	2016-04-25 14:41:11.443349548 -0500
++++ new/newlib/libc/posix/seekdir.c	2016-04-29 09:21:24.099384271 -0500
 @@ -50,13 +50,13 @@ _DEFUN(seekdir, (dirp, loc),
  	DIR *dirp _AND
  	long loc)
@@ -2593,7 +2623,7 @@ diff -rupN old/newlib/libc/posix/seekdir.c new/newlib/libc/posix/seekdir.c
  #endif /* ! HAVE_OPENDIR */
 diff -rupN old/newlib/libc/posix/sleep.c new/newlib/libc/posix/sleep.c
 --- old/newlib/libc/posix/sleep.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/sleep.c	2016-04-25 14:05:00.378125640 -0500
++++ new/newlib/libc/posix/sleep.c	2016-04-29 09:21:24.099384271 -0500
 @@ -1,22 +1,22 @@
 -/* libc/posix/sleep.c - sleep function */
 -
@@ -2641,7 +2671,7 @@ diff -rupN old/newlib/libc/posix/sleep.c new/newlib/libc/posix/sleep.c
 +// #endif
 diff -rupN old/newlib/libc/posix/telldir.c new/newlib/libc/posix/telldir.c
 --- old/newlib/libc/posix/telldir.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/telldir.c	2016-04-25 14:42:25.235652723 -0500
++++ new/newlib/libc/posix/telldir.c	2016-04-29 09:21:24.099384271 -0500
 @@ -52,7 +52,7 @@ static char sccsid[] = "@(#)telldir.c	5.
  
  /*
@@ -2870,7 +2900,7 @@ diff -rupN old/newlib/libc/posix/telldir.c new/newlib/libc/posix/telldir.c
  #endif /* ! HAVE_OPENDIR */
 diff -rupN old/newlib/libc/posix/usleep.c new/newlib/libc/posix/usleep.c
 --- old/newlib/libc/posix/usleep.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/posix/usleep.c	2016-04-25 14:05:00.370125144 -0500
++++ new/newlib/libc/posix/usleep.c	2016-04-29 09:21:24.099384271 -0500
 @@ -1,22 +1,22 @@
 -/* libc/posix/usleep.c - usleep function */
 -
@@ -2918,7 +2948,7 @@ diff -rupN old/newlib/libc/posix/usleep.c new/newlib/libc/posix/usleep.c
 +// #endif
 diff -rupN old/newlib/libc/stdio/fseeko.c new/newlib/libc/stdio/fseeko.c
 --- old/newlib/libc/stdio/fseeko.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/stdio/fseeko.c	2016-04-25 13:32:39.444105732 -0500
++++ new/newlib/libc/stdio/fseeko.c	2016-04-29 09:21:24.099384271 -0500
 @@ -158,202 +158,6 @@ _DEFUN(_fseeko_r, (ptr, fp, offset, when
        return EOF;
      }
@@ -3124,7 +3154,7 @@ diff -rupN old/newlib/libc/stdio/fseeko.c new/newlib/libc/stdio/fseeko.c
        || seekfn (ptr, fp->_cookie, offset, whence) == POS_ERR)
 diff -rupN old/newlib/libc/stdlib/mallocr.c new/newlib/libc/stdlib/mallocr.c
 --- old/newlib/libc/stdlib/mallocr.c	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/stdlib/mallocr.c	2016-04-25 13:32:39.448105711 -0500
++++ new/newlib/libc/stdlib/mallocr.c	2016-04-29 09:21:24.103384306 -0500
 @@ -609,8 +609,11 @@ do {
    operating system immediately after a free().
  */
@@ -3140,7 +3170,7 @@ diff -rupN old/newlib/libc/stdlib/mallocr.c new/newlib/libc/stdlib/mallocr.c
  /*
 diff -rupN old/newlib/libc/sys/configure new/newlib/libc/sys/configure
 --- old/newlib/libc/sys/configure	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/sys/configure	2016-04-25 13:32:39.452105690 -0500
++++ new/newlib/libc/sys/configure	2016-04-29 09:21:24.107384341 -0500
 @@ -809,6 +809,7 @@ sysvi386
  sysvnecv70
  tic80
@@ -3160,7 +3190,7 @@ diff -rupN old/newlib/libc/sys/configure new/newlib/libc/sys/configure
  	z8ksim) subdirs="$subdirs z8ksim"
 diff -rupN old/newlib/libc/sys/configure.in new/newlib/libc/sys/configure.in
 --- old/newlib/libc/sys/configure.in	2016-03-29 16:33:42.000000000 -0500
-+++ new/newlib/libc/sys/configure.in	2016-04-25 13:32:39.468105604 -0500
++++ new/newlib/libc/sys/configure.in	2016-04-29 09:21:24.107384341 -0500
 @@ -46,6 +46,7 @@ if test -n "${sys_dir}"; then
  	sysvnecv70) AC_CONFIG_SUBDIRS(sysvnecv70) ;;
  	tic80) AC_CONFIG_SUBDIRS(tic80) ;;
