@@ -1,3 +1,10 @@
+/* This file is part of libtar, a fork of mytar
+ *
+ * This code is licensed under the MIT license
+ * Copyright (C) 2016 Jason Lu
+ *
+ */
+
 #include "lib/libtar.h"
 #include <stdio.h>
 #include <stdlib.h>

@@ -1,3 +1,10 @@
+/* This file is part of libtar, a fork of mytar
+ *
+ * This code is licensed under the MIT license
+ * Copyright (C) 2016 Jason Lu
+ *
+ */
+
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>

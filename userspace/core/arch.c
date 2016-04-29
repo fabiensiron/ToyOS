@@ -1,3 +1,12 @@
+/*
+ * This file is released under the MIT license
+ * Copyright (C) 2016 Jason Lu
+ *
+ * arch
+ *
+ * Print architecture of the system
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>

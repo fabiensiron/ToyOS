@@ -1,20 +1,20 @@
 /* unzip.c
-   Version 1.0
-   Port of miniunz for ToyOS
+    Version 1.0
+    Port of miniunz for ToyOS
 
-   Copyright (C) 1998-2010 Gilles Vollant
-     http://www.winimage.com/zLibDll/minizip.html
-   Modifications of Unzip for Zip64
-     Copyright (C) 2007-2008 Even Rouault
-   Modifications for Zip64 support
-     Copyright (C) 2009-2010 Mathias Svensson
-     http://result42.com
-   Modifications for ToyOS support
-     Copyright (C) 2016 Jason Lu
-     http://github.com/PoisonNinja/ToyOS
+    Copyright (C) 1998-2010 Gilles Vollant
+    http://www.winimage.com/zLibDll/minizip.html
+    Modifications of Unzip for Zip64
+    Copyright (C) 2007-2008 Even Rouault
+    Modifications for Zip64 support
+    Copyright (C) 2009-2010 Mathias Svensson
+    http://result42.com
+    Modifications for ToyOS support
+    Copyright (C) 2016 Jason Lu
+    http://github.com/PoisonNinja/ToyOS
 
-   This program is distributed under the terms of the same license as zlib.
-   See the accompanying LICENSE file for the full text of the license.
+    This program is distributed under the terms of the same license as zlib.
+    See the accompanying LICENSE file for the full text of the license.
 */
 
 #if (!defined(_WIN32)) && (!defined(WIN32)) && (!defined(__APPLE__))
@@ -203,7 +203,7 @@ void display_zpos64(ZPOS64_T n, int size_char)
 
 void do_banner()
 {
-    printf("unzip 1.01b, port of Miniunz for ToyOSt\n");
+    printf("unzip 1.0, port of Miniunz for ToyOS\n");
 }
 
 void do_help()
