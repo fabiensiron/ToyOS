@@ -1,0 +1,24 @@
+diff -rupN old/build-aux/config.sub new/build-aux/config.sub
+--- old/build-aux/config.sub	2011-06-18 01:43:14.000000000 -0500
++++ new/build-aux/config.sub	2016-04-29 13:41:15.052484518 -0500
+@@ -1335,7 +1335,7 @@ case $os in
+ 	      | -cygwin* | -pe* | -psos* | -moss* | -proelf* | -rtems* \
+ 	      | -mingw32* | -linux-gnu* | -linux-android* \
+ 	      | -linux-newlib* | -linux-uclibc* \
+-	      | -uxpv* | -beos* | -mpeix* | -udk* \
++	      | -uxpv* | -beos* | -mpeix* | -toyos* | -udk* \
+ 	      | -interix* | -uwin* | -mks* | -rhapsody* | -darwin* | -opened* \
+ 	      | -openstep* | -oskit* | -conix* | -pw32* | -nonstopux* \
+ 	      | -storm-chaos* | -tops10* | -tenex* | -tops20* | -its* \
+diff -rupN old/lib/xstrtol.c new/lib/xstrtol.c
+--- old/lib/xstrtol.c	2011-01-03 14:55:38.000000000 -0600
++++ new/lib/xstrtol.c	2016-04-29 13:44:07.207621840 -0500
+@@ -95,7 +95,7 @@ __xstrtol (const char *s, char **ptr, in
+     }
+ 
+   errno = 0;
+-  tmp = __strtol (s, p, strtol_base);
++//  tmp = __strtol (s, p, strtol_base);
+ 
+   if (*p == s)
+     {

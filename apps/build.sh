@@ -15,6 +15,8 @@ BUILD_MESA=${BUILD_MESA:-true}
 BUILD_NCURSES=${BUILD_NCURSES:-true}
 BUILD_VIM=${BUILD_VIM:-true}
 BUILD_NANO=${BUILD_NANO:-true}
+BUILD_DIFFUTILS=${BUILD_DIFFUTILS:-true}
+BUILD_GREP=${BUILD_GREP:-true}
 
 function build () {
     $INFO "Building $1"
@@ -58,4 +60,12 @@ fi
 
 if $BUILD_NANO; then
     build nano
+fi
+
+if $BUILD_DIFFUTILS; then
+    build diffutils
+fi
+
+if $BUILD_GREP; then
+    build grep
 fi
