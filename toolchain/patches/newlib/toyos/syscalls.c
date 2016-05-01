@@ -237,6 +237,10 @@ int fork(void) {
 	return syscall_fork();
 }
 
+int vfork(void) {
+    return fork();
+}
+
 int uname(struct utsname *__name) {
 	return syscall_uname((void *)__name);
 }
