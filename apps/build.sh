@@ -17,6 +17,7 @@ BUILD_VIM=${BUILD_VIM:-true}
 BUILD_NANO=${BUILD_NANO:-true}
 BUILD_DIFFUTILS=${BUILD_DIFFUTILS:-true}
 BUILD_GREP=${BUILD_GREP:-true}
+BUILD_LESS=${BUILD_LESS:-true}
 
 function build () {
     $INFO "Building $1"
@@ -68,4 +69,8 @@ fi
 
 if $BUILD_GREP; then
     build grep
+fi
+
+if $BUILD_LESS; then
+    build less
 fi
