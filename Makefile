@@ -27,7 +27,9 @@ ASFLAGS = --32
 CFLAGS += -DKERNEL_GIT_TAG=`util/make-version`
 
 # We have some pieces of assembly sitting around as well...
-YASM = yasm
+
+NASM = nasm
+NASMFLAGS = -felf32
 
 # All of the core parts of the kernel are built directly.
 KERNEL_OBJS = $(patsubst %.c,%.o,$(wildcard kernel/*.c))
@@ -181,6 +183,7 @@ apps:
 	@cd apps; bash ./build.sh
 
 KERNEL_ASMOBJS = $(filter-out kernel/symbols.o,$(patsubst %.S,%.o,$(wildcard kernel/*.S)))
+KERNEL_ASMOBJS += $(filter-out kernel/symbols.o,$(patsubst %.asm,%.o,$(wildcard kernel/*.asm)))
 
 ################
 #    Kernel    #
@@ -212,6 +215,11 @@ kernel/%.o: kernel/%.S
 	@${BEG} "AS" "$<"
 	@${AS} ${ASFLAGS} $< -o $@ ${ERRORS}
 	@${END} "AS" "$<"
+
+kernel/%.o: kernel/%.asm
+	@${BEG} "NASM" "$<"
+	@${NASM} ${NASMFLAGS} $< -o $@
+	@${END} "NASM" "$<"
 
 kernel/%.o: kernel/%.c ${HEADERS}
 	@${BEG} "CC" "$<"
