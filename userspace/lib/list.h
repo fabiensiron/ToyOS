@@ -1,1 +1,1 @@
-../../kernel/include/list.h
+../../kernel/include/lib/list.h

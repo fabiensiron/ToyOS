@@ -46,7 +46,7 @@
 #include <logging.h>
 #include <process.h>
 #include <shm.h>
-#include <args.h>
+#include <lib/args.h>
 #include <cpuinfo.h>
 #include <module.h>
 

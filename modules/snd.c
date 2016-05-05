@@ -14,9 +14,9 @@
 #include <mod/snd.h>
 
 #include <errno_defs.h>
-#include <list.h>
+#include <lib/list.h>
 #include <module.h>
-#include <ringbuffer.h>
+#include <lib/ringbuffer.h>
 #include <system.h>
 
 /* Utility macros */

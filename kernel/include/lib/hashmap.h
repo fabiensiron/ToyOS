@@ -1,14 +1,14 @@
 #ifndef KL_HASHMAP_H
 #define KL_HASHMAP_H
 
-#include "list.h"
+#include <lib/list.h>
 
 #ifdef _KERNEL_
-#	include <system.h>
+    #include <system.h>
 #else
-#	include <string.h>
-#	include <stddef.h>
-#	include <stdlib.h>
+    #include <string.h>
+    #include <stddef.h>
+    #include <stdlib.h>
 #endif
 
 typedef unsigned int (*hashmap_hash_t) (void * key);

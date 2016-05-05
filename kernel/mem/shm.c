@@ -11,8 +11,8 @@
 #include <logging.h>
 #include <shm.h>
 #include <mem.h>
-#include <tree.h>
-#include <list.h>
+#include <lib/tree.h>
+#include <lib/list.h>
 
 
 //static volatile uint8_t bsl; // big shm lock

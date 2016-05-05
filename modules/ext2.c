@@ -9,7 +9,7 @@
 #include <ext2.h>
 #include <logging.h>
 #include <module.h>
-#include <args.h>
+#include <lib/args.h>
 #include <printf.h>
 
 #define EXT2_BGD_BLOCK 2

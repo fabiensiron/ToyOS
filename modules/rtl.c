@@ -8,7 +8,7 @@
 #include <printf.h>
 #include <pci.h>
 #include <mem.h>
-#include <list.h>
+#include <lib/list.h>
 #include <pipe.h>
 #include <ipv4.h>
 #include <mod/net.h>

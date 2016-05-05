@@ -9,13 +9,13 @@
  * provide information such as what mode to pass to init, or what
  * hard disk partition should be mounted as root.
  *
- * This module provides access 
+ * This module provides access
  */
 #include <system.h>
 #include <logging.h>
-#include <args.h>
-#include <hashmap.h>
-#include <tokenize.h>
+#include <lib/args.h>
+#include <lib/hashmap.h>
+#include <lib/tokenize.h>
 
 char * cmdline = NULL;
 
@@ -88,4 +88,3 @@ _break:
 	free(arg);
 
 }
-

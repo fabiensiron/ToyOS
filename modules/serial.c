@@ -11,7 +11,7 @@
 #include <fs.h>
 #include <pipe.h>
 #include <logging.h>
-#include <args.h>
+#include <lib/args.h>
 #include <module.h>
 
 #define SERIAL_PORT_A 0x3F8

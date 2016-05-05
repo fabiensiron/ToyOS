@@ -12,9 +12,9 @@
  */
 #include <system.h>
 #include <process.h>
-#include <tree.h>
-#include <list.h>
-#include <bitset.h>
+#include <lib/tree.h>
+#include <lib/list.h>
+#include <lib/bitset.h>
 #include <logging.h>
 #include <shm.h>
 #include <printf.h>

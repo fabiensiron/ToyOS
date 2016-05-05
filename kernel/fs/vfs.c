@@ -11,10 +11,10 @@
 #include <system.h>
 #include <fs.h>
 #include <printf.h>
-#include <list.h>
+#include <lib/list.h>
 #include <process.h>
 #include <logging.h>
-#include <hashmap.h>
+#include <lib/hashmap.h>
 
 #define MAX_SYMLINK_DEPTH 8
 #define MAX_SYMLINK_SIZE 4096

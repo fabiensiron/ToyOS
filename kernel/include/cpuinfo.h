@@ -1,7 +1,7 @@
 #ifndef _CPUINFO_H_
 # define _CPUINFO_H_
 
-# include <bitset.h>
+#include <lib/bitset.h>
 
 struct cpu_info {
 	char vendor[13];

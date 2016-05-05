@@ -6,7 +6,7 @@
 #include <system.h>
 #include <logging.h>
 #include <fs.h>
-#include <hashmap.h>
+#include <lib/hashmap.h>
 #include <elf.h>
 #include <module.h>
 

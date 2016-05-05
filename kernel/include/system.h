@@ -5,7 +5,7 @@
 #include <types.h>
 #include <fs.h>
 #include <va_list.h>
-#include <list.h>
+#include <lib/list.h>
 #include <task.h>
 #include <process.h>
 #include <libc.h>

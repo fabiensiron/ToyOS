@@ -11,7 +11,7 @@
 #include <pipe.h>
 #include <module.h>
 #include <mouse.h>
-#include <args.h>
+#include <lib/args.h>
 
 static uint8_t mouse_cycle = 0;
 static int8_t  mouse_byte[4];

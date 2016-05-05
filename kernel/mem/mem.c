@@ -12,7 +12,7 @@
 #include <process.h>
 #include <logging.h>
 #include <signal.h>
-#include <hashmap.h>
+#include <lib/hashmap.h>
 #include <module.h>
 
 #define KERNEL_HEAP_INIT 0x00800000

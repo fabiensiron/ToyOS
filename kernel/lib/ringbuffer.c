@@ -4,7 +4,7 @@
  * Copyright (C) 2013-2014 Kevin Lange
  */
 #include <system.h>
-#include <ringbuffer.h>
+#include <lib/ringbuffer.h>
 
 size_t ring_buffer_unread(ring_buffer_t * ring_buffer) {
 	if (ring_buffer->read_ptr == ring_buffer->write_ptr) {

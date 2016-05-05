@@ -6,7 +6,7 @@
  * General-purpose tree implementation
  */
 
-#include "tree.h"
+#include <lib/tree.h>
 
 #ifdef _KERNEL_
 #	include <system.h>

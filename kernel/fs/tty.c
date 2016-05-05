@@ -11,7 +11,7 @@
 
 #include <ioctl.h>
 #include <termios.h>
-#include <ringbuffer.h>
+#include <lib/ringbuffer.h>
 
 #define TTY_BUFFER_SIZE 512
 

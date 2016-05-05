@@ -12,8 +12,8 @@
 #include <process.h>
 #include <version.h>
 #include <termios.h>
-#include <tokenize.h>
-#include <hashmap.h>
+#include <lib/tokenize.h>
+#include <lib/hashmap.h>
 #include <pci.h>
 #include <pipe.h>
 #include <elf.h>

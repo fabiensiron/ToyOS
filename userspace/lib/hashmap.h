@@ -1,1 +1,1 @@
-../../kernel/include/hashmap.h
+../../kernel/include/lib/hashmap.h

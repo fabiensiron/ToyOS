@@ -10,7 +10,7 @@
 #include <printf.h>
 
 #include <ioctl.h>
-#include <ringbuffer.h>
+#include <lib/ringbuffer.h>
 
 #define UNIX_PIPE_BUFFER 512
 

@@ -5,7 +5,7 @@
 #define PROCESS_H
 
 //#include <system.h>
-#include <tree.h>
+#include <lib/tree.h>
 #include <signal.h>
 #include <task.h>
 

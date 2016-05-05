@@ -4,7 +4,7 @@
  * Copyright (C) 2015 Dale Weiler
  *               2015 Kevin Lange
  */
-#include "bitset.h"
+#include <lib/bitset.h>
 
 #define CEIL(NUMBER, BASE) \
 	(((NUMBER) + (BASE) - 1) & ~((BASE) - 1))
@@ -61,4 +61,3 @@ int bitset_test(bitset_t *set, size_t bit) {
 	iom;
 	return !!(mask & set->data[index]);
 }
-

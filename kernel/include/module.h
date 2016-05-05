@@ -2,7 +2,7 @@
 #define MODULE_H
 
 #include <types.h>
-#include <hashmap.h>
+#include <lib/hashmap.h>
 
 typedef struct {
     char * name;

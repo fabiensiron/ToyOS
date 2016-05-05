@@ -6,7 +6,7 @@
  * General-purpose list implementations.
  */
 
-#include "list.h"
+#include <lib/list.h>
 
 #ifdef _KERNEL_
 #	include <system.h>

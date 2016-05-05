@@ -13,8 +13,8 @@
 #include <logging.h>
 #include <pci.h>
 #include <boot.h>
-#include <args.h>
-#include <tokenize.h>
+#include <lib/args.h>
+#include <lib/tokenize.h>
 #include <module.h>
 #include <video.h>
 

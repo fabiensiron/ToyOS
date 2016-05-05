@@ -5,7 +5,7 @@
  */
 #include <module.h>
 #include <logging.h>
-#include <hashmap.h>
+#include <lib/hashmap.h>
 #include <ipv4.h>
 #include <printf.h>
 #include <mod/net.h>
