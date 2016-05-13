@@ -49,9 +49,12 @@ USER_CXXFLAGS = -O3 -m32 -Wa,--32 -g -Iuserspace
 USER_BINFLAGS =
 
 # Userspace binaries and libraries
-USER_CFILES   = $(shell find userspace -not -wholename '*/lib/*' -name '*.c')
-USER_CXXFILES = $(shell find userspace -not -wholename '*/lib/*' -name '*.c++')
+USER_CFILES   = $(shell find userspace -not -wholename '*/lib/*' \
+-not -wholename '*/libupkg/*' -name '*.c')
+USER_CXXFILES = $(shell find userspace -not -wholename '*/lib/*' \
+-name '*.c++')
 USER_LIBFILES = $(shell find userspace -wholename '*/lib/*' -name '*.c')
+USER_LIBFILES += $(shell find userspace -wholename '*/libupkg/*' -name '*.c')
 
 # Userspace output files (so we can define metatargets)
 USERSPACE  = $(foreach file,$(USER_CFILES),$(patsubst %.c,hdd/bin/%,$(notdir ${file})))
@@ -59,6 +62,7 @@ USERSPACE += $(foreach file,$(USER_CXXFILES),$(patsubst %.c++,hdd/bin/%,$(notdir
 USERSPACE += $(foreach file,$(USER_LIBFILES),$(patsubst %.c,%.o,${file}))
 
 CORE_LIBS = $(patsubst %.c,%.o,$(wildcard userspace/lib/*.c))
+CORE_LIBS = $(patsubst %.c,%.o,$(wildcard userspace/libupkg/*.c))
 
 # Pretty output utilities.
 BEG = util/mk-beg
@@ -268,7 +272,7 @@ hdd/usr/lib/libtoyos.a: ${CORE_LIBS}
 toyos-disk.img: ${USERSPACE} util/devtable
 	@${BEG} "hdd" "Generating a Hard Disk image..."
 	@-rm -f toyos-disk.img
-	@${GENEXT} -B 4096 -d hdd -D util/devtable -U -b ${DISK_SIZE} -N 6144 toyos-disk.img ${ERRORS}
+	@${GENEXT} -B 4096 -d hdd -D util/devtable -U -b ${DISK_SIZE} -N 8192 toyos-disk.img ${ERRORS}
 	@${END} "hdd" "Generated Hard Disk image"
 	@${INFO} "--" "Hard disk image is ready!"
 

@@ -44,6 +44,10 @@ class Classifier(object):
         '"lib/libzip.h"':      (None, 'userspace/lib/libzip.o',      ['"lib/ioapi.h"']),
         '"lib/libunzip.h"':    (None, 'userspace/lib/libunzip.o',    ['"lib/ioapi.h"']),
         '"lib/libtar.h"':      (None, 'userspace/lib/libtar.o',     []),
+        '"libupkg/upkg_plist.h"': (None, 'userspace/libupkg/upkg_plist.o', []),
+        '"libupkg/upkg_db.h"': (None, 'userspace/libupkg/upkg_db.o', []),
+        '"libupkg/upkg_config.h"': (None, 'userspace/libupkg/upkg_config.o', []),
+        '"libupkg/libupkg.h"': (None, 'userspace/libupkg/upkg.o', []),
         # Yutani Libraries
         '"lib/yutani.h"':      (None, 'userspace/lib/yutani.o',      ['"lib/list.h"', '"lib/pex.h"', '"lib/graphics.h"', '"lib/hashmap.h"']),
         '"lib/decorations.h"': (None, 'userspace/lib/decorations.o', ['"lib/shmemfonts.h"', '"lib/graphics.h"', '"lib/yutani.h"']),

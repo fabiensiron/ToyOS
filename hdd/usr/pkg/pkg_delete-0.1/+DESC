@@ -1,0 +1,4 @@
+pkg_delete is the delete util of the upkg tool suite.
+
+It's basically just a front-end of the libupkg which is a mini bsd-like
+package manager library.

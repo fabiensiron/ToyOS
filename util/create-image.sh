@@ -16,6 +16,7 @@ fi
 DISK=toyos-disk.img
 SRCDIR=$1
 BOOT=./boot
+UPKG=$SRCDIR/upkg
 SIZE=1G
 
 echo "Please select a disk size."
@@ -72,6 +73,12 @@ cp -r $SRCDIR/hdd/* /mnt/
 echo "Installing boot files."
 mkdir -p  /mnt/boot
 cp -r $BOOT/* /mnt/boot/
+
+echo "Installing var/db/upkg"
+mkdir -p /mnt/var/db/upkg
+cp -r $UPKG/* /mnt/var/db/upkg
+
+touch /mnt/HELLO
 
 echo "Installing kernel."
 cp -r $SRCDIR/toyos-kernel /mnt/boot/

@@ -1,0 +1,5 @@
+@name pkg_delete
+@author Fabien Siron <fabien.siron@epita.fr>
+@internal
+@version 0.1
+/bin/pkg_delete
